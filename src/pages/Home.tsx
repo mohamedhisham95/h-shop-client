@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { Container, Row, Col } from "react-bootstrap";
 
-// Rest API
+// Components
+import Loader from "components/common/Loader";
+import Message from "components/common/Message";
+
+// API
 import { getProducts } from "api/api";
 
 const Home = () => {
@@ -9,7 +14,15 @@ const Home = () => {
   const limit = 2;
 
   // API Call
-  const { fetchNextPage, isLoading } = useInfiniteQuery({
+  const {
+    isLoading,
+    isError,
+    error,
+    data,
+    fetchNextPage,
+    isFetching,
+    isFetchingNextPage,
+  }: any = useInfiniteQuery({
     queryKey: [
       "get_products",
       {
@@ -29,7 +42,20 @@ const Home = () => {
     getPreviousPageParam: (firstPage: any, pages) => firstPage.prevCursor,
   });
 
-  return <div>Home</div>;
+  console.log(data);
+
+  return (
+    <Container fluid>
+      <Row>
+        <Col md={12} className="mt-2">
+          {isLoading && <Loader />}
+          {/* {isError && <Message message={error?.message} />} */}
+
+          {}
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default Home;

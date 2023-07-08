@@ -1,48 +1,82 @@
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Container, Navbar, Nav, NavDropdown, Badge } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
+import { BsFillSunFill, BsFillMoonFill, BsCart4 } from "react-icons/bs";
 
 // Logo
 import logo from "assets/logo.png";
 
-const Header = () => {
-  return (
-    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-      <LinkContainer to="/">
-        <img
-          alt=""
-          src={logo}
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
-        />
-      </LinkContainer>
+// Redux
+import { setTheme } from "redux/commonSlice";
 
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
-          <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-        <Nav>
-          <Nav.Link href="#deets">More deets</Nav.Link>
-          <Nav.Link eventKey={2} href="#memes">
-            Dank memes
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
+const Header = () => {
+  // Dispatch
+  const dispatch = useDispatch();
+
+  // Redux State
+  const { theme } = useSelector((state: any) => state.common);
+
+  // Theme Handler
+  function changeTheme() {
+    dispatch(setTheme(theme === "dark" ? "light" : "dark"));
+  }
+
+  return (
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg={theme === "dark" ? "primary" : "light"}
+      variant={theme}
+      fixed="top"
+      className="header"
+    >
+      <Container>
+        <LinkContainer to="/">
+          <img
+            alt=""
+            src={logo}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />
+        </LinkContainer>
+
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="ml-auto">
+            <LinkContainer to="/cart" className="mr-4">
+              <Nav.Link>
+                <BsCart4
+                  className="icon"
+                  color={theme === "dark" ? "white" : "black"}
+                />
+                <Badge
+                  pill
+                  variant={theme === "dark" ? "light" : "primary"}
+                  className="mr-4"
+                >
+                  5
+                </Badge>
+                Cart
+              </Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/signin" className="mr-4">
+              <Nav.Link>Signin</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/signup" className="mr-4">
+              <Nav.Link>Signup</Nav.Link>
+            </LinkContainer>
+            <Nav.Item className="btn-theme" onClick={() => changeTheme()}>
+              {theme === "light" ? (
+                <BsFillSunFill className="icon" color="black" />
+              ) : (
+                <BsFillMoonFill className="icon" color="white" />
+              )}
+            </Nav.Item>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };

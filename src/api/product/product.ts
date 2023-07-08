@@ -2,6 +2,8 @@ import { getRequest, defaultHeaders } from "utils/http-request";
 
 export const getProducts = async (queryKey: any) => {
   if (queryKey.length === 1) queryKey.push({});
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [key, { limit, skip }] = queryKey;
 
   const response = await getRequest(
@@ -9,11 +11,9 @@ export const getProducts = async (queryKey: any) => {
     {
       skip,
       limit,
-    }
-    // defaultHeaders()
+    },
+    await defaultHeaders()
   );
-
-  console.log("Response : ", response);
 
   return response;
 };

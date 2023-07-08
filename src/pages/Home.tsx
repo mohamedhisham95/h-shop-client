@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 // Rest API
-import { getProducts } from "rest-api/rest-api";
+import { getProducts } from "api/api";
 
 const Home = () => {
   // Limit

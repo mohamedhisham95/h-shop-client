@@ -21,20 +21,11 @@ export async function getRequest(
     baseURL += `?${new URLSearchParams(queryParams).toString()}`;
   }
 
-  // const response = await axios({
-  //   method: "GET",
-  //   baseURL,
-  //   headers,
-  // });
-
-  const response = await fetch(baseURL, {
+  const response = await axios({
     method: "GET",
-    mode: "cors",
+    baseURL,
     headers,
-    referrerPolicy: "no-referrer",
   });
 
-  console.log(response);
-
-  return response.json();
+  return response;
 }

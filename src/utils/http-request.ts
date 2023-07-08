@@ -21,11 +21,31 @@ export async function getRequest(
     baseURL += `?${new URLSearchParams(queryParams).toString()}`;
   }
 
-  const response = await axios({
-    method: "GET",
-    baseURL,
-    headers,
-  });
+  try {
+    const response = await axios({
+      method: "GET",
+      baseURL,
+      headers,
+    });
 
-  return response;
+    return response;
+  } catch (error: any) {
+    throw new Error(
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    );
+
+    // return error.response && error.response.data.message
+    //   ? error.response.data.message
+    //   : error.message;
+  }
+
+  // const response = await axios({
+  //   method: "GET",
+  //   baseURL,
+  //   headers,
+  // });
+
+  // return response;
 }

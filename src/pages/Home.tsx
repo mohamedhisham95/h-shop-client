@@ -42,16 +42,12 @@ const Home = () => {
     getPreviousPageParam: (firstPage: any, pages) => firstPage.prevCursor,
   });
 
-  console.log(data);
-
   return (
     <Container fluid>
       <Row>
         <Col md={12} className="mt-2">
           {isLoading && <Loader />}
-          {/* {isError && <Message message={error?.message} />} */}
-
-          {}
+          {isError && <Message message={error?.message} />}
         </Col>
       </Row>
     </Container>

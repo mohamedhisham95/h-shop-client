@@ -5,6 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 // Components
 import Loader from "components/common/Loader";
 import Message from "components/common/Message";
+import ProductCard from "components/product/ProductCard";
 
 // API
 import { getProducts } from "api/api";
@@ -48,6 +49,16 @@ const Home = () => {
         <Col md={12} className="mt-2">
           {isLoading && <Loader />}
           {isError && <Message message={error?.message} />}
+
+          <Row>
+            {data?.pages?.map((page: any) =>
+              page?.data?.products.map((product: any, index: number) => (
+                <Col key={index} sm={12} md={6} lg={4} xl={3}>
+                  <ProductCard product={product} />
+                </Col>
+              ))
+            )}
+          </Row>
         </Col>
       </Row>
     </Container>

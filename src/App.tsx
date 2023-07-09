@@ -4,11 +4,16 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "bootswatch/dist/flatly/bootstrap.min.css";
 import "./App.scss";
 
+// Routes
+import AuthRoute from "routes/AuthRoute";
+import AdminRoute from "routes/AdminRoute";
+
 // Components
 import Header from "components/layout/Header";
 
 // Pages
 import Home from "pages/Home";
+import SignIn from "pages/SignIn";
 
 function App() {
   return (
@@ -17,8 +22,8 @@ function App() {
       <main>
         <Switch>
           <Route path="/" exact component={Home} />
-          {/* <AuthRoute path="/login" component={Login} />
-            <ProtectedRoute path="/profile/:userId" component={Profile} /> */}
+          <AuthRoute path="/signin" component={SignIn} />
+          {/* <AdminRoute path="/profile/:userId" component={Profile} /> */}
         </Switch>
       </main>
     </Router>

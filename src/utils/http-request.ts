@@ -35,17 +35,30 @@ export async function getRequest(
         ? error.response.data.message
         : error.message
     );
-
-    // return error.response && error.response.data.message
-    //   ? error.response.data.message
-    //   : error.message;
   }
+}
 
-  // const response = await axios({
-  //   method: "GET",
-  //   baseURL,
-  //   headers,
-  // });
+export async function postRequest(
+  url = "",
+  data = {},
+  headers = {
+    "Content-Type": "application/json",
+  }
+) {
+  try {
+    const response = await axios({
+      method: "POST",
+      data,
+      url,
+      headers,
+    });
 
-  // return response;
+    return response;
+  } catch (error: any) {
+    throw new Error(
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    );
+  }
 }

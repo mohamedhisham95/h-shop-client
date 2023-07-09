@@ -21,10 +21,16 @@ const SignIn = () => {
   const mutation = useMutation({
     mutationFn: ({ email, password }: any) =>
       signin(["signin", { email, password }]),
+    onError: (error: any) => {
+      console.log(`error : `, error);
+    },
+    onSuccess: (data) => {
+      console.log("data : ", data);
+    },
   });
 
   function handleFormSubmit(data: any) {
-    console.log("data : ", data);
+    // console.log("data : ", data);
     mutation.mutate({ email: data?.email, password: data?.password });
   }
 

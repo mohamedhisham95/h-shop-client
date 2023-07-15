@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Styles
-import "bootswatch/dist/flatly/bootstrap.min.css";
+import "bootswatch/dist/lux/bootstrap.min.css";
 import "./App.scss";
 
 // Routes

@@ -6,7 +6,7 @@ type props = {
   className?: string;
 };
 
-const Message: React.FC<props> = ({ variant, message, className }) => {
+const MessageList: React.FC<props> = ({ variant, message, className }) => {
   return (
     <Alert variant={(variant = "danger")} className={className}>
       {message}
@@ -14,4 +14,4 @@ const Message: React.FC<props> = ({ variant, message, className }) => {
   );
 };
 
-export default Message;
+export default MessageList;

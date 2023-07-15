@@ -1,4 +1,4 @@
-import { Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 type props = {
   children: React.ReactNode;
@@ -6,11 +6,13 @@ type props = {
 
 const ContainerCenter: React.FC<props> = ({ children }) => {
   return (
-    <Row>
-      <Col md={{ span: 6, offset: 3 }} className="mt-3">
-        {children}
-      </Col>
-    </Row>
+    <Container className="py-3">
+      <Row>
+        <Col md={{ span: 6, offset: 3 }} className="mt-3">
+          {children}
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

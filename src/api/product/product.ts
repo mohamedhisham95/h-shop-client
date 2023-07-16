@@ -7,7 +7,7 @@ export const getProducts = async (queryKey: any) => {
   const [key, { limit, skip }] = queryKey;
 
   const response = await getRequest(
-    `${process.env.REACT_APP_SERVER_URL}/product`,
+    `${process.env.REACT_APP_SERVER_URL}/product/list`,
     {
       skip,
       limit,
@@ -24,7 +24,7 @@ export const getProduct = async ({ queryKey }: any) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [key, { productId }] = queryKey;
 
-  const response = await getRequest(
+  const { data } = await getRequest(
     `${process.env.REACT_APP_SERVER_URL}/product/detail`,
     {
       id: productId,
@@ -32,5 +32,5 @@ export const getProduct = async ({ queryKey }: any) => {
     await defaultHeaders()
   );
 
-  return response;
+  return data;
 };

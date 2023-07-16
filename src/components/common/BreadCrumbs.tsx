@@ -12,11 +12,11 @@ const BreadCrumbs: React.FC<props> = ({ list }) => {
         <Breadcrumb>
           {list.map((item: any, index: number, row: any) =>
             index + 1 !== row.length ? (
-              <Breadcrumb.Item>
-                <Link to={item.link}>{item.label}</Link>
+              <Breadcrumb.Item active as={Link} to={item.link} key={index}>
+                {item.label}
               </Breadcrumb.Item>
             ) : (
-              <Breadcrumb.Item active>{item.label}</Breadcrumb.Item>
+              <Breadcrumb.Item key={index}>{item.label}</Breadcrumb.Item>
             )
           )}
         </Breadcrumb>

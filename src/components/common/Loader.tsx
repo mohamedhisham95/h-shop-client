@@ -2,14 +2,15 @@ import { Spinner } from "react-bootstrap";
 
 type props = {
   loaderSize?: "small" | "big";
+  variant?: string;
 };
 
-const Loader: React.FC<props> = ({ loaderSize = "big" }) => {
+const Loader: React.FC<props> = ({ loaderSize = "big", variant = "light" }) => {
   return (
     <Spinner
       animation="border"
       role="status"
-      variant="light"
+      variant={variant}
       style={
         loaderSize === "small"
           ? {

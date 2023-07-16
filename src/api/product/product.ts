@@ -25,14 +25,12 @@ export const getProduct = async ({ queryKey }: any) => {
   const [key, { productId }] = queryKey;
 
   const response = await getRequest(
-    `${process.env.REACT_APP_SERVER_URL}/product`,
+    `${process.env.REACT_APP_SERVER_URL}/product/detail`,
     {
       id: productId,
     },
     await defaultHeaders()
   );
-
-  console.log("RES :: ", response);
 
   return response;
 };

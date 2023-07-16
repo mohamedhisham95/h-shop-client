@@ -1,7 +1,11 @@
 // Global
+
 main {
   margin-top: 71px;
 }
+
+// Bootstrap
+@import "styles/bootstrap/breadcrumb.scss";
 
 // Components
 @import "styles/components/header.scss";

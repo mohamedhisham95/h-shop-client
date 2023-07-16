@@ -35,7 +35,7 @@ const userSlice = createSlice({
       state.token = action.payload;
     },
     setLogout: (state) => {
-      localStorage.removeItem("h-tweet-token");
+      localStorage.removeItem("h-shop-token");
       state.user_detail = null;
       state.token = null;
     },

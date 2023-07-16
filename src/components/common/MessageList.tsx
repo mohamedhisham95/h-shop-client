@@ -1,16 +1,20 @@
-import { Alert } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 
 type props = {
   variant?: string;
-  message: any;
+  messageList: any;
   className?: string;
 };
 
-const MessageList: React.FC<props> = ({ variant, message, className }) => {
+const MessageList: React.FC<props> = ({ variant, messageList, className }) => {
   return (
-    <Alert variant={(variant = "danger")} className={className}>
-      {message}
-    </Alert>
+    <ListGroup variant="flush" className={className}>
+      {Object.values(messageList).map((message: any, index: number) => (
+        <ListGroup.Item key={index} variant={(variant = "danger")}>
+          {message}
+        </ListGroup.Item>
+      ))}
+    </ListGroup>
   );
 };
 

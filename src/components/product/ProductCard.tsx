@@ -19,11 +19,9 @@ const ProductCard: React.FC<props> = ({ product }) => {
         />
 
         <Card.Body>
-          <Link to={`/product/${product._id}`}>
-            <Card.Title as="div" className="text-primary">
-              <strong>{product.name}</strong>
-            </Card.Title>
-          </Link>
+          <Card.Title as="div" className="text-primary">
+            <strong>{product.name}</strong>
+          </Card.Title>
 
           <Card.Text as="div">
             <Rating value={product.rating} text={product.reviewsCount} />

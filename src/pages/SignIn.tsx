@@ -17,7 +17,7 @@ import Message from "components/common/Message";
 import { setToken, setUserDetail } from "redux/userSlice";
 
 // API
-import { signin } from "api/api";
+import { signin } from "api";
 
 const SignIn = () => {
   // Dispatch
@@ -40,16 +40,13 @@ const SignIn = () => {
       setLoginError(error.message);
     },
     onSuccess: (response: any) => {
-      const { token, error, inputError, ...rest } = response.data;
+      const { token, inputError, user } = response.data;
       if (inputError) {
         setLoginInputError(inputError);
       }
-      if (error) {
-        setLoginError(error);
-      }
       if (token) {
         localStorage.setItem("h-shop-token", token);
-        dispatch(setUserDetail(rest));
+        dispatch(setUserDetail(user));
         dispatch(setToken(token));
       }
     },
@@ -68,6 +65,8 @@ const SignIn = () => {
       password: Yup.string().required("Password is required"),
     }),
     onSubmit: (values: any) => {
+      setLoginError(null);
+      setLoginInputError({});
       loginMutation.mutate({
         email: values?.email,
         password: values?.password,
@@ -93,7 +92,7 @@ const SignIn = () => {
             onChange={loginForm.handleChange}
             onBlur={loginForm.handleBlur}
             value={loginForm.values.email}
-            isInvalid={loginForm?.errors?.email}
+            isInvalid={loginForm?.errors?.email || loginInputError?.email}
           />
 
           {loginForm.touched.email && loginForm.errors.email && (
@@ -111,11 +110,11 @@ const SignIn = () => {
             onChange={loginForm.handleChange}
             onBlur={loginForm.handleBlur}
             value={loginForm.values.password}
-            isInvalid={loginForm?.errors?.password}
+            isInvalid={loginForm?.errors?.password || loginInputError?.password}
           />
-          {loginForm.touched.password && loginForm?.errors?.password && (
+          {(loginForm?.errors?.password || loginInputError?.password) && (
             <Form.Control.Feedback type="invalid">
-              {loginForm.errors.password}
+              {loginForm.errors.password || loginInputError?.password}
             </Form.Control.Feedback>
           )}
         </Form.Group>
@@ -129,12 +128,8 @@ const SignIn = () => {
         </Button>
       </Form>
 
+      {/* Error Message */}
       {loginError !== null && <Message message={loginError} className="mt-2" />}
-
-      {loginInputError !== null &&
-        Object.values(loginInputError).map((inputError: any, index: number) => (
-          <Message key={index} message={inputError} className="mt-1" />
-        ))}
     </ContainerCenter>
   );
 };

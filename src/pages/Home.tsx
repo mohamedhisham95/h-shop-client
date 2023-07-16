@@ -8,7 +8,7 @@ import Message from "components/common/Message";
 import ProductCard from "components/product/ProductCard";
 
 // API
-import { getProducts } from "api/api";
+import { getProducts } from "api";
 
 const Home = () => {
   // Limit

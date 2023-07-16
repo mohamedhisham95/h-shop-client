@@ -14,6 +14,7 @@ import Header from "components/layout/Header";
 // Pages
 import Home from "pages/Home";
 import SignIn from "pages/SignIn";
+import Product from "pages/Product";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <main>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/product/:productId" exact component={Product} />
           <AuthRoute path="/signin" component={SignIn} />
           {/* <AdminRoute path="/profile/:userId" component={Profile} /> */}
         </Switch>

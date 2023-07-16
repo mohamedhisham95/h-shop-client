@@ -7,23 +7,20 @@ import { BsCart4 } from "react-icons/bs";
 // Logo
 import logo from "assets/logo.png";
 
-// Components
-import Loader from "components/common/Loader";
-
 // Redux
-// import { setTheme } from "redux/commonSlice";
+import { setLogout } from "redux/userSlice";
 
 const Header = () => {
   // Dispatch
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // Redux State
-  // const { theme } = useSelector((state: any) => state.common);
+  const { user_detail } = useSelector((state: any) => state.user);
 
-  // Theme Handler
-  // function changeTheme() {
-  //   dispatch(setTheme(theme === "dark" ? "light" : "dark"));
-  // }
+  // Logout Handler
+  function handleLogout() {
+    dispatch(setLogout());
+  }
 
   return (
     <Navbar
@@ -48,21 +45,53 @@ const Header = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
+            {user_detail !== null && (
+              <NavDropdown id="user-dropdown" title={user_detail?.name}>
+                <LinkContainer to="/user/profile">
+                  <NavDropdown.Item>Profile</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/myorders">
+                  <NavDropdown.Item>My Orders</NavDropdown.Item>
+                </LinkContainer>
+                <NavDropdown.Item onClick={() => handleLogout()}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
+
+            {user_detail !== null && user_detail?.role === "Admin" && (
+              <NavDropdown id="admin-dropdown" title="Admin">
+                <LinkContainer to="/admin/category">
+                  <NavDropdown.Item>Category</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/products">
+                  <NavDropdown.Item>Products</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/orders">
+                  <NavDropdown.Item>Orders</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
+            )}
+
             <LinkContainer to="/cart" className="mr-4">
               <Nav.Link>
                 <BsCart4 className="icon" color="white" />
-                <Badge pill variant="dark" className="mr-4">
+                <Badge pill variant="dark">
                   5
                 </Badge>
-                Cart
               </Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/signin" className="mr-4">
-              <Nav.Link>Signin</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/signup" className="mr-4">
-              <Nav.Link>Signup</Nav.Link>
-            </LinkContainer>
+
+            {user_detail === null && (
+              <>
+                <LinkContainer to="/signin" className="mr-4">
+                  <Nav.Link>Signin</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/signup">
+                  <Nav.Link>Signup</Nav.Link>
+                </LinkContainer>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

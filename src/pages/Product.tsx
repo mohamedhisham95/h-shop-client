@@ -69,10 +69,10 @@ const Product = () => {
 
         {data && (
           <>
-            <Col md={5} lg={5}>
-              <Image src={data?.image} alt={data?.name} fluid />
+            <Col md={5} lg={5} className="mb-4">
+              <Image src={data?.image} alt={data?.name} className="main-img" />
             </Col>
-            <Col md={7} lg={7} className="mt-4">
+            <Col md={7} lg={7}>
               <ul className="detail-list">
                 <li>
                   <h4>{data?.name}</h4>
@@ -94,41 +94,30 @@ const Product = () => {
                   <Rating value={data.rating} text={data.reviewsCount} />
                 </li>
 
-                {/* {data.countInStock > 0 && (
-                  <li>
+                <li>
+                  {cart_items.find((element: any) => element === data._id) ? (
                     <Button
-                      variant="info"
-                      size="sm"
                       type="button"
-                      onClick={() => handleCartAddItem()}
+                      disabled={data.countInStock === 0}
+                      size="sm"
+                      variant="danger"
+                      onClick={() => handleCart("remove")}
                     >
+                      {/* <i className="fas fa-trash px-1"></i> */}
+                      Remove From Cart
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      disabled={data.countInStock === 0}
+                      size="sm"
+                      onClick={() => handleCart("add")}
+                    >
+                      {/* <i className="fas fa-shopping-cart px-1"></i> */}
                       Add To Cart
                     </Button>
-                  </li>
-                )} */}
-
-                {cart_items.find((element: any) => element === data._id) ? (
-                  <Button
-                    type="button"
-                    disabled={data.countInStock === 0}
-                    size="sm"
-                    variant="danger"
-                    onClick={() => handleCart("remove")}
-                  >
-                    {/* <i className="fas fa-trash px-1"></i> */}
-                    Remove From Cart
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    disabled={data.countInStock === 0}
-                    size="sm"
-                    onClick={() => handleCart("add")}
-                  >
-                    {/* <i className="fas fa-shopping-cart px-1"></i> */}
-                    Add To Cart
-                  </Button>
-                )}
+                  )}
+                </li>
               </ul>
             </Col>
           </>

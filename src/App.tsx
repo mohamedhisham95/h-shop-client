@@ -15,6 +15,7 @@ import Header from "components/layout/Header";
 import Home from "pages/Home";
 import SignIn from "pages/SignIn";
 import Product from "pages/Product";
+import Cart from "pages/Cart";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/product/:productId" exact component={Product} />
+          <Route path="/cart" exact component={Cart} />
           <AuthRoute path="/signin" component={SignIn} />
           {/* <AdminRoute path="/profile/:userId" component={Profile} /> */}
         </Switch>

@@ -1,4 +1,10 @@
 .product {
+  .main-img {
+    height: 400px;
+    width: 100% !important;
+    object-fit: cover;
+  }
+
   .detail-list {
     padding-left: 0;
     list-style: none;

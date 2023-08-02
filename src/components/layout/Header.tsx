@@ -16,6 +16,7 @@ const Header = () => {
 
   // Redux State
   const { user_detail } = useSelector((state: any) => state.user);
+  const { cart_items } = useSelector((state: any) => state.cart);
 
   // Logout Handler
   function handleLogout() {
@@ -77,7 +78,7 @@ const Header = () => {
               <Nav.Link>
                 <BsCart4 className="icon" color="white" />
                 <Badge pill variant="dark">
-                  5
+                  {cart_items.length}
                 </Badge>
               </Nav.Link>
             </LinkContainer>

@@ -10,7 +10,7 @@ type props = {
 
 const ProductCard: React.FC<props> = ({ product }) => {
   return (
-    <Card border="primary" className="my-3 rounded product-card">
+    <Card border="secondary" className="my-3 rounded product-card">
       <Link to={`/product/${product._id}`}>
         <Card.Img
           src={product.image}

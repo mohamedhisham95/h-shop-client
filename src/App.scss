@@ -4,6 +4,10 @@ main {
   margin-top: 71px;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 // Bootstrap
 @import "styles/bootstrap/breadcrumb.scss";
 

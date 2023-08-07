@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   InputGroup,
+  Nav,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
@@ -24,6 +25,30 @@ const Checkout = () => {
           { link: "", label: "Checkout" },
         ]}
       />
+      <Row>
+        <Col md={12} lg={12}>
+          <Nav
+            variant="pills"
+            defaultActiveKey={1}
+            className="d-flex justify-content-center"
+            onSelect={() => alert("TESt")}
+          >
+            <Nav.Item>
+              <Nav.Link as="div" eventKey={1}>
+                1.Address
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey={2}>2.Payment Method</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey={3} disabled>
+                3.Order
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Col>
+      </Row>
     </Container>
   );
 };

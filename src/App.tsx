@@ -7,6 +7,7 @@ import "./App.scss";
 // Routes
 import AuthRoute from "routes/AuthRoute";
 import AdminRoute from "routes/AdminRoute";
+import ProtectedRoute from "routes/ProtectedRoute";
 
 // Components
 import Header from "components/layout/Header";
@@ -16,6 +17,7 @@ import Home from "pages/Home";
 import SignIn from "pages/SignIn";
 import Product from "pages/Product";
 import Cart from "pages/Cart";
+import Checkout from "pages/Checkout";
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
           <Route path="/product/:productId" exact component={Product} />
           <Route path="/cart" exact component={Cart} />
           <AuthRoute path="/signin" component={SignIn} />
+          <ProtectedRoute path="/checkout" component={Checkout} />
           {/* <AdminRoute path="/profile/:userId" component={Profile} /> */}
         </Switch>
       </main>

@@ -23,12 +23,34 @@ const cartCheckoutSlice = createSlice({
 
       state.checkout_items = initialQunatity;
     },
-    setIncreaseQty: (state, action) => {},
-    setDecreaseQty: (state, action) => {},
+    updateQuantity: (state, action) => {
+      let updatedCart = state.checkout_items.map((cartItem: any) => {
+        if (cartItem._id === action.payload.id) {
+          return { ...cartItem, quantity: action.payload.qty };
+        }
+        return cartItem;
+      });
+      return { ...state, checkout_items: updatedCart };
+    },
+    checkoutCartRemoveItem: (state, action) => {
+      return {
+        ...state,
+        checkout_items: state.checkout_items.filter(
+          (x: any) => x._id !== action.payload
+        ),
+      };
+    },
+    checkoutCartClear: (state) => {
+      state.checkout_items = [];
+    },
   },
 });
 
-export const { checkoutItems, setIncreaseQty, setDecreaseQty } =
-  cartCheckoutSlice.actions;
+export const {
+  checkoutItems,
+  updateQuantity,
+  checkoutCartRemoveItem,
+  checkoutCartClear,
+} = cartCheckoutSlice.actions;
 
 export default cartCheckoutSlice.reducer;

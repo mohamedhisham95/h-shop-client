@@ -1,24 +1,35 @@
-import {
-  Container,
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Button,
-  Card,
-  InputGroup,
-  Nav,
-} from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useRef } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 // Components
 import BreadCrumbs from "components/common/BreadCrumbs";
+import Steps from "components/checkout/Steps";
+import Address from "components/checkout/Address";
 
 const Checkout = () => {
+  // History
+  const history = useHistory();
+
+  // Redux State
+  const { checkout_items } = useSelector((state: any) => state.cartCheckout);
+
+  // State
+  const [activeStep, setActiveStep] = useState(1);
+
+  // UseEffect Checks For Checkout Cart Items Length If 0 Redirects To Cart Page
+  useEffect(() => {
+    if (checkout_items.length === 0) {
+      history.push("/cart");
+    }
+
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkout_items]);
+
   return (
-    <Container fluid className="cart">
+    <Container className="cart">
       <BreadCrumbs
         list={[
           { link: "/", label: "Home" },
@@ -27,26 +38,12 @@ const Checkout = () => {
       />
       <Row>
         <Col md={12} lg={12}>
-          <Nav
-            variant="pills"
-            defaultActiveKey={1}
-            className="d-flex justify-content-center"
-            onSelect={() => alert("TESt")}
-          >
-            <Nav.Item>
-              <Nav.Link as="div" eventKey={1}>
-                1.Address
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey={2}>2.Payment Method</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey={3} disabled>
-                3.Order
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
+          <Steps activeStep={activeStep} />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12} lg={12}>
+          {activeStep === 1 && <Address setActiveStep={setActiveStep} />}
         </Col>
       </Row>
     </Container>

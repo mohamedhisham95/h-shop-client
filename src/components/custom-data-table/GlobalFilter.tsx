@@ -4,15 +4,21 @@ type props = {
   filterText: any;
   onFilter: any;
   onClear: any;
+  placeholder: string;
 };
 
-const GlobalFilter: React.FC<props> = ({ filterText, onFilter, onClear }) => {
+const GlobalFilter: React.FC<props> = ({
+  filterText,
+  onFilter,
+  onClear,
+  placeholder,
+}) => {
   return (
     <InputGroup size="sm" className="mb-3" style={{ width: "200px" }}>
       <FormControl
         aria-label="Small"
         type="text"
-        placeholder="Filter By Name"
+        placeholder={placeholder}
         value={filterText}
         onChange={onFilter}
       />

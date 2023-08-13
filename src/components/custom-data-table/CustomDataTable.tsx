@@ -9,6 +9,8 @@ type props = {
   data: any;
   globalFilterColumn: any;
   isLoading: boolean;
+  globalSearchPlaceholder: string;
+  setSelectedRows: any;
 };
 
 const CustomDataTable: React.FC<props> = ({
@@ -16,6 +18,8 @@ const CustomDataTable: React.FC<props> = ({
   data,
   globalFilterColumn,
   isLoading,
+  globalSearchPlaceholder,
+  setSelectedRows,
 }) => {
   // State
   const [filterText, setFilterText] = useState("");
@@ -28,7 +32,8 @@ const CustomDataTable: React.FC<props> = ({
   );
 
   const handleChange = ({ selectedRows }: any) => {
-    console.log("Selected Rows: ", selectedRows);
+    // console.log("Selected Rows: ", selectedRows);
+    setSelectedRows(selectedRows);
   };
 
   const subHeaderComponentMemo = useMemo(() => {
@@ -44,8 +49,10 @@ const CustomDataTable: React.FC<props> = ({
         onFilter={(e: any) => setFilterText(e.target.value)}
         onClear={handleClear}
         filterText={filterText}
+        placeholder={globalSearchPlaceholder}
       />
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterText, resetPaginationToggle]);
 
   return (

@@ -18,6 +18,7 @@ import SignIn from "pages/SignIn";
 import Product from "pages/Product";
 import Cart from "pages/Cart";
 import Checkout from "pages/Checkout";
+import Products from "pages/admin/Products";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
           <Route path="/cart" exact component={Cart} />
           <AuthRoute path="/signin" component={SignIn} />
           <ProtectedRoute path="/checkout" component={Checkout} />
-          {/* <AdminRoute path="/profile/:userId" component={Profile} /> */}
+          <AdminRoute path="/admin/products" component={Products} />
         </Switch>
       </main>
     </Router>

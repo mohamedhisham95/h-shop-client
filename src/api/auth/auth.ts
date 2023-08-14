@@ -1,4 +1,4 @@
-import { postRequest, defaultHeaders } from "utils/http-request";
+import { postRequest } from "utils/http-request";
 
 export const signin = async (queryKey: any) => {
   if (queryKey.length === 1) queryKey.push({});

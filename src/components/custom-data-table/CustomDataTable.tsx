@@ -1,5 +1,7 @@
 import { useState, useMemo } from "react";
 import DataTable from "react-data-table-component";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 // Components
 import GlobalFilter from "./GlobalFilter";
@@ -11,6 +13,8 @@ type props = {
   isLoading: boolean;
   globalSearchPlaceholder: string;
   setSelectedRows: any;
+  isCreateAllowed: boolean;
+  createLink: string;
 };
 
 const CustomDataTable: React.FC<props> = ({
@@ -20,6 +24,8 @@ const CustomDataTable: React.FC<props> = ({
   isLoading,
   globalSearchPlaceholder,
   setSelectedRows,
+  isCreateAllowed,
+  createLink,
 }) => {
   // State
   const [filterText, setFilterText] = useState("");
@@ -45,12 +51,16 @@ const CustomDataTable: React.FC<props> = ({
     };
 
     return (
-      <GlobalFilter
-        onFilter={(e: any) => setFilterText(e.target.value)}
-        onClear={handleClear}
-        filterText={filterText}
-        placeholder={globalSearchPlaceholder}
-      />
+      <div className="w-100 d-flex justify-content-between align-self-center">
+        {isCreateAllowed && <Link to={createLink}>Create</Link>}
+
+        <GlobalFilter
+          onFilter={(e: any) => setFilterText(e.target.value)}
+          onClear={handleClear}
+          filterText={filterText}
+          placeholder={globalSearchPlaceholder}
+        />
+      </div>
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterText, resetPaginationToggle]);

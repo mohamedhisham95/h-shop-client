@@ -29,7 +29,7 @@ const SignIn = () => {
   };
 
   // State
-  const [loginInputError, setLoginInputError] = useState<any>(null);
+  const [inputError, setInputError] = useState<any>(null);
   const [loginError, setLoginError] = useState<any>(null);
 
   // Mutation
@@ -40,9 +40,9 @@ const SignIn = () => {
       setLoginError(error.message);
     },
     onSuccess: (response: any) => {
-      const { token, inputError, user } = response.data;
-      if (inputError) {
-        setLoginInputError(inputError);
+      const { token, formInputError, user } = response.data;
+      if (formInputError) {
+        setInputError(formInputError);
       }
       if (token) {
         localStorage.setItem("h-shop-token", token);
@@ -66,7 +66,7 @@ const SignIn = () => {
     }),
     onSubmit: (values: any) => {
       setLoginError(null);
-      setLoginInputError({});
+      setInputError({});
       loginMutation.mutate({
         email: values?.email,
         password: values?.password,
@@ -92,7 +92,7 @@ const SignIn = () => {
             onChange={loginForm.handleChange}
             onBlur={loginForm.handleBlur}
             value={loginForm.values.email}
-            isInvalid={loginForm?.errors?.email || loginInputError?.email}
+            isInvalid={loginForm?.errors?.email || inputError?.email}
           />
 
           {loginForm.touched.email && loginForm.errors.email && (
@@ -110,11 +110,11 @@ const SignIn = () => {
             onChange={loginForm.handleChange}
             onBlur={loginForm.handleBlur}
             value={loginForm.values.password}
-            isInvalid={loginForm?.errors?.password || loginInputError?.password}
+            isInvalid={loginForm?.errors?.password || inputError?.password}
           />
-          {(loginForm?.errors?.password || loginInputError?.password) && (
+          {(loginForm?.errors?.password || inputError?.password) && (
             <Form.Control.Feedback type="invalid">
-              {loginForm.errors.password || loginInputError?.password}
+              {loginForm.errors.password || inputError?.password}
             </Form.Control.Feedback>
           )}
         </Form.Group>

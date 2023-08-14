@@ -8,7 +8,7 @@ import { getProducts, getProduct } from "api/product/product";
 import { getCartProducts } from "api/cart/cart";
 
 // Admin
-import { getAllProducts } from "api/admin/products";
+import { getAllProducts, createProduct } from "api/admin/products";
 
 export {
   // User
@@ -20,4 +20,5 @@ export {
   getCartProducts,
   // Admin
   getAllProducts,
+  createProduct,
 };

@@ -18,7 +18,8 @@ import SignIn from "pages/SignIn";
 import Product from "pages/Product";
 import Cart from "pages/Cart";
 import Checkout from "pages/Checkout";
-import Products from "pages/admin/Products";
+import Products from "pages/admin/product/Products";
+import ProductCreate from "pages/admin/product/ProductCreate";
 
 function App() {
   return (
@@ -29,9 +30,14 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/product/:productId" exact component={Product} />
           <Route path="/cart" exact component={Cart} />
-          <AuthRoute path="/signin" component={SignIn} />
-          <ProtectedRoute path="/checkout" component={Checkout} />
-          <AdminRoute path="/admin/products" component={Products} />
+          <AuthRoute path="/signin" exact component={SignIn} />
+          <ProtectedRoute path="/checkout" exact component={Checkout} />
+          <AdminRoute path="/admin/products" exact component={Products} />
+          <AdminRoute
+            path="/admin/product/create"
+            exact
+            component={ProductCreate}
+          />
         </Switch>
       </main>
     </Router>

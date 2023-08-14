@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
 // Component
@@ -8,12 +8,11 @@ import CustomDataTable from "components/custom-data-table/CustomDataTable";
 import ActionMenu from "components/custom-data-table/ActionMenu";
 import BreadCrumbs from "components/common/BreadCrumbs";
 import Message from "components/common/Message";
-import FormModal from "components/modal/FormModal";
+import DeleteModal from "components/modal/DeleteModal";
 // import Loader from "components/common/Loader";
 
 // API
 import { getAllProducts } from "api/";
-import DeleteModal from "components/modal/DeleteModal";
 
 const Products = () => {
   // State
@@ -67,13 +66,6 @@ const Products = () => {
     },
   ];
 
-  // Edit Hanlder
-  function handleEdit() {
-    console.log("updated");
-    setAction(null);
-    setRowId(null);
-  }
-
   // Delete Handler
   function handleDelete() {
     console.log("deleted");
@@ -82,7 +74,7 @@ const Products = () => {
   }
 
   return (
-    <Container className="">
+    <Container>
       <BreadCrumbs
         list={[
           { link: "/", label: "Home" },
@@ -104,16 +96,9 @@ const Products = () => {
           isLoading={isFetching}
           globalSearchPlaceholder={"Search by product name"}
           setSelectedRows={setSelectedRows}
+          isCreateAllowed={true}
+          createLink="/admin/product/create"
         />
-
-        {action === "edit" && (
-          <FormModal
-            show={action === "edit" ? true : false}
-            setShow={() => setAction(null)}
-            title="Edit Product"
-            editCallback={handleEdit}
-          />
-        )}
 
         {action === "delete" && (
           <DeleteModal

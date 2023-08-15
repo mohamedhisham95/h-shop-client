@@ -1,6 +1,6 @@
 import { getRequest, defaultHeaders } from "utils/http-request";
 
-export const getProducts = async (queryKey: any) => {
+export const getAllProductsByLimit = async (queryKey: any) => {
   if (queryKey.length === 1) queryKey.push({});
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

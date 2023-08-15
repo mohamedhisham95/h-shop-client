@@ -14,7 +14,7 @@ import DeleteModal from "components/modal/DeleteModal";
 // API
 import { getAllProducts } from "api/";
 
-const Products = () => {
+const ProductList = () => {
   // State
   const [rowId, setRowId] = useState<any>(null);
   const [action, setAction] = useState<any>(null);
@@ -78,7 +78,7 @@ const Products = () => {
       <BreadCrumbs
         list={[
           { link: "/", label: "Home" },
-          { link: "", label: "Admin - Products" },
+          { link: "", label: "Admin - Product List" },
         ]}
       />
 
@@ -113,4 +113,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductList;

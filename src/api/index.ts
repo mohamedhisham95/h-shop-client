@@ -2,7 +2,10 @@
 import { signin } from "api/auth/auth";
 
 // Products
-import { getProducts, getProduct } from "api/product/product";
+import { getAllProductsByLimit, getProduct } from "api/product/product";
+
+// Category
+import { getAllCategory } from "api/category/category";
 
 // Cart
 import { getCartProducts } from "api/cart/cart";
@@ -14,8 +17,10 @@ export {
   // User
   signin,
   // Products
-  getProducts,
+  getAllProductsByLimit,
   getProduct,
+  // Category
+  getAllCategory,
   // Cart
   getCartProducts,
   // Admin

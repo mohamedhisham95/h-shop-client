@@ -25,7 +25,7 @@ const Product = () => {
   // Redux State
   const { cart_items } = useSelector((state: any) => state.cart);
 
-  // API Call
+  // Query
   const { data, isLoading, isError, error }: any = useQuery({
     queryKey: [
       "get_product",

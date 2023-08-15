@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -8,13 +8,13 @@ import Message from "components/common/Message";
 import ProductCard from "components/product/ProductCard";
 
 // API
-import { getProducts } from "api";
+import { getAllProductsByLimit } from "api";
 
 const Home = () => {
   // Limit
   const limit = 2;
 
-  // API Call
+  // Query
   const {
     isLoading,
     isError,
@@ -25,15 +25,15 @@ const Home = () => {
     isFetchingNextPage,
   }: any = useInfiniteQuery({
     queryKey: [
-      "get_products",
+      "get_all_products_by_limit",
       {
         skip: 0,
         limit,
       },
     ],
     queryFn: ({ pageParam = 0 }) =>
-      getProducts([
-        "get_products",
+      getAllProductsByLimit([
+        "get_all_products_by_limit",
         {
           skip: pageParam * limit,
           limit,
@@ -50,15 +50,17 @@ const Home = () => {
           {isLoading && <Loader />}
           {isError && <Message message={error?.message} />}
 
-          <Row>
-            {data?.pages?.map((page: any) =>
-              page?.data?.products.map((product: any, index: number) => (
-                <Col key={index} sm={12} md={6} lg={4} xl={3}>
-                  <ProductCard product={product} />
-                </Col>
-              ))
-            )}
-          </Row>
+          {!isLoading && !isError && (
+            <Row>
+              {data?.pages?.map((page: any) =>
+                page?.data?.products.map((product: any, index: number) => (
+                  <Col key={index} sm={12} md={6} lg={4} xl={3}>
+                    <ProductCard product={product} />
+                  </Col>
+                ))
+              )}
+            </Row>
+          )}
         </Col>
       </Row>
     </Container>

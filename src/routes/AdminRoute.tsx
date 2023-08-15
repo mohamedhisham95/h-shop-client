@@ -20,7 +20,7 @@ const AdminRoute: React.FC<props> = ({
       {...rest}
       exact
       render={(props) =>
-        user_detail !== null && user_detail.role !== "admin" ? (
+        user_detail !== null && user_detail.role === "Admin" ? (
           <Component {...props} />
         ) : (
           <Redirect to="/" />

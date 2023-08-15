@@ -5,6 +5,7 @@ export const getAllProducts = async (queryKey: any) => {
 
   const response = await getRequest(
     `${process.env.REACT_APP_SERVER_URL}/admin/product/list`,
+    {},
     await defaultHeaders()
   );
 

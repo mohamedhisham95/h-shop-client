@@ -14,7 +14,7 @@ const GlobalFilter: React.FC<props> = ({
   placeholder,
 }) => {
   return (
-    <InputGroup size="sm" className="mb-3" style={{ width: "200px" }}>
+    <InputGroup size="sm" className="mb-3 ml-2" style={{ width: "200px" }}>
       <FormControl
         aria-label="Small"
         type="text"

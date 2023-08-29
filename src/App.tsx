@@ -20,6 +20,9 @@ import Cart from "pages/Cart";
 import Checkout from "pages/Checkout";
 import ProductList from "pages/admin/product/ProductList";
 import ProductCreate from "pages/admin/product/ProductCreate";
+import CategoryList from "pages/admin/category/CategoryList";
+import CategoryCreate from "pages/admin/category/CategoryCreate";
+import CategoryEdit from "pages/admin/category/CategoryEdit";
 
 function App() {
   return (
@@ -41,6 +44,21 @@ function App() {
             path="/admin/product/create"
             exact
             component={ProductCreate}
+          />
+          <AdminRoute
+            path="/admin/category/list"
+            exact
+            component={CategoryList}
+          />
+          <AdminRoute
+            path="/admin/category/create"
+            exact
+            component={CategoryCreate}
+          />
+          <AdminRoute
+            path="/admin/category/edit/:id"
+            exact
+            component={CategoryEdit}
           />
         </Switch>
       </main>

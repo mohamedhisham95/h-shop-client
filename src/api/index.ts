@@ -12,6 +12,7 @@ import { getCartProducts } from "api/cart/cart";
 
 // Admin
 import { getAllProducts, createProduct } from "api/admin/products";
+import { createCategory } from "api/admin/category";
 
 export {
   // User
@@ -26,4 +27,5 @@ export {
   // Admin
   getAllProducts,
   createProduct,
+  createCategory,
 };

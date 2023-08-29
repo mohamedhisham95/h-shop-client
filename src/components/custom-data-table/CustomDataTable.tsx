@@ -51,8 +51,12 @@ const CustomDataTable: React.FC<props> = ({
     };
 
     return (
-      <div className="w-100 d-flex justify-content-between align-self-center">
-        {isCreateAllowed && <Link to={createLink}>Create</Link>}
+      <div className="w-100 d-flex justify-content-between align-items-start">
+        {isCreateAllowed && (
+          <Link to={createLink} className="btn btn-primary btn-sm">
+            Create
+          </Link>
+        )}
 
         <GlobalFilter
           onFilter={(e: any) => setFilterText(e.target.value)}

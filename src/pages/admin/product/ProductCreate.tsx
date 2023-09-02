@@ -4,7 +4,6 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
 
 // Component
 import ContainerCenter from "components/layout/ContainerCenter";
@@ -23,7 +22,7 @@ const ProductCreate = () => {
   const [inputError, setInputError] = useState<any>(null);
   const [createError, setCreateError] = useState<any>(null);
 
-  // Query
+  // API Call
   const {
     data: categoryData,
     isFetching: isCategoryFetching,
@@ -59,7 +58,6 @@ const ProductCreate = () => {
         setInputError(formInputError);
       }
       if (message) {
-        toast.success(message);
         history.push("/admin/product/list");
       }
     },
@@ -102,8 +100,6 @@ const ProductCreate = () => {
 
   return (
     <ContainerCenter>
-      <Toaster position="top-right" reverseOrder={false} />
-
       <BreadCrumbs
         list={[
           { link: "/", label: "Home" },
@@ -114,6 +110,8 @@ const ProductCreate = () => {
       {isCategoryFetching && <Loader />}
 
       {isCategoryError && <Message message={categoryError?.message} />}
+
+      {createError && <Message message={createError} />}
 
       {!isCategoryFetching && !isCategoryError && (
         <Form onSubmit={createForm.handleSubmit}>

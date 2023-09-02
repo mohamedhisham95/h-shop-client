@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Component
 import CustomDataTable from "components/custom-data-table/CustomDataTable";
-import ActionMenu from "components/custom-data-table/ActionMenu";
 import BreadCrumbs from "components/common/BreadCrumbs";
 import Message from "components/common/Message";
 import DeleteModal from "components/modal/DeleteModal";
@@ -15,6 +14,9 @@ import DeleteModal from "components/modal/DeleteModal";
 import { getAllCategory } from "api/";
 
 const CategoryList = () => {
+  // History
+  const history = useHistory();
+
   // State
   const [rowId, setRowId] = useState<any>(null);
   const [action, setAction] = useState<any>(null);
@@ -33,18 +35,32 @@ const CategoryList = () => {
       name: "Name",
       sortable: true,
       selector: (row: any) => row.name,
-      cell: (row: any) => (
-        <Link to={`/admin/category/edit/${row?._id}`}>{row?.name}</Link>
-      ),
+      // cell: (row: any) => (
+      //   <Link to={`/admin/category/edit/${row?._id}`}>{row?.name}</Link>
+      // ),
     },
     {
       cell: (row: any) => (
-        <ActionMenu
-          disabled={selectedRows.length ? true : false}
-          rowId={row?._id}
-          setRowId={setRowId}
-          setAction={setAction}
-        />
+        <div className="d-flex justify-content-between ">
+          <Button
+            size="sm"
+            className="mr-1"
+            disabled={selectedRows.length > 0}
+            onClick={() => history.push(`/admin/category/edit/${row?._id}`)}
+          >
+            Edit
+          </Button>
+          <Button
+            size="sm"
+            disabled={selectedRows.length > 0}
+            onClick={() => {
+              setRowId(row?._id);
+              setAction("delete");
+            }}
+          >
+            Delete
+          </Button>
+        </div>
       ),
       allowOverflow: true,
       button: true,
@@ -55,6 +71,7 @@ const CategoryList = () => {
   // Delete Handler
   function handleDelete() {
     console.log("deleted");
+    // pass rowId here
     setAction(null);
     setRowId(null);
   }

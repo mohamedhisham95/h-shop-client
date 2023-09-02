@@ -11,7 +11,11 @@ import { getAllCategory } from "api/category/category";
 import { getCartProducts } from "api/cart/cart";
 
 // Admin
-import { getAllProducts, createProduct } from "api/admin/products";
+import {
+  getAllProducts,
+  createProduct,
+  deleteProduct,
+} from "api/admin/products";
 import { createCategory } from "api/admin/category";
 
 export {
@@ -27,5 +31,6 @@ export {
   // Admin
   getAllProducts,
   createProduct,
+  deleteProduct,
   createCategory,
 };

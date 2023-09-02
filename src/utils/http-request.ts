@@ -62,3 +62,28 @@ export async function postRequest(
     );
   }
 }
+
+export async function putRequest(
+  url = "",
+  data = {},
+  headers = {
+    "Content-Type": "application/json",
+  }
+) {
+  try {
+    const response = await axios({
+      method: "PUT",
+      data,
+      url,
+      headers,
+    });
+
+    return response;
+  } catch (error: any) {
+    throw new Error(
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    );
+  }
+}

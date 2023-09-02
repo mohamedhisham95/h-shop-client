@@ -1,30 +1,48 @@
 import { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 // Component
 import CustomDataTable from "components/custom-data-table/CustomDataTable";
-import ActionMenu from "components/custom-data-table/ActionMenu";
 import BreadCrumbs from "components/common/BreadCrumbs";
 import Message from "components/common/Message";
 import DeleteModal from "components/modal/DeleteModal";
 // import Loader from "components/common/Loader";
 
 // API
-import { getAllProducts } from "api/";
+import { getAllProducts, deleteProduct } from "api/";
 
 const ProductList = () => {
+  // History
+  const history = useHistory();
+
   // State
   const [rowId, setRowId] = useState<any>(null);
   const [action, setAction] = useState<any>(null);
   const [selectedRows, setSelectedRows] = useState<any>([]);
+  const [deleteError, setDeleteError] = useState(null);
 
   // API Call
-  const { data, isFetching, isError, error }: any = useQuery({
+  const { data, isFetching, isError, error, refetch }: any = useQuery({
     queryKey: ["get_product"],
     queryFn: getAllProducts,
     refetchOnWindowFocus: false,
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: ({ productId }: any) =>
+      deleteProduct(["delete_product", { productId }]),
+    onError: (error: any) => {
+      setDeleteError(error.message);
+    },
+    onSuccess: (response: any) => {
+      toast.success(response.message);
+      setAction(null);
+      setRowId(null);
+      refetch();
+    },
   });
 
   // Columns
@@ -33,9 +51,6 @@ const ProductList = () => {
       name: "Name",
       sortable: true,
       selector: (row: any) => row.name,
-      cell: (row: any) => (
-        <Link to={`/admin/product/edit/${row?._id}`}>{row?.name}</Link>
-      ),
     },
     {
       name: "Category",
@@ -54,11 +69,26 @@ const ProductList = () => {
     },
     {
       cell: (row: any) => (
-        <ActionMenu
-          disabled={selectedRows.length ? true : false}
-          setRowId={row?._id}
-          setAction={setAction}
-        />
+        <div className="d-flex justify-content-between ">
+          <Button
+            size="sm"
+            className="mr-1"
+            disabled={selectedRows.length > 0}
+            onClick={() => history.push(`/admin/product/edit/${row?._id}`)}
+          >
+            Edit
+          </Button>
+          <Button
+            size="sm"
+            disabled={selectedRows.length > 0}
+            onClick={() => {
+              setRowId(row?._id);
+              setAction("delete");
+            }}
+          >
+            Delete
+          </Button>
+        </div>
       ),
       allowOverflow: true,
       button: true,
@@ -68,13 +98,15 @@ const ProductList = () => {
 
   // Delete Handler
   function handleDelete() {
-    console.log("deleted");
-    setAction(null);
-    setRowId(null);
+    deleteMutation.mutate({
+      productId: rowId,
+    });
   }
 
   return (
     <Container>
+      <Toaster position="top-right" reverseOrder={false} />
+
       <BreadCrumbs
         list={[
           { link: "/", label: "Home" },
@@ -86,6 +118,12 @@ const ProductList = () => {
         {isError && (
           <Col md={12} lg={12}>
             <Message message={error?.message} />
+          </Col>
+        )}
+
+        {deleteError && (
+          <Col md={12} lg={12}>
+            <Message message={deleteError} />
           </Col>
         )}
 

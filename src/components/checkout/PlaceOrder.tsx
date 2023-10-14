@@ -12,10 +12,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 // Components
 import Loader from "components/common/Loader";
 import Message from "components/common/Message";
+
+// API
+import { createOrder } from "api/";
 
 type props = {
   setActiveStep: any;
@@ -32,8 +36,60 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState(null);
 
+  // Mutation
+  const createMutation = useMutation({
+    mutationFn: ({
+      shippingAddress,
+      paymentMethod,
+      orderItems,
+      totalAmount,
+      token,
+    }: any) =>
+      createOrder([
+        "create_category",
+        { shippingAddress, paymentMethod, orderItems, totalAmount, token },
+      ]),
+    onError: (error: any) => {
+      setPaymentStatus(error.message);
+    },
+    onSuccess: (response: any) => {
+      console.log("Response : ", response);
+      // const { message, formInputError } = response.data;
+      // if (formInputError) {
+      //   setInputError(formInputError);
+      // }
+      // if (message) {
+      //   toast.success(message);
+      //   history.push("/admin/category/list");
+      // }
+    },
+  });
+
   // Handle Payment
-  async function handlePaymentToken() {}
+  async function handlePaymentToken(token: any) {
+    createMutation.mutate({
+      shippingAddress: {
+        address: shipping_address.address,
+        city: shipping_address.city,
+        postalCode: shipping_address.postal_code,
+      },
+      paymentMethod: payment_method,
+      orderItems: checkout_items.map(
+        ({ _id, name, image, price, quantity }: any) => ({
+          productId: _id,
+          name,
+          image,
+          price,
+          quantity,
+        })
+      ),
+      totalAmount: checkout_items?.reduce(
+        (acc: any, item: any) => acc + item.price * item.quantity,
+        0
+      ),
+      token,
+    });
+  }
 
   return (
     <Container fluid className="place-order">
@@ -128,9 +184,7 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
                   //   </StripeCheckout>
                   <StripeCheckout
                     stripeKey="pk_test_51HqwsgBrBOrRrnlyyr8TGajVdskvU96Id2THwptH5sltl46vQbUnK7YHGEE0u3OFnlWRWWTTZ3wVzA1aIzbb06cq00X1Vuv0Gk"
-                    token={() => {
-                      handlePaymentToken();
-                    }}
+                    token={handlePaymentToken}
                     amount={
                       checkout_items?.reduce(
                         (acc: any, item: any) =>

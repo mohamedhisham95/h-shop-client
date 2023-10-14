@@ -10,6 +10,9 @@ import { getAllCategory } from "api/category/category";
 // Cart
 import { getCartProducts } from "api/cart/cart";
 
+// Order
+import { createOrder } from "api/order/order";
+
 // Admin
 import {
   getAllProducts,
@@ -28,6 +31,8 @@ export {
   getAllCategory,
   // Cart
   getCartProducts,
+  // Order
+  createOrder,
   // Admin
   getAllProducts,
   createProduct,

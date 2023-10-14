@@ -7,6 +7,8 @@ import { useHistory } from "react-router-dom";
 import BreadCrumbs from "components/common/BreadCrumbs";
 import Steps from "components/checkout/Steps";
 import Address from "components/checkout/Address";
+import PaymentMethod from "components/checkout/PaymentMethod";
+import PlaceOrder from "components/checkout/PlaceOrder";
 
 const Checkout = () => {
   // History
@@ -44,6 +46,8 @@ const Checkout = () => {
       <Row>
         <Col md={12} lg={12}>
           {activeStep === 1 && <Address setActiveStep={setActiveStep} />}
+          {activeStep === 2 && <PaymentMethod setActiveStep={setActiveStep} />}
+          {activeStep === 3 && <PlaceOrder setActiveStep={setActiveStep} />}
         </Col>
       </Row>
     </Container>

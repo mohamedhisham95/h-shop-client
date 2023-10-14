@@ -6,6 +6,7 @@ interface State {
     city: string;
     postal_code: string;
   };
+  payment_method: string;
 }
 
 const initialState: State = {
@@ -14,6 +15,7 @@ const initialState: State = {
     city: "",
     postal_code: "",
   },
+  payment_method: "Stripe",
 };
 
 const checkoutSlice = createSlice({
@@ -23,9 +25,12 @@ const checkoutSlice = createSlice({
     setShippingAddress: (state, action) => {
       state.shipping_address = action.payload;
     },
+    setPaymentMethod: (state, action) => {
+      state.payment_method = action.payload;
+    },
   },
 });
 
-export const { setShippingAddress } = checkoutSlice.actions;
+export const { setShippingAddress, setPaymentMethod } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;

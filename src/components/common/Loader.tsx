@@ -5,7 +5,10 @@ type props = {
   variant?: string;
 };
 
-const Loader: React.FC<props> = ({ loaderSize = "big", variant = "light" }) => {
+const Loader: React.FC<props> = ({
+  loaderSize = "big",
+  variant = "primary",
+}) => {
   return (
     <Spinner
       animation="border"

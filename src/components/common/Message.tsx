@@ -6,9 +6,13 @@ type props = {
   className?: string;
 };
 
-const Message: React.FC<props> = ({ variant, message, className }) => {
+const Message: React.FC<props> = ({
+  variant = "danger",
+  message,
+  className,
+}) => {
   return (
-    <Alert variant={(variant = "danger")} className={className}>
+    <Alert variant={variant} className={className}>
       {message}
     </Alert>
   );

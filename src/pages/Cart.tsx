@@ -135,7 +135,7 @@ const Cart = () => {
 
         {isFetching && (
           <Col md={12} lg={12}>
-            <Loader variant="primary" />
+            <Loader />
           </Col>
         )}
 

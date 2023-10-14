@@ -25,12 +25,12 @@ const Address: React.FC<props> = ({ setActiveStep }) => {
     initialValues: {
       address: shipping_address?.address,
       city: shipping_address?.city,
-      postalCode: shipping_address?.postal_code,
+      postal_code: shipping_address?.postal_code,
     },
     validationSchema: Yup.object({
       address: Yup.string().required("Address is required"),
       city: Yup.string().required("City is required"),
-      postalCode: Yup.string().required("Postal code is required"),
+      postal_code: Yup.string().required("Postal code is required"),
     }),
     onSubmit: (values: any) => {
       dispatch(setShippingAddress(values));
@@ -75,22 +75,23 @@ const Address: React.FC<props> = ({ setActiveStep }) => {
             </Form.Control.Feedback>
           )}
         </Form.Group>
-        <Form.Group controlId="postalCode">
+        <Form.Group controlId="postal_code">
           <Form.Label>Postal Code</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter postal code"
             onChange={addressForm.handleChange}
             onBlur={addressForm.handleBlur}
-            value={addressForm.values.postalCode}
-            isInvalid={addressForm?.errors?.postalCode}
+            value={addressForm.values.postal_code}
+            isInvalid={addressForm?.errors?.postal_code}
           />
 
-          {addressForm.touched.postalCode && addressForm.errors.postalCode && (
-            <Form.Control.Feedback type="invalid">
-              {addressForm.errors.postalCode}
-            </Form.Control.Feedback>
-          )}
+          {addressForm.touched.postal_code &&
+            addressForm.errors.postal_code && (
+              <Form.Control.Feedback type="invalid">
+                {addressForm.errors.postal_code}
+              </Form.Control.Feedback>
+            )}
         </Form.Group>
 
         <Button variant="primary" type="submit">

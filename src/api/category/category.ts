@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from "utils/http-request";
+import { getRequest } from "utils/http-request";
 
 export const getAllCategory = async ({ queryKey }: any) => {
   if (queryKey.length === 1) queryKey.push({});

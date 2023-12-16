@@ -265,7 +265,9 @@ const Cart = () => {
             </Col>
 
             <Col md={6}>
-              <h5>Cart Summary</h5>
+              <div className="d-flex justify-content-between flex-wrap">
+                <h5>Cart Summary</h5>
+              </div>
               <hr />
               <Card>
                 <ListGroup variant="flush">

@@ -9,7 +9,6 @@ import CustomDataTable from "components/custom-data-table/CustomDataTable";
 import BreadCrumbs from "components/common/BreadCrumbs";
 import Message from "components/common/Message";
 import DeleteModal from "components/modal/DeleteModal";
-// import Loader from "components/common/Loader";
 
 // API
 import { getAllProducts, deleteProduct } from "api/";

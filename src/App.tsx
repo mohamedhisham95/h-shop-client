@@ -24,6 +24,7 @@ import ProductEdit from "pages/admin/product/ProductEdit";
 import CategoryList from "pages/admin/category/CategoryList";
 import CategoryCreate from "pages/admin/category/CategoryCreate";
 import CategoryEdit from "pages/admin/category/CategoryEdit";
+import OrderList from "pages/admin/order/OrderList";
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
             exact
             component={CategoryEdit}
           />
+          <AdminRoute path="/admin/order/list" exact component={OrderList} />
         </Switch>
       </main>
     </Router>

@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import DataTable from "react-data-table-component";
-import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 // Components
@@ -15,6 +14,7 @@ type props = {
   setSelectedRows: any;
   isCreateAllowed: boolean;
   createLink: string;
+  isRowSelectAllowed?: boolean;
 };
 
 const CustomDataTable: React.FC<props> = ({
@@ -26,6 +26,7 @@ const CustomDataTable: React.FC<props> = ({
   setSelectedRows,
   isCreateAllowed,
   createLink,
+  isRowSelectAllowed = true,
 }) => {
   // State
   const [filterText, setFilterText] = useState("");
@@ -73,7 +74,7 @@ const CustomDataTable: React.FC<props> = ({
     <DataTable
       columns={columns}
       data={filteredItems}
-      selectableRows
+      selectableRows={isRowSelectAllowed}
       pagination
       onSelectedRowsChange={handleChange}
       dense

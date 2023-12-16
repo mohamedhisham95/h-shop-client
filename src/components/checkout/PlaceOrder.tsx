@@ -1,6 +1,5 @@
 import {
   ListGroup,
-  Button,
   Container,
   Row,
   Col,
@@ -13,6 +12,7 @@ import { Link } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useHistory } from "react-router-dom";
 
 // Components
 import Loader from "components/common/Loader";
@@ -26,6 +26,9 @@ type props = {
 };
 
 const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
+  // History
+  const history = useHistory();
+
   // Redux State
   const { checkout_items } = useSelector((state: any) => state.cartCheckout);
   const { shipping_address, payment_method } = useSelector(
@@ -50,18 +53,13 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
         { shippingAddress, paymentMethod, orderItems, totalAmount, token },
       ]),
     onError: (error: any) => {
+      setPaymentLoading(false);
       setPaymentStatus(error.message);
     },
     onSuccess: (response: any) => {
-      console.log("Response : ", response);
-      // const { message, formInputError } = response.data;
-      // if (formInputError) {
-      //   setInputError(formInputError);
-      // }
-      // if (message) {
-      //   toast.success(message);
-      //   history.push("/admin/category/list");
-      // }
+      if (response?.data?.status === "success") {
+        history.push("/my-orders");
+      }
     },
   });
 
@@ -183,8 +181,10 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
                   //     Pay
                   //   </StripeCheckout>
                   <StripeCheckout
-                    stripeKey="pk_test_51HqwsgBrBOrRrnlyyr8TGajVdskvU96Id2THwptH5sltl46vQbUnK7YHGEE0u3OFnlWRWWTTZ3wVzA1aIzbb06cq00X1Vuv0Gk"
+                    // stripeKey="pk_test_51HqwsgBrBOrRrnlyyr8TGajVdskvU96Id2THwptH5sltl46vQbUnK7YHGEE0u3OFnlWRWWTTZ3wVzA1aIzbb06cq00X1Vuv0Gk"
+                    stripeKey={`${process.env.REACT_APP_STRIPE_KEY}`}
                     token={handlePaymentToken}
+                    name="H-Shop"
                     amount={
                       checkout_items?.reduce(
                         (acc: any, item: any) =>
@@ -194,6 +194,7 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
                     }
                     currency="INR"
                     panelLabel="Pay {{amount}}"
+                    label="Pay Now"
                   ></StripeCheckout>
                 )}
               </ListGroup.Item>

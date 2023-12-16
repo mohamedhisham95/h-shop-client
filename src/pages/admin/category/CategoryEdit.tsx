@@ -4,10 +4,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
-import {
-  // toast,
-  Toaster,
-} from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
 // Component
@@ -40,6 +36,7 @@ const CategoryEdit = () => {
       },
     ],
     queryFn: getCategoryById,
+    refetchOnWindowFocus: false,
     onSuccess: (data) => {
       setName(data?.data?.name);
     },
@@ -58,7 +55,6 @@ const CategoryEdit = () => {
         setInputError(formInputError);
       }
       if (message) {
-        // toast.success(message);
         history.push("/admin/category/list");
       }
     },
@@ -85,8 +81,6 @@ const CategoryEdit = () => {
 
   return (
     <ContainerCenter>
-      <Toaster position="top-right" reverseOrder={false} />
-
       <BreadCrumbs
         list={[
           { link: "/", label: "Home" },

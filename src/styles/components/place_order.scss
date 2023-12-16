@@ -5,4 +5,18 @@
     object-fit: cover;
     margin-right: 14px;
   }
+
+  .StripeCheckout {
+    background: black !important;
+    background-color: black !important;
+    color: white !important;
+    box-shadow: none !important;
+
+    span {
+      background: black !important;
+      background-color: black !important;
+      color: white !important;
+      box-shadow: none !important;
+    }
+  }
 }

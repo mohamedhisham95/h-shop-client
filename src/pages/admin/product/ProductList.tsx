@@ -31,7 +31,7 @@ const ProductList = () => {
     refetchOnWindowFocus: false,
   });
 
-  const deleteMutation = useMutation({
+  const mutation = useMutation({
     mutationFn: ({ productId }: any) =>
       deleteProduct(["delete_product", { productId }]),
     onError: (error: any) => {
@@ -98,7 +98,7 @@ const ProductList = () => {
 
   // Delete Handler
   function handleDelete() {
-    deleteMutation.mutate({
+    mutation.mutate({
       productId: rowId,
     });
   }

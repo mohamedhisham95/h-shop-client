@@ -5,7 +5,7 @@ import { signin } from "api/auth/auth";
 import { getAllProductsByLimit, getProduct } from "api/product/product";
 
 // Category
-import { getAllCategory } from "api/category/category";
+import { getAllCategory, getCategoryById } from "api/category/category";
 
 // Cart
 import { getCartProducts } from "api/cart/cart";
@@ -17,9 +17,10 @@ import { createOrder } from "api/order/order";
 import {
   getAllProducts,
   createProduct,
+  updateProduct,
   deleteProduct,
 } from "api/admin/products";
-import { createCategory } from "api/admin/category";
+import { createCategory, updateCategory } from "api/admin/category";
 
 export {
   // User
@@ -29,6 +30,7 @@ export {
   getProduct,
   // Category
   getAllCategory,
+  getCategoryById,
   // Cart
   getCartProducts,
   // Order
@@ -36,6 +38,8 @@ export {
   // Admin
   getAllProducts,
   createProduct,
+  updateProduct,
   deleteProduct,
   createCategory,
+  updateCategory,
 };

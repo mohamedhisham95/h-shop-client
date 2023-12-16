@@ -17,7 +17,7 @@ import { cartAddItem, cartRemoveItem } from "redux/cartSlice";
 
 const Product = () => {
   // Params
-  const { productId } = useParams<{ productId: string }>();
+  const { id } = useParams<{ id: string }>();
 
   // Dispatch
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Product = () => {
     queryKey: [
       "get_product",
       {
-        productId,
+        id,
       },
     ],
     queryFn: getProduct,

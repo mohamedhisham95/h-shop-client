@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { Link, useHistory } from "react-router-dom";
+import {
+  useQuery,
+  //  useMutation
+} from "@tanstack/react-query";
+import { useHistory } from "react-router-dom";
 
 // Component
 import CustomDataTable from "components/custom-data-table/CustomDataTable";
 import BreadCrumbs from "components/common/BreadCrumbs";
 import Message from "components/common/Message";
-import DeleteModal from "components/modal/DeleteModal";
-// import Loader from "components/common/Loader";
+// import DeleteModal from "components/modal/DeleteModal";
 
 // API
 import { getAllCategory } from "api/";
@@ -18,8 +20,8 @@ const CategoryList = () => {
   const history = useHistory();
 
   // State
-  const [rowId, setRowId] = useState<any>(null);
-  const [action, setAction] = useState<any>(null);
+  // const [rowId, setRowId] = useState<any>(null);
+  // const [action, setAction] = useState<any>(null);
   const [selectedRows, setSelectedRows] = useState<any>([]);
 
   // API Call
@@ -35,9 +37,6 @@ const CategoryList = () => {
       name: "Name",
       sortable: true,
       selector: (row: any) => row.name,
-      // cell: (row: any) => (
-      //   <Link to={`/admin/category/edit/${row?._id}`}>{row?.name}</Link>
-      // ),
     },
     {
       cell: (row: any) => (
@@ -50,7 +49,7 @@ const CategoryList = () => {
           >
             Edit
           </Button>
-          <Button
+          {/* <Button
             size="sm"
             disabled={selectedRows.length > 0}
             onClick={() => {
@@ -59,7 +58,7 @@ const CategoryList = () => {
             }}
           >
             Delete
-          </Button>
+          </Button> */}
         </div>
       ),
       allowOverflow: true,
@@ -69,12 +68,12 @@ const CategoryList = () => {
   ];
 
   // Delete Handler
-  function handleDelete() {
-    console.log("deleted");
-    // pass rowId here
-    setAction(null);
-    setRowId(null);
-  }
+  // function handleDelete() {
+  //   console.log("deleted");
+  //   // pass rowId here
+  //   setAction(null);
+  //   setRowId(null);
+  // }
 
   return (
     <Container>
@@ -103,14 +102,14 @@ const CategoryList = () => {
           createLink="/admin/category/create"
         />
 
-        {action === "delete" && (
+        {/* {action === "delete" && (
           <DeleteModal
             show={action === "delete" ? true : false}
             setShow={() => setAction(null)}
             title="Delete Category"
             deleteCallback={handleDelete}
           />
-        )}
+        )} */}
       </Row>
     </Container>
   );

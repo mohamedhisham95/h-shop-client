@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -10,6 +10,7 @@ import toast, { Toaster } from "react-hot-toast";
 import ContainerCenter from "components/layout/ContainerCenter";
 import BreadCrumbs from "components/common/BreadCrumbs";
 import Loader from "components/common/Loader";
+import Message from "components/common/Message";
 
 // API
 import { createCategory } from "api/";
@@ -42,7 +43,7 @@ const ProductCreate = () => {
   });
 
   // Formik
-  const createForm: any = useFormik<any>({
+  const form: any = useFormik<any>({
     initialValues: {
       name: "",
     },
@@ -69,21 +70,21 @@ const ProductCreate = () => {
         ]}
       />
 
-      <Form onSubmit={createForm.handleSubmit}>
+      <Form onSubmit={form.handleSubmit}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter name"
-            onChange={createForm.handleChange}
-            onBlur={createForm.handleBlur}
-            value={createForm.values.name}
-            isInvalid={createForm?.errors?.name || inputError?.name}
+            onChange={form.handleChange}
+            onBlur={form.handleBlur}
+            value={form.values.name}
+            isInvalid={form?.errors?.name || inputError?.name}
           />
 
-          {createForm.touched.name && createForm.errors.name && (
+          {form.touched.name && form.errors.name && (
             <Form.Control.Feedback type="invalid">
-              {createForm.errors.name}
+              {form.errors.name}
             </Form.Control.Feedback>
           )}
         </Form.Group>
@@ -96,6 +97,14 @@ const ProductCreate = () => {
           {createMutation.isLoading ? <Loader loaderSize="small" /> : "Submit"}
         </Button>
       </Form>
+
+      {createError && (
+        <Row>
+          <Col md={12} lg={12}>
+            <Message message={createError} />
+          </Col>
+        </Row>
+      )}
     </ContainerCenter>
   );
 };

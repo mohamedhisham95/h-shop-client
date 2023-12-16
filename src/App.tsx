@@ -20,6 +20,7 @@ import Cart from "pages/Cart";
 import Checkout from "pages/Checkout";
 import ProductList from "pages/admin/product/ProductList";
 import ProductCreate from "pages/admin/product/ProductCreate";
+import ProductEdit from "pages/admin/product/ProductEdit";
 import CategoryList from "pages/admin/category/CategoryList";
 import CategoryCreate from "pages/admin/category/CategoryCreate";
 import CategoryEdit from "pages/admin/category/CategoryEdit";
@@ -31,7 +32,7 @@ function App() {
       <main>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/product/:productId" exact component={Product} />
+          <Route path="/product/:id" exact component={Product} />
           <Route path="/cart" exact component={Cart} />
           <AuthRoute path="/signin" exact component={SignIn} />
           <ProtectedRoute path="/checkout" exact component={Checkout} />
@@ -44,6 +45,11 @@ function App() {
             path="/admin/product/create"
             exact
             component={ProductCreate}
+          />
+          <AdminRoute
+            path="/admin/product/edit/:id"
+            exact
+            component={ProductEdit}
           />
           <AdminRoute
             path="/admin/category/list"

@@ -35,7 +35,7 @@ const ProductCreate = () => {
   });
 
   // Mutation
-  const createMutation = useMutation({
+  const mutation = useMutation({
     mutationFn: ({
       name,
       image,
@@ -64,7 +64,7 @@ const ProductCreate = () => {
   });
 
   // Formik
-  const createForm: any = useFormik<any>({
+  const form: any = useFormik<any>({
     initialValues: {
       name: "",
       image: "",
@@ -86,7 +86,7 @@ const ProductCreate = () => {
     onSubmit: (values: any) => {
       setCreateError(null);
       setInputError({});
-      createMutation.mutate({
+      mutation.mutate({
         name: values?.name,
         image: values?.image,
         brand: values?.brand,
@@ -114,21 +114,21 @@ const ProductCreate = () => {
       {createError && <Message message={createError} />}
 
       {!isCategoryFetching && !isCategoryError && (
-        <Form onSubmit={createForm.handleSubmit}>
+        <Form onSubmit={form.handleSubmit}>
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter name"
-              onChange={createForm.handleChange}
-              onBlur={createForm.handleBlur}
-              value={createForm.values.name}
-              isInvalid={createForm?.errors?.name || inputError?.name}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              value={form.values.name}
+              isInvalid={form?.errors?.name || inputError?.name}
             />
 
-            {createForm.touched.name && createForm.errors.name && (
+            {form.touched.name && form.errors.name && (
               <Form.Control.Feedback type="invalid">
-                {createForm.errors.name}
+                {form.errors.name}
               </Form.Control.Feedback>
             )}
           </Form.Group>
@@ -138,15 +138,15 @@ const ProductCreate = () => {
             <Form.Control
               type="text"
               placeholder="Enter brand"
-              onChange={createForm.handleChange}
-              onBlur={createForm.handleBlur}
-              value={createForm.values.brand}
-              isInvalid={createForm?.errors?.brand || inputError?.brand}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              value={form.values.brand}
+              isInvalid={form?.errors?.brand || inputError?.brand}
             />
 
-            {createForm.touched.brand && createForm.errors.brand && (
+            {form.touched.brand && form.errors.brand && (
               <Form.Control.Feedback type="invalid">
-                {createForm.errors.brand}
+                {form.errors.brand}
               </Form.Control.Feedback>
             )}
           </Form.Group>
@@ -155,11 +155,9 @@ const ProductCreate = () => {
             <Form.Label>Select category</Form.Label>
             <Form.Control
               as="select"
-              onChange={createForm.handleChange}
-              value={createForm.values.categoryId}
-              isInvalid={
-                createForm?.errors?.categoryId || inputError?.categoryId
-              }
+              onChange={form.handleChange}
+              value={form.values.categoryId}
+              isInvalid={form?.errors?.categoryId || inputError?.categoryId}
             >
               {categoryData?.data?.map((item: any) => (
                 <option key={item._id} value={item._id}>
@@ -168,9 +166,9 @@ const ProductCreate = () => {
               ))}
             </Form.Control>
 
-            {createForm.touched.categoryId && createForm.errors.categoryId && (
+            {form.touched.categoryId && form.errors.categoryId && (
               <Form.Control.Feedback type="invalid">
-                {createForm.errors.categoryId}
+                {form.errors.categoryId}
               </Form.Control.Feedback>
             )}
           </Form.Group>
@@ -180,15 +178,15 @@ const ProductCreate = () => {
             <Form.Control
               type="text"
               placeholder="Enter price"
-              onChange={createForm.handleChange}
-              onBlur={createForm.handleBlur}
-              value={createForm.values.price}
-              isInvalid={createForm?.errors?.price || inputError?.price}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              value={form.values.price}
+              isInvalid={form?.errors?.price || inputError?.price}
             />
 
-            {createForm.touched.price && createForm.errors.price && (
+            {form.touched.price && form.errors.price && (
               <Form.Control.Feedback type="invalid">
-                {createForm.errors.price}
+                {form.errors.price}
               </Form.Control.Feedback>
             )}
           </Form.Group>
@@ -198,20 +196,17 @@ const ProductCreate = () => {
             <Form.Control
               type="text"
               placeholder="Enter count-in-stock"
-              onChange={createForm.handleChange}
-              onBlur={createForm.handleBlur}
-              value={createForm.values.countInStock}
-              isInvalid={
-                createForm?.errors?.countInStock || inputError?.countInStock
-              }
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              value={form.values.countInStock}
+              isInvalid={form?.errors?.countInStock || inputError?.countInStock}
             />
 
-            {createForm.touched.countInStock &&
-              createForm.errors.countInStock && (
-                <Form.Control.Feedback type="invalid">
-                  {createForm.errors.countInStock}
-                </Form.Control.Feedback>
-              )}
+            {form.touched.countInStock && form.errors.countInStock && (
+              <Form.Control.Feedback type="invalid">
+                {form.errors.countInStock}
+              </Form.Control.Feedback>
+            )}
           </Form.Group>
 
           <Form.Group controlId="image">
@@ -219,15 +214,15 @@ const ProductCreate = () => {
             <Form.Control
               type="text"
               placeholder="Enter image URL"
-              onChange={createForm.handleChange}
-              onBlur={createForm.handleBlur}
-              value={createForm.values.image}
-              isInvalid={createForm?.errors?.image || inputError?.image}
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              value={form.values.image}
+              isInvalid={form?.errors?.image || inputError?.image}
             />
 
-            {createForm.touched.image && createForm.errors.image && (
+            {form.touched.image && form.errors.image && (
               <Form.Control.Feedback type="invalid">
-                {createForm.errors.image}
+                {form.errors.image}
               </Form.Control.Feedback>
             )}
           </Form.Group>
@@ -238,32 +233,21 @@ const ProductCreate = () => {
               as="textarea"
               rows={3}
               placeholder="Enter description"
-              onChange={createForm.handleChange}
-              onBlur={createForm.handleBlur}
-              value={createForm.values.description}
-              isInvalid={
-                createForm?.errors?.description || inputError?.description
-              }
+              onChange={form.handleChange}
+              onBlur={form.handleBlur}
+              value={form.values.description}
+              isInvalid={form?.errors?.description || inputError?.description}
             />
 
-            {createForm.touched.description &&
-              createForm.errors.description && (
-                <Form.Control.Feedback type="invalid">
-                  {createForm.errors.description}
-                </Form.Control.Feedback>
-              )}
+            {form.touched.description && form.errors.description && (
+              <Form.Control.Feedback type="invalid">
+                {form.errors.description}
+              </Form.Control.Feedback>
+            )}
           </Form.Group>
 
-          <Button
-            variant="primary"
-            type="submit"
-            disabled={createMutation.isLoading}
-          >
-            {createMutation.isLoading ? (
-              <Loader loaderSize="small" />
-            ) : (
-              "Submit"
-            )}
+          <Button variant="primary" type="submit" disabled={mutation.isLoading}>
+            {mutation.isLoading ? <Loader loaderSize="small" /> : "Submit"}
           </Button>
         </Form>
       )}

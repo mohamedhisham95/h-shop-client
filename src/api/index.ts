@@ -21,7 +21,7 @@ import {
   deleteProduct,
 } from "api/admin/products";
 import { createCategory, updateCategory } from "api/admin/category";
-import { getAllOrders } from "api/admin/order";
+import { getAllOrders, getOrderById } from "api/admin/order";
 
 export {
   // User
@@ -46,4 +46,5 @@ export {
   createCategory,
   updateCategory,
   getAllOrders,
+  getOrderById,
 };

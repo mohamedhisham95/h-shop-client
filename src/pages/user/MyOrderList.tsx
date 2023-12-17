@@ -23,7 +23,11 @@ const MyOrderList = () => {
     {
       name: "Order ID",
       sortable: true,
-      cell: (row: any) => <Link to={`/my-order/${row?._id}`}>{row?._id}</Link>,
+      cell: (row: any) => (
+        <Link to={`/my-order/${row?._id}`} className="text-uppercase">
+          {row?._id}
+        </Link>
+      ),
     },
     {
       name: "Name",

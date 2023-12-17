@@ -18,6 +18,12 @@ import SignIn from "pages/SignIn";
 import Product from "pages/Product";
 import Cart from "pages/Cart";
 import Checkout from "pages/Checkout";
+
+// User Pages
+import MyOrderList from "pages/user/MyOrderList";
+import MyOrder from "pages/user/MyOrder";
+
+// Admin Pages
 import ProductList from "pages/admin/product/ProductList";
 import ProductCreate from "pages/admin/product/ProductCreate";
 import ProductEdit from "pages/admin/product/ProductEdit";
@@ -37,6 +43,8 @@ function App() {
           <Route path="/cart" exact component={Cart} />
           <AuthRoute path="/signin" exact component={SignIn} />
           <ProtectedRoute path="/checkout" exact component={Checkout} />
+          <ProtectedRoute path="/my-orders" exact component={MyOrderList} />
+          <ProtectedRoute path="/my-order/:id" exact component={MyOrder} />
           <AdminRoute
             path="/admin/product/list"
             exact

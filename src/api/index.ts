@@ -11,7 +11,7 @@ import { getAllCategory, getCategoryById } from "api/category/category";
 import { getCartProducts } from "api/cart/cart";
 
 // Order
-import { createOrder } from "api/order/order";
+import { createOrder, getMyOrders, getMyOrderById } from "api/order/order";
 
 // Admin
 import {
@@ -36,6 +36,8 @@ export {
   getCartProducts,
   // Order
   createOrder,
+  getMyOrders,
+  getMyOrderById,
   // Admin
   getAllProducts,
   createProduct,

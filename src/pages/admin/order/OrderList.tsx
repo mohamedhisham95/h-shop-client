@@ -1,7 +1,18 @@
-import { useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { useHistory } from "react-router-dom";
+// import { useState } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  // Button
+} from "react-bootstrap";
+import {
+  useQuery,
+  // useMutation
+} from "@tanstack/react-query";
+import {
+  // useHistory,
+  Link,
+} from "react-router-dom";
 
 // Component
 import CustomDataTable from "components/custom-data-table/CustomDataTable";
@@ -25,6 +36,15 @@ const OrderList = () => {
   // Columns
   const columns = [
     {
+      name: "Order ID",
+      sortable: true,
+      cell: (row: any) => (
+        <Link to={`/admin/order/${row?._id}`} className="text-uppercase">
+          {row?._id}
+        </Link>
+      ),
+    },
+    {
       name: "Name",
       sortable: true,
       selector: (row: any) => row.customerName,
@@ -35,42 +55,37 @@ const OrderList = () => {
       selector: (row: any) => row.totalAmount,
     },
     {
-      name: "Order Items",
+      name: "Ordered Item(s)",
       sortable: true,
       selector: (row: any) => row.orderItems?.length,
     },
     // {
-    //   name: "Count In Stock",
-    //   sortable: true,
-    //   selector: (row: any) => row.countInStock,
+    //   cell: (row: any) => (
+    //     <div className="d-flex justify-content-between ">
+    //       <Button
+    //         size="sm"
+    //         className="mr-1"
+    //         disabled={selectedRows.length > 0}
+    //         onClick={() => history.push(`/admin/product/edit/${row?._id}`)}
+    //       >
+    //         Edit
+    //       </Button>
+    //       <Button
+    //         size="sm"
+    //         disabled={selectedRows.length > 0}
+    //         onClick={() => {
+    //           setRowId(row?._id);
+    //           setAction("delete");
+    //         }}
+    //       >
+    //         Delete
+    //       </Button>
+    //     </div>
+    //   ),
+    //   allowOverflow: true,
+    //   button: true,
+    //   width: "120px",
     // },
-    {
-      cell: (row: any) => (
-        <div className="d-flex justify-content-between ">
-          {/* <Button
-            size="sm"
-            className="mr-1"
-            disabled={selectedRows.length > 0}
-            onClick={() => history.push(`/admin/product/edit/${row?._id}`)}
-          >
-            Edit
-          </Button>
-          <Button
-            size="sm"
-            disabled={selectedRows.length > 0}
-            onClick={() => {
-              setRowId(row?._id);
-              setAction("delete");
-            }}
-          >
-            Delete
-          </Button> */}
-        </div>
-      ),
-      allowOverflow: true,
-      button: true,
-      width: "120px",
-    },
   ];
 
   return (

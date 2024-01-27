@@ -1,8 +1,15 @@
 .order {
-  .list-group {
-    .list-group-item {
-      padding: 0 !important;
-      margin-bottom: 14px !important;
+  .details {
+    .list-group {
+      .list-group-item {
+        padding: 0 !important;
+        margin-bottom: 14px !important;
+      }
     }
+  }
+
+  .table-product-image {
+    width: 60%;
+    height: 80px;
   }
 }

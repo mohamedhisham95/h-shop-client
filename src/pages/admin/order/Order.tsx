@@ -7,11 +7,12 @@ import BreadCrumbs from "components/common/BreadCrumbs";
 import OrderDetail from "components/order/OrderDetail";
 
 // API
-import { getMyOrderById } from "api/";
+import { getOrderById } from "api/";
 
-const MyOrder = () => {
+const Order = () => {
   // Params
   const { id } = useParams<{ id: string }>();
+  console.log("ID : ", id);
 
   // Query
   const { data, isLoading, isError, error }: any = useQuery({
@@ -21,7 +22,7 @@ const MyOrder = () => {
         id: id,
       },
     ],
-    queryFn: getMyOrderById,
+    queryFn: getOrderById,
     refetchOnWindowFocus: false,
     enabled: true,
   });
@@ -30,7 +31,7 @@ const MyOrder = () => {
     <Container className="order">
       <BreadCrumbs
         list={[
-          { link: "/", label: "My Orders" },
+          { link: "/", label: " Orders" },
           { link: "", label: "Order" },
         ]}
       />
@@ -45,4 +46,4 @@ const MyOrder = () => {
   );
 };
 
-export default MyOrder;
+export default Order;

@@ -1,4 +1,4 @@
-import { getRequest, defaultHeaders } from "utils/http-request";
+import { getRequest, putRequest, defaultHeaders } from "utils/http-request";
 
 export const getAllOrders = async (queryKey: any) => {
   if (queryKey.length === 1) queryKey.push({});
@@ -12,7 +12,7 @@ export const getAllOrders = async (queryKey: any) => {
   return response;
 };
 
-export const getOrderById = async (queryKey: any) => {
+export const getOrderById = async ({ queryKey }: any) => {
   if (queryKey.length === 1) queryKey.push({});
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,6 +20,21 @@ export const getOrderById = async (queryKey: any) => {
 
   const { data } = await getRequest(
     `${process.env.REACT_APP_SERVER_URL}/admin/order/detail`,
+    body,
+    await defaultHeaders()
+  );
+
+  return data;
+};
+
+export const updateOrderStatus = async ({ queryKey }: any) => {
+  if (queryKey.length === 1) queryKey.push({});
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [key, body] = queryKey;
+
+  const { data } = await putRequest(
+    `${process.env.REACT_APP_SERVER_URL}/admin/order/update-status`,
     body,
     await defaultHeaders()
   );

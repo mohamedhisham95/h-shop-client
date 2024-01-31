@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 // Components
 import Loader from "components/common/Loader";
 import Message from "components/common/Message";
-import OrderUpate from "components/order/OrderUpdate";
+import OrderTracking from "components/order/OrderTracking";
+import OrderTrackingUpdate from "components/order/OrderTrackingUpdate";
 
 // Utils
 import { formatDate, formatUnixDateAndTime } from "utils/date-helpers";
@@ -85,7 +86,11 @@ const OrderDetail: React.FC<props> = ({ isLoading, isError, error, data }) => {
               </ListGroup.Item>
 
               {/* Tracking Details */}
-              {user_detail.role === "Admin" ? <OrderUpate data={data} /> : null}
+              {user_detail.role === "Admin" ? (
+                <OrderTrackingUpdate data={data} />
+              ) : (
+                <OrderTracking data={data} />
+              )}
 
               {/* Item Details */}
               <ListGroup.Item>

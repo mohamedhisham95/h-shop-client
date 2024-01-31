@@ -15,12 +15,11 @@ import { orderPage } from "utils/breadcrumbs";
 const Order = () => {
   // Params
   const { id } = useParams<{ id: string }>();
-  console.log("ID : ", id);
 
   // Query
   const { data, isLoading, isError, error }: any = useQuery({
     queryKey: [
-      "get_my_order_id",
+      "get_order_id",
       {
         id: id,
       },

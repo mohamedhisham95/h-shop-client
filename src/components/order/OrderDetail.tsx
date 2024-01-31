@@ -1,5 +1,4 @@
 import { Row, Col, Image, ListGroup, Table, Card } from "react-bootstrap";
-import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -7,6 +6,9 @@ import { useSelector } from "react-redux";
 import Loader from "components/common/Loader";
 import Message from "components/common/Message";
 import OrderUpate from "components/order/OrderUpdate";
+
+// Utils
+import { formatDate, formatUnixDateAndTime } from "utils/date-helpers";
 
 type props = {
   isLoading: any;
@@ -47,7 +49,7 @@ const OrderDetail: React.FC<props> = ({ isLoading, isError, error, data }) => {
                 </p>
                 <p>
                   <span className="font-weight-bold"> Order Date: </span>
-                  <span>{dayjs(data?.updatedAt).format("DD-MM-YYYY")}</span>
+                  <span>{formatDate(data?.updatedAt)}</span>
                 </p>
               </ListGroup.Item>
 
@@ -78,9 +80,7 @@ const OrderDetail: React.FC<props> = ({ isLoading, isError, error, data }) => {
                 </p>
                 <p>
                   <span className="font-weight-bold">Payment Time: </span>{" "}
-                  {dayjs
-                    .unix(data.paymentResponse.update_time)
-                    .format("DD-MM-YYYY hh:mm A")}
+                  {formatUnixDateAndTime(data.paymentResponse.update_time)}
                 </p>
               </ListGroup.Item>
 

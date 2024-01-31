@@ -15,6 +15,9 @@ import Message from "components/common/Message";
 // API
 import { getAllCategory } from "api/";
 
+// Utils
+import { categoryListPage } from "utils/breadcrumbs";
+
 const CategoryList = () => {
   // History
   const history = useHistory();
@@ -77,12 +80,7 @@ const CategoryList = () => {
 
   return (
     <Container>
-      <BreadCrumbs
-        list={[
-          { link: "/", label: "Home" },
-          { link: "", label: "Admin - Category List" },
-        ]}
-      />
+      <BreadCrumbs list={categoryListPage} />
 
       <Row>
         {isError && (

@@ -14,6 +14,9 @@ import Message from "components/common/Message";
 // API
 import { createCategory } from "api/";
 
+// Utils
+import { categoryCreatePage } from "utils/breadcrumbs";
+
 const ProductCreate = () => {
   // History
   const history = useHistory();
@@ -59,12 +62,7 @@ const ProductCreate = () => {
 
   return (
     <ContainerCenter>
-      <BreadCrumbs
-        list={[
-          { link: "/", label: "Home" },
-          { link: "", label: "Admin - Category Create" },
-        ]}
-      />
+      <BreadCrumbs list={categoryCreatePage} />
 
       <Form onSubmit={form.handleSubmit}>
         <Form.Group controlId="name">

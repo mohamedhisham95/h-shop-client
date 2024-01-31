@@ -10,6 +10,9 @@ import Message from "components/common/Message";
 // API
 import { getMyOrders } from "api/";
 
+// Utils
+import { myOrderListPage } from "utils/breadcrumbs";
+
 const MyOrderList = () => {
   // API Call
   const { data, isFetching, isError, error }: any = useQuery({
@@ -48,12 +51,7 @@ const MyOrderList = () => {
 
   return (
     <Container>
-      <BreadCrumbs
-        list={[
-          { link: "/", label: "Home" },
-          { link: "", label: "My Orders" },
-        ]}
-      />
+      <BreadCrumbs list={myOrderListPage} />
 
       <Row>
         {isError && (

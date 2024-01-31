@@ -30,6 +30,9 @@ import {
   checkoutCartClear,
 } from "redux/cartCheckoutSlice";
 
+// Utils
+import { cartPage } from "utils/breadcrumbs";
+
 const Cart = () => {
   // History
   const history = useHistory();
@@ -119,12 +122,7 @@ const Cart = () => {
 
   return (
     <Container fluid className="cart">
-      <BreadCrumbs
-        list={[
-          { link: "/", label: "Home" },
-          { link: "", label: "Cart" },
-        ]}
-      />
+      <BreadCrumbs list={cartPage} />
 
       <Row>
         {cart_items.length === 0 && (

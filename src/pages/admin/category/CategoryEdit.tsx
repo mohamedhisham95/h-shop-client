@@ -15,6 +15,9 @@ import Message from "components/common/Message";
 // API
 import { updateCategory, getCategoryById } from "api/";
 
+// Utils
+import { categoryEditPage } from "utils/breadcrumbs";
+
 const CategoryEdit = () => {
   // Params
   const { id } = useParams<{ id: string }>();
@@ -81,12 +84,7 @@ const CategoryEdit = () => {
 
   return (
     <ContainerCenter>
-      <BreadCrumbs
-        list={[
-          { link: "/", label: "Home" },
-          { link: "", label: "Admin - Category Edit" },
-        ]}
-      />
+      <BreadCrumbs list={categoryEditPage} />
 
       <Form onSubmit={form.handleSubmit}>
         <Form.Group controlId="name">

@@ -10,6 +10,9 @@ import Address from "components/checkout/Address";
 import PaymentMethod from "components/checkout/PaymentMethod";
 import PlaceOrder from "components/checkout/PlaceOrder";
 
+// Utils
+import { checkoutPage } from "utils/breadcrumbs";
+
 const Checkout = () => {
   // History
   const history = useHistory();
@@ -32,12 +35,7 @@ const Checkout = () => {
 
   return (
     <Container className="cart">
-      <BreadCrumbs
-        list={[
-          { link: "/", label: "Home" },
-          { link: "", label: "Checkout" },
-        ]}
-      />
+      <BreadCrumbs list={checkoutPage} />
       <Row>
         <Col md={12} lg={12}>
           <Steps activeStep={activeStep} />

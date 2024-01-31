@@ -22,6 +22,9 @@ import Message from "components/common/Message";
 // API
 import { getAllOrders } from "api/";
 
+// Utils
+import { orderListPage } from "utils/breadcrumbs";
+
 const OrderList = () => {
   // History
   // const history = useHistory();
@@ -90,12 +93,7 @@ const OrderList = () => {
 
   return (
     <Container>
-      <BreadCrumbs
-        list={[
-          { link: "/", label: "Home" },
-          { link: "", label: "Admin - Order List" },
-        ]}
-      />
+      <BreadCrumbs list={orderListPage} />
 
       <Row>
         {isError && (

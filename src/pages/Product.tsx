@@ -15,6 +15,9 @@ import { getProduct } from "api/";
 // Redux
 import { cartAddItem, cartRemoveItem } from "redux/cartSlice";
 
+// Utils
+import { productPage } from "utils/breadcrumbs";
+
 const Product = () => {
   // Params
   const { id } = useParams<{ id: string }>();
@@ -48,12 +51,7 @@ const Product = () => {
 
   return (
     <Container className="product">
-      <BreadCrumbs
-        list={[
-          { link: "/", label: "Home" },
-          { link: "", label: "Product" },
-        ]}
-      />
+      <BreadCrumbs list={productPage} />
 
       <Row>
         {isLoading && (

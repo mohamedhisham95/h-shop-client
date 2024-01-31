@@ -14,6 +14,9 @@ import Loader from "components/common/Loader";
 // API
 import { createProduct, getAllCategory } from "api/";
 
+// Utils
+import { productCreatePage } from "utils/breadcrumbs";
+
 const ProductCreate = () => {
   // History
   const history = useHistory();
@@ -100,12 +103,7 @@ const ProductCreate = () => {
 
   return (
     <ContainerCenter>
-      <BreadCrumbs
-        list={[
-          { link: "/", label: "Home" },
-          { link: "", label: "Admin - Product Create" },
-        ]}
-      />
+      <BreadCrumbs list={productCreatePage} />
 
       {isCategoryFetching && <Loader />}
 

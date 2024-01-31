@@ -9,6 +9,9 @@ import OrderDetail from "components/order/OrderDetail";
 // API
 import { getOrderById } from "api/";
 
+// Utils
+import { orderPage } from "utils/breadcrumbs";
+
 const Order = () => {
   // Params
   const { id } = useParams<{ id: string }>();
@@ -29,12 +32,7 @@ const Order = () => {
 
   return (
     <Container className="order">
-      <BreadCrumbs
-        list={[
-          { link: "/", label: " Orders" },
-          { link: "", label: "Order" },
-        ]}
-      />
+      <BreadCrumbs list={orderPage} />
 
       <OrderDetail
         isLoading={isLoading}

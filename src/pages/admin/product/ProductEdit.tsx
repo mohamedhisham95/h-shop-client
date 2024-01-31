@@ -14,6 +14,9 @@ import Loader from "components/common/Loader";
 // API
 import { updateProduct, getAllCategory, getProduct } from "api/";
 
+// Utils
+import { productEditPage } from "utils/breadcrumbs";
+
 const ProductEdit = () => {
   // Params
   const { id } = useParams<{ id: string }>();
@@ -133,12 +136,7 @@ const ProductEdit = () => {
 
   return (
     <ContainerCenter>
-      <BreadCrumbs
-        list={[
-          { link: "/", label: "Home" },
-          { link: "", label: "Admin - Product Edit" },
-        ]}
-      />
+      <BreadCrumbs list={productEditPage} />
 
       {isCategoryFetching && <Loader />}
 

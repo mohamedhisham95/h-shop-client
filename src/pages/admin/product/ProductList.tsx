@@ -13,6 +13,9 @@ import DeleteModal from "components/modal/DeleteModal";
 // API
 import { getAllProducts, deleteProduct } from "api/";
 
+// Utils
+import { productListPage } from "utils/breadcrumbs";
+
 const ProductList = () => {
   // History
   const history = useHistory();
@@ -106,12 +109,7 @@ const ProductList = () => {
     <Container>
       <Toaster position="top-right" reverseOrder={false} />
 
-      <BreadCrumbs
-        list={[
-          { link: "/", label: "Home" },
-          { link: "", label: "Admin - Product List" },
-        ]}
-      />
+      <BreadCrumbs list={productListPage} />
 
       <Row>
         {isError && (

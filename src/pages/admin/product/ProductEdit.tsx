@@ -4,6 +4,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useHistory, useParams } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 // Component
 import ContainerCenter from "components/layout/ContainerCenter";
@@ -16,6 +17,7 @@ import { updateProduct, getAllCategory, getProduct } from "api/";
 
 // Utils
 import { productEditPage } from "utils/breadcrumbs";
+import { toastNotification } from "utils/toast-notification";
 
 const ProductEdit = () => {
   // Params
@@ -86,6 +88,7 @@ const ProductEdit = () => {
         },
       ]),
     onError: (error: any) => {
+      toastNotification("error", error?.message);
       setUpdateError(error.message);
     },
     onSuccess: (response: any) => {
@@ -94,7 +97,10 @@ const ProductEdit = () => {
         setInputError(formInputError);
       }
       if (message) {
-        history.push("/admin/product/list");
+        toastNotification("success", message);
+        setTimeout(() => {
+          history.push("/admin/product/list");
+        }, 1500);
       }
     },
   });
@@ -293,6 +299,9 @@ const ProductEdit = () => {
             </Button>
           </Form>
         )}
+
+      {/* Toast */}
+      <Toaster />
     </ContainerCenter>
   );
 };

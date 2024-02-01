@@ -18,6 +18,7 @@ import SignIn from "pages/SignIn";
 import Product from "pages/Product";
 import Cart from "pages/Cart";
 import Checkout from "pages/Checkout";
+import PageNotFound from "pages/PageNotFound";
 
 // User Pages
 import MyOrderList from "pages/user/MyOrderList";
@@ -78,6 +79,9 @@ function App() {
           />
           <AdminRoute path="/admin/order/list" exact component={OrderList} />
           <AdminRoute path="/admin/order/:id" exact component={Order} />
+
+          {/* 404 - Page Not Found */}
+          <Route path="*" component={PageNotFound} />
         </Switch>
       </main>
     </Router>

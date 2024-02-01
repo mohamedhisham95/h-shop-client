@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 // Component
 import ContainerCenter from "components/layout/ContainerCenter";
@@ -16,6 +17,7 @@ import { createCategory } from "api/";
 
 // Utils
 import { categoryCreatePage } from "utils/breadcrumbs";
+import { toastNotification } from "utils/toast-notification";
 
 const ProductCreate = () => {
   // History
@@ -30,6 +32,7 @@ const ProductCreate = () => {
     mutationFn: ({ name }: any) =>
       createCategory(["create_category", { name }]),
     onError: (error: any) => {
+      toastNotification("error", error?.message);
       setCreateError(error.message);
     },
     onSuccess: (response: any) => {
@@ -38,7 +41,10 @@ const ProductCreate = () => {
         setInputError(formInputError);
       }
       if (message) {
-        history.push("/admin/category/list");
+        toastNotification("success", message);
+        setTimeout(() => {
+          history.push("/admin/category/list");
+        }, 1500);
       }
     },
   });
@@ -88,7 +94,11 @@ const ProductCreate = () => {
           type="submit"
           disabled={createMutation.isLoading}
         >
-          {createMutation.isLoading ? <Loader loaderSize="small" /> : "Submit"}
+          {createMutation.isLoading ? (
+            <Loader loaderSize="small" variant="light" />
+          ) : (
+            "Submit"
+          )}
         </Button>
       </Form>
 
@@ -99,6 +109,9 @@ const ProductCreate = () => {
           </Col>
         </Row>
       )}
+
+      {/* Toast */}
+      <Toaster />
     </ContainerCenter>
   );
 };

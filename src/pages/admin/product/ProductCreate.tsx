@@ -4,6 +4,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 // Component
 import ContainerCenter from "components/layout/ContainerCenter";
@@ -16,6 +17,7 @@ import { createProduct, getAllCategory } from "api/";
 
 // Utils
 import { productCreatePage } from "utils/breadcrumbs";
+import { toastNotification } from "utils/toast-notification";
 
 const ProductCreate = () => {
   // History
@@ -53,6 +55,7 @@ const ProductCreate = () => {
         { name, image, brand, categoryId, description, price, countInStock },
       ]),
     onError: (error: any) => {
+      toastNotification("error", error?.message);
       setCreateError(error.message);
     },
     onSuccess: (response: any) => {
@@ -61,7 +64,10 @@ const ProductCreate = () => {
         setInputError(formInputError);
       }
       if (message) {
-        history.push("/admin/product/list");
+        toastNotification("success", message);
+        setTimeout(() => {
+          history.push("/admin/product/list");
+        }, 1500);
       }
     },
   });
@@ -249,6 +255,9 @@ const ProductCreate = () => {
           </Button>
         </Form>
       )}
+
+      {/* Toast */}
+      <Toaster />
     </ContainerCenter>
   );
 };

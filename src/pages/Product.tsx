@@ -2,6 +2,7 @@ import { Container, Row, Col, Image, Badge, Button } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Toaster } from "react-hot-toast";
 
 // Component
 import BreadCrumbs from "components/common/BreadCrumbs";
@@ -17,6 +18,7 @@ import { cartAddItem, cartRemoveItem } from "redux/cartSlice";
 
 // Utils
 import { productPage } from "utils/breadcrumbs";
+import { toastNotification } from "utils/toast-notification";
 
 const Product = () => {
   // Params
@@ -44,8 +46,10 @@ const Product = () => {
   function handleCart(operation: string) {
     if (operation === "add") {
       dispatch(cartAddItem(data?._id));
+      toastNotification("success", "Added to cart");
     } else {
       dispatch(cartRemoveItem(data?._id));
+      toastNotification("success", "Removed from cart");
     }
   }
 
@@ -122,6 +126,9 @@ const Product = () => {
           </>
         )}
       </Row>
+
+      {/* Toast */}
+      <Toaster />
     </Container>
   );
 };

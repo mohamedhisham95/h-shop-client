@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 // Component
 import ContainerCenter from "components/layout/ContainerCenter";
@@ -17,6 +18,7 @@ import { updateCategory, getCategoryById } from "api/";
 
 // Utils
 import { categoryEditPage } from "utils/breadcrumbs";
+import { toastNotification } from "utils/toast-notification";
 
 const CategoryEdit = () => {
   // Params
@@ -50,6 +52,7 @@ const CategoryEdit = () => {
     mutationFn: ({ name }: any) =>
       updateCategory(["update_category", { id, name }]),
     onError: (error: any) => {
+      toastNotification("error", error.message);
       setUpdateError(error.message);
     },
     onSuccess: (response: any) => {
@@ -58,7 +61,10 @@ const CategoryEdit = () => {
         setInputError(formInputError);
       }
       if (message) {
-        history.push("/admin/category/list");
+        toastNotification("success", message);
+        setTimeout(() => {
+          history.push("/admin/category/list");
+        }, 1500);
       }
     },
   });
@@ -106,7 +112,11 @@ const CategoryEdit = () => {
         </Form.Group>
 
         <Button variant="primary" type="submit" disabled={mutation.isLoading}>
-          {mutation.isLoading ? <Loader loaderSize="small" /> : "Submit"}
+          {mutation.isLoading ? (
+            <Loader loaderSize="small" variant="light" />
+          ) : (
+            "Submit"
+          )}
         </Button>
       </Form>
 
@@ -117,6 +127,9 @@ const CategoryEdit = () => {
           </Col>
         </Row>
       )}
+
+      {/* Toast */}
+      <Toaster />
     </ContainerCenter>
   );
 };

@@ -7,12 +7,13 @@ import {
   Image,
   Card,
 } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 // Components
 import Loader from "components/common/Loader";
@@ -20,6 +21,9 @@ import Message from "components/common/Message";
 
 // API
 import { createOrder } from "api/";
+
+// Utils
+import { toastNotification } from "utils/toast-notification";
 
 type props = {
   setActiveStep: any;
@@ -37,7 +41,10 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
 
   // State
   const [paymentLoading, setPaymentLoading] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState(null);
+  const [paymentStatus, setPaymentStatus] = useState<any>({
+    status: null,
+    message: null,
+  });
 
   // Mutation
   const createMutation = useMutation({
@@ -54,17 +61,28 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
       ]),
     onError: (error: any) => {
       setPaymentLoading(false);
-      setPaymentStatus(error.message);
+      setPaymentStatus({
+        status: error.status,
+        message: error.message,
+      });
     },
     onSuccess: (response: any) => {
       if (response?.data?.status === "success") {
-        history.push("/my-orders");
+        setPaymentStatus({
+          status: response?.data?.status,
+          message: response?.data?.message,
+        });
+        toastNotification("success", response?.data?.message);
+        setTimeout(() => {
+          history.push(`/my-order/${response?.data?.orderId}`);
+        }, 3000);
       }
     },
   });
 
   // Handle Payment
   async function handlePaymentToken(token: any) {
+    setPaymentLoading(true);
     createMutation.mutate({
       shippingAddress: {
         address: shipping_address.address,
@@ -160,54 +178,47 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
               </ListGroup.Item>
 
               <ListGroup.Item>
-                {paymentLoading && <Loader />}
-                {!paymentLoading && payment_method === "Stripe" && (
-                  //   <StripeCheckout
-                  //     stripeKey="pk_test_51HqwsgBrBOrRrnlyyr8TGajVdskvU96Id2THwptH5sltl46vQbUnK7YHGEE0u3OFnlWRWWTTZ3wVzA1aIzbb06cq00X1Vuv0Gk"
-                  //     token={() => handlePaymentToken()}
-                  // amount={
-                  //   checkout_items?.reduce(
-                  //     (acc: any, item: any) =>
-                  //       acc + item.price * item.quantity,
-                  //     0
-                  //   ) * 100
-                  // }
-                  // currency="INR"
-                  // panelLabel="Pay {{amount}}"
-                  //   >
-                  //     {/* <Button className="btn-block btn-grad pay-button">
-                  //       Pay with <i className="far fa-credit-card"></i>
-                  //     </Button> */}
-                  //     Pay
-                  //   </StripeCheckout>
-                  <StripeCheckout
-                    // stripeKey="pk_test_51HqwsgBrBOrRrnlyyr8TGajVdskvU96Id2THwptH5sltl46vQbUnK7YHGEE0u3OFnlWRWWTTZ3wVzA1aIzbb06cq00X1Vuv0Gk"
-                    stripeKey={`${process.env.REACT_APP_STRIPE_KEY}`}
-                    token={handlePaymentToken}
-                    name="H-Shop"
-                    amount={
-                      checkout_items?.reduce(
-                        (acc: any, item: any) =>
-                          acc + item.price * item.quantity,
-                        0
-                      ) * 100
-                    }
-                    currency="INR"
-                    panelLabel="Pay {{amount}}"
-                    label="Pay Now"
-                  ></StripeCheckout>
+                {paymentLoading && (
+                  <div className="d-flex justify-content-center flex-column">
+                    <Loader loaderSize="small" />
+                    <span className="text-center">
+                      Payment is processing...
+                    </span>
+                  </div>
                 )}
+                {!paymentLoading &&
+                  payment_method === "Stripe" &&
+                  paymentStatus.status !== "success" && (
+                    <StripeCheckout
+                      stripeKey={`${process.env.REACT_APP_STRIPE_KEY}`}
+                      token={handlePaymentToken}
+                      name="H-Shop"
+                      amount={
+                        checkout_items?.reduce(
+                          (acc: any, item: any) =>
+                            acc + item.price * item.quantity,
+                          0
+                        ) * 100
+                      }
+                      currency="INR"
+                      panelLabel="Pay {{amount}}"
+                      label="Pay Now"
+                    ></StripeCheckout>
+                  )}
               </ListGroup.Item>
 
-              {paymentStatus === "failure" && (
+              {paymentStatus.status === "failure" && (
                 <ListGroup.Item>
-                  <Message message="Payment Failed. Please Try Again" />
+                  <Message message={paymentStatus.message} />
                 </ListGroup.Item>
               )}
             </ListGroup>
           </Card>
         </Col>
       </Row>
+
+      {/* Toast */}
+      <Toaster />
     </Container>
   );
 };

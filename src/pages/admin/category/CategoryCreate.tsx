@@ -97,7 +97,7 @@ const ProductCreate = () => {
           {createMutation.isLoading ? (
             <Loader loaderSize="small" variant="light" />
           ) : (
-            "Submit"
+            "Create"
           )}
         </Button>
       </Form>

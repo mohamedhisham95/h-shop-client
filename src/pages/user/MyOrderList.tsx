@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { BsCheckCircle, BsXCircle } from "react-icons/bs";
 
 // Component
 import CustomDataTable from "components/custom-data-table/CustomDataTable";
@@ -12,6 +13,7 @@ import { getMyOrders } from "api/";
 
 // Utils
 import { myOrderListPage } from "utils/breadcrumbs";
+import { formatUnixDate } from "utils/date-helpers";
 
 const MyOrderList = () => {
   // API Call
@@ -33,9 +35,9 @@ const MyOrderList = () => {
       ),
     },
     {
-      name: "Name",
+      name: "Order Date",
       sortable: true,
-      selector: (row: any) => row.customerName,
+      selector: (row: any) => formatUnixDate(row?.paymentResponse.update_time),
     },
     {
       name: "Amount (₹)",
@@ -43,14 +45,34 @@ const MyOrderList = () => {
       selector: (row: any) => row.totalAmount,
     },
     {
-      name: "Order Items",
+      name: "Ordered Items",
       sortable: true,
       selector: (row: any) => row.orderItems?.length,
+    },
+    {
+      name: "Shipped",
+      sortable: true,
+      cell: (row: any) =>
+        row?.isShipped ? (
+          <BsCheckCircle className="green-icon" />
+        ) : (
+          <BsXCircle className="red-icon" />
+        ),
+    },
+    {
+      name: "Delivered",
+      sortable: true,
+      cell: (row: any) =>
+        row?.isDelivered ? (
+          <BsCheckCircle className="green-icon" />
+        ) : (
+          <BsXCircle className="red-icon" />
+        ),
     },
   ];
 
   return (
-    <Container>
+    <Container className="order-list">
       <BreadCrumbs list={myOrderListPage} />
 
       <Row>

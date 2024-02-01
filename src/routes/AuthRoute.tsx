@@ -20,7 +20,15 @@ const AuthRoute: React.FC<props> = ({
       {...rest}
       exact
       render={(props) =>
-        user_detail !== null ? <Redirect to="/" /> : <Component {...props} />
+        user_detail !== null ? (
+          user_detail.role === "Admin" ? (
+            <Redirect to="/admin/dashboard" />
+          ) : (
+            <Redirect to="/" />
+          )
+        ) : (
+          <Component {...props} />
+        )
       }
     />
   );

@@ -17,6 +17,11 @@ export const productPage = [
 
 // Admin Pages
 
+export const dashboardPage = [
+  { link: "/", label: "Home" },
+  { link: "", label: "Admin - Dashboard" },
+];
+
 export const categoryListPage = [
   { link: "/", label: "Home" },
   { link: "", label: "Admin - Category List" },

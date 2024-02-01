@@ -251,7 +251,11 @@ const ProductCreate = () => {
           </Form.Group>
 
           <Button variant="primary" type="submit" disabled={mutation.isLoading}>
-            {mutation.isLoading ? <Loader loaderSize="small" /> : "Submit"}
+            {mutation.isLoading ? (
+              <Loader loaderSize="small" variant="light" />
+            ) : (
+              "Create"
+            )}
           </Button>
         </Form>
       )}

@@ -13,6 +13,7 @@ import {
   // useHistory,
   Link,
 } from "react-router-dom";
+import { BsCheckCircle, BsXCircle } from "react-icons/bs";
 
 // Component
 import CustomDataTable from "components/custom-data-table/CustomDataTable";
@@ -24,6 +25,7 @@ import { getAllOrders } from "api/";
 
 // Utils
 import { orderListPage } from "utils/breadcrumbs";
+import { formatUnixDate } from "utils/date-helpers";
 
 const OrderList = () => {
   // History
@@ -48,7 +50,12 @@ const OrderList = () => {
       ),
     },
     {
-      name: "Name",
+      name: "Order Date",
+      sortable: true,
+      selector: (row: any) => formatUnixDate(row?.paymentResponse.update_time),
+    },
+    {
+      name: "Customer Name",
       sortable: true,
       selector: (row: any) => row.customerName,
     },
@@ -61,6 +68,26 @@ const OrderList = () => {
       name: "Ordered Item(s)",
       sortable: true,
       selector: (row: any) => row.orderItems?.length,
+    },
+    {
+      name: "Shipped",
+      sortable: true,
+      cell: (row: any) =>
+        row?.isShipped ? (
+          <BsCheckCircle className="green-icon" />
+        ) : (
+          <BsXCircle className="red-icon" />
+        ),
+    },
+    {
+      name: "Delivered",
+      sortable: true,
+      cell: (row: any) =>
+        row?.isDelivered ? (
+          <BsCheckCircle className="green-icon" />
+        ) : (
+          <BsXCircle className="red-icon" />
+        ),
     },
     // {
     //   cell: (row: any) => (
@@ -92,7 +119,7 @@ const OrderList = () => {
   ];
 
   return (
-    <Container>
+    <Container className="order-list">
       <BreadCrumbs list={orderListPage} />
 
       <Row>

@@ -18,8 +18,10 @@
     "bootswatch": "^4.6.0",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
+    "echarts-for-react": "^3.0.2",
     "formik": "^2.4.2",
     "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-bootstrap": "^1.6.1",
     "react-data-table-component": "^7.5.3",
@@ -62,6 +64,7 @@
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^4.29.9",
+    "@types/lodash": "^4.14.202",
     "@types/react-router-bootstrap": "^0.26.0",
     "@types/react-router-dom": "^5.3.3"
   }

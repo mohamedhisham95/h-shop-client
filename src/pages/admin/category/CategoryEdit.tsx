@@ -115,7 +115,7 @@ const CategoryEdit = () => {
           {mutation.isLoading ? (
             <Loader loaderSize="small" variant="light" />
           ) : (
-            "Submit"
+            "Update"
           )}
         </Button>
       </Form>

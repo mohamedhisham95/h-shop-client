@@ -50,7 +50,6 @@ const CustomDataTable: React.FC<props> = ({
         setFilterText("");
       }
     };
-
     return (
       <div className="w-100 d-flex justify-content-between align-items-start">
         {isCreateAllowed && (

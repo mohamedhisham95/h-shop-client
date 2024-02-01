@@ -22,6 +22,7 @@ import {
 } from "api/admin/products";
 import { createCategory, updateCategory } from "api/admin/category";
 import { getAllOrders, getOrderById, updateOrderStatus } from "api/admin/order";
+import { getProductCountByCategory } from "api/admin/dashboard";
 
 export {
   // User
@@ -48,4 +49,5 @@ export {
   getAllOrders,
   getOrderById,
   updateOrderStatus,
+  getProductCountByCategory,
 };

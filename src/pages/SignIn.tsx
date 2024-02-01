@@ -124,7 +124,11 @@ const SignIn = () => {
           type="submit"
           disabled={loginMutation.isLoading}
         >
-          {loginMutation.isLoading ? <Loader loaderSize="small" /> : "Submit"}
+          {loginMutation.isLoading ? (
+            <Loader loaderSize="small" variant="light" />
+          ) : (
+            "Submit"
+          )}
         </Button>
       </Form>
 

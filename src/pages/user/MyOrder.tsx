@@ -25,7 +25,7 @@ const MyOrder = () => {
       },
     ],
     queryFn: getMyOrderById,
-    refetchOnWindowFocus: false,
+
     enabled: true,
   });
 

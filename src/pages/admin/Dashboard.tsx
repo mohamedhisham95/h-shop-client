@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 // Components
 import BreadCrumbs from "components/common/BreadCrumbs";
 import ProductChart from "components/dashboard/ProductChart";
+import OrderChart from "components/dashboard/OrderChart";
+import UserChart from "components/dashboard/UserChart";
 
 // Utils
 import { dashboardPage } from "utils/breadcrumbs";
@@ -23,6 +25,14 @@ const Dashboard = () => {
 
         <Col md={6} className="mb-2">
           <ProductChart />
+        </Col>
+
+        <Col md={6} className="mb-2">
+          <OrderChart />
+        </Col>
+
+        <Col md={6} className="mb-2">
+          <UserChart />
         </Col>
       </Row>
     </Container>

@@ -35,7 +35,6 @@ const OrderList = () => {
   const { data, isFetching, isError, error }: any = useQuery({
     queryKey: ["get_all_orders"],
     queryFn: getAllOrders,
-    refetchOnWindowFocus: false,
   });
 
   // Columns

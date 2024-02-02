@@ -41,7 +41,6 @@ const CategoryEdit = () => {
       },
     ],
     queryFn: getCategoryById,
-    refetchOnWindowFocus: false,
     onSuccess: (data) => {
       setName(data?.data?.name);
     },

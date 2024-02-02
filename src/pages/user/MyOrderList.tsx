@@ -20,7 +20,6 @@ const MyOrderList = () => {
   const { data, isFetching, isError, error }: any = useQuery({
     queryKey: ["get_my_orders"],
     queryFn: getMyOrders,
-    refetchOnWindowFocus: false,
   });
 
   // Columns

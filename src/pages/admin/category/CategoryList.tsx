@@ -31,7 +31,6 @@ const CategoryList = () => {
   const { data, isFetching, isError, error }: any = useQuery({
     queryKey: ["get_category"],
     queryFn: getAllCategory,
-    refetchOnWindowFocus: false,
   });
 
   // Columns

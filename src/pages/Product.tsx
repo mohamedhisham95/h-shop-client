@@ -39,7 +39,6 @@ const Product = () => {
       },
     ],
     queryFn: getProduct,
-    refetchOnWindowFocus: false,
   });
 
   // Cart Handler

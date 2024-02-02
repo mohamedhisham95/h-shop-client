@@ -46,7 +46,7 @@ const ProductEdit = () => {
       },
     ],
     queryFn: getProduct,
-    refetchOnWindowFocus: false,
+
     onSuccess: (data) => {
       setFormData(data);
     },
@@ -60,7 +60,6 @@ const ProductEdit = () => {
   }: any = useQuery({
     queryKey: ["get_all_category"],
     queryFn: getAllCategory,
-    refetchOnWindowFocus: false,
   });
 
   // Mutation

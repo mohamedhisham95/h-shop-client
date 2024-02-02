@@ -30,7 +30,6 @@ const ProductList = () => {
   const { data, isFetching, isError, error, refetch }: any = useQuery({
     queryKey: ["get_product"],
     queryFn: getAllProducts,
-    refetchOnWindowFocus: false,
   });
 
   const mutation = useMutation({

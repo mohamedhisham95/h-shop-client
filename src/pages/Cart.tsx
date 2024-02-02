@@ -57,7 +57,6 @@ const Cart = () => {
     ],
     queryFn: getCartProducts,
     enabled: cart_items?.length > 0 && isMounted?.current,
-    refetchOnWindowFocus: false,
     onSuccess: (res) => {
       dispatch(
         checkoutItems(res?.data?.filter((ele: any) => ele.countInStock > 0))

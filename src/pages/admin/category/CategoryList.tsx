@@ -69,7 +69,7 @@ const CategoryList = () => {
     },
   ];
 
-  // Delete Handler
+  // Delete Handler Function
   // function handleDelete() {
   //   console.log("deleted");
   //   // pass rowId here

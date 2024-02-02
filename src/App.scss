@@ -8,19 +8,36 @@ a {
   text-decoration: none !important;
 }
 
+// // Bootstrap
+// @import "styles/bootstrap/breadcrumb.scss";
+// @import "styles/bootstrap/form.scss";
+
+// // Pages
+// @import "styles/pages/product.scss";
+// @import "styles/pages/cart.scss";
+// @import "styles/pages/order.scss";
+// @import "styles/pages/order-list.scss";
+
+// // Components
+// @import "styles/components/header.scss";
+// @import "styles/components/product_card.scss";
+// @import "styles/components/place_order.scss";
+// @import "styles/components/custom-data-table.scss";
+// @import "styles/components/card-chart.scss";
+
 // Bootstrap
-@import "styles/bootstrap/breadcrumb.scss";
-@import "styles/bootstrap/form.scss";
+@import "./styles/bootstrap/breadcrumb";
+@import "./styles/bootstrap/form";
 
 // Pages
-@import "styles/pages/product.scss";
-@import "styles/pages/cart.scss";
-@import "styles/pages/order.scss";
-@import "styles/pages/order-list.scss";
+@import "./styles/pages/product";
+@import "./styles/pages/cart";
+@import "./styles/pages/order";
+@import "./styles/pages/order-list";
 
 // Components
-@import "styles/components/header.scss";
-@import "styles/components/product_card.scss";
-@import "styles/components/place_order.scss";
-@import "styles/components/custom-data-table.scss";
-@import "styles/components/card-chart.scss";
+@import "./styles/components/header";
+@import "./styles/components/product_card";
+@import "./styles/components/place_order";
+@import "./styles/components/custom-data-table";
+@import "./styles/components/card-chart";

@@ -13,6 +13,9 @@ import { getCartProducts } from "api/cart/cart";
 // Order
 import { createOrder, getMyOrders, getMyOrderById } from "api/order/order";
 
+// Review
+import { getReviews, addReview, deleteReview } from "api/review/review";
+
 // Admin
 import {
   getAllProducts,
@@ -43,6 +46,10 @@ export {
   createOrder,
   getMyOrders,
   getMyOrderById,
+  // Review
+  getReviews,
+  addReview,
+  deleteReview,
   // Admin
   getAllProducts,
   createProduct,

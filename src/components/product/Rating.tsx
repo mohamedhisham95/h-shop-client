@@ -2,10 +2,11 @@ import { FaStarHalfAlt, FaStar, FaRegStar } from "react-icons/fa";
 
 type props = {
   value: number;
-  text: number;
+  count?: number;
+  showCount: boolean;
 };
 
-const Rating: React.FC<props> = ({ value, text }) => {
+const Rating: React.FC<props> = ({ value, count, showCount = true }) => {
   return (
     <div>
       <span>
@@ -53,7 +54,7 @@ const Rating: React.FC<props> = ({ value, text }) => {
           <FaRegStar />
         )}
       </span>
-      <p>{text && text} Reviews</p>
+      {showCount && <p>{count} Reviews</p>}
     </div>
   );
 };

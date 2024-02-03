@@ -24,7 +24,11 @@ const ProductCard: React.FC<props> = ({ product }) => {
           </Card.Title>
 
           <Card.Text as="div">
-            <Rating value={product.rating} text={product.reviewsCount} />
+            <Rating
+              value={product.rating}
+              count={product.reviewsCount}
+              showCount={true}
+            />
           </Card.Text>
 
           <Card.Text as="h4" className="text-primary">

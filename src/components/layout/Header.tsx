@@ -48,7 +48,7 @@ const Header = () => {
           <Nav className="ml-auto">
             {user_detail !== null && (
               <NavDropdown id="user-dropdown" title={user_detail?.name}>
-                <LinkContainer to="/user/profile">
+                <LinkContainer to="/profile">
                   <NavDropdown.Item>Profile</NavDropdown.Item>
                 </LinkContainer>
                 <LinkContainer to="/my-orders">
@@ -73,6 +73,9 @@ const Header = () => {
                 </LinkContainer>
                 <LinkContainer to="/admin/order/list">
                   <NavDropdown.Item>Orders</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/user/list">
+                  <NavDropdown.Item>Users</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
             )}

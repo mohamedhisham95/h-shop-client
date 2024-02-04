@@ -17,18 +17,20 @@ import Loader from "components/common/Loader";
 import { setToken, setUserDetail } from "redux/userSlice";
 
 // API
-import { signin } from "api";
+import { signup } from "api";
 
 // Utils
 import { toastNotification } from "utils/toast-notification";
 
-const SignIn = () => {
+const SignUp = () => {
   // Dispatch
   const dispatch = useDispatch();
 
   const initialValues = {
-    email: "hmhwebdev@gmail.com",
-    password: "123456",
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   };
 
   // State
@@ -36,20 +38,24 @@ const SignIn = () => {
 
   // Mutation
   const mutation = useMutation({
-    mutationFn: ({ email, password }: any) =>
-      signin(["signin", { email, password }]),
+    mutationFn: ({ name, email, password, confirmPassword }: any) =>
+      signup(["signup", { name, email, password, confirmPassword }]),
     onError: (error: any) => {
       toastNotification("error", error?.message);
     },
     onSuccess: (response: any) => {
-      const { token, formInputError, user } = response.data;
+      const { token, formInputError, user, message } = response.data;
       if (formInputError) {
         setInputError(formInputError);
       }
       if (token) {
-        localStorage.setItem("h-shop-token", token);
-        dispatch(setUserDetail(user));
-        dispatch(setToken(token));
+        toastNotification("success", message);
+
+        setTimeout(() => {
+          localStorage.setItem("h-shop-token", token);
+          dispatch(setUserDetail(user));
+          dispatch(setToken(token));
+        }, 1500);
       }
     },
   });
@@ -57,21 +63,26 @@ const SignIn = () => {
   // Formik
   const form: any = useFormik<any>({
     initialValues: {
+      name: initialValues.name,
       email: initialValues.email,
       password: initialValues.password,
+      confirmPassword: initialValues.confirmPassword,
     },
     validationSchema: Yup.object({
+      name: Yup.string().required("Name is required"),
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
       password: Yup.string().required("Password is required"),
+      confirmPassword: Yup.string().required("Confirm password is required"),
     }),
     onSubmit: (values: any) => {
-      // setLoginError(null);
       setInputError({});
       mutation.mutate({
+        name: values?.name,
         email: values?.email,
         password: values?.password,
+        confirmPassword: values?.confirmPassword,
       });
     },
   });
@@ -81,11 +92,29 @@ const SignIn = () => {
       {/* Title */}
       <div className="d-flex flex-column align-items-center">
         <img className="mb-4" src={logo} alt="" width="50" height="50" />
-        <h5>Please Signin</h5>
+        <h5>Welcome, Please signup</h5>
       </div>
 
       {/* Form */}
       <Form onSubmit={form.handleSubmit}>
+        <Form.Group controlId="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter name"
+            onChange={form.handleChange}
+            onBlur={form.handleBlur}
+            value={form.values.name}
+            isInvalid={form?.errors?.name || inputError?.name}
+          />
+
+          {form.touched.name && form.errors.name && (
+            <Form.Control.Feedback type="invalid">
+              {form.errors.name}
+            </Form.Control.Feedback>
+          )}
+        </Form.Group>
+
         <Form.Group controlId="email">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -121,11 +150,30 @@ const SignIn = () => {
           )}
         </Form.Group>
 
+        <Form.Group controlId="confirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Enter confirm password"
+            onChange={form.handleChange}
+            onBlur={form.handleBlur}
+            value={form.values.confirmPassword}
+            isInvalid={
+              form?.errors?.confirmPassword || inputError?.confirmPassword
+            }
+          />
+          {(form?.errors?.confirmPassword || inputError?.confirmPassword) && (
+            <Form.Control.Feedback type="invalid">
+              {form.errors.confirmPassword || inputError?.confirmPassword}
+            </Form.Control.Feedback>
+          )}
+        </Form.Group>
+
         <Button variant="primary" type="submit" disabled={mutation.isLoading}>
           {mutation.isLoading ? (
             <Loader loaderSize="small" variant="light" />
           ) : (
-            "Sign In"
+            "Sign Up"
           )}
         </Button>
       </Form>
@@ -136,4 +184,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

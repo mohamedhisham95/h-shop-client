@@ -1,5 +1,5 @@
-// User
-import { signin } from "api/auth/auth";
+// Auth
+import { signin, signup } from "api/auth/auth";
 
 // Products
 import { getAllProductsByLimit, getProduct } from "api/product/product";
@@ -16,6 +16,9 @@ import { createOrder, getMyOrders, getMyOrderById } from "api/order/order";
 // Review
 import { getReviews, addReview, deleteReview } from "api/review/review";
 
+// User
+import { getUserProfile } from "api/user/user";
+
 // Admin
 import {
   getAllProducts,
@@ -30,10 +33,14 @@ import {
   getOrderCountFromSpecificDays,
   getUserCountFromSpecificDays,
 } from "api/admin/dashboard";
+import { getAllUsers } from "api/admin/user";
 
 export {
-  // User
+  // Auth
   signin,
+  signup,
+  // User
+  getUserProfile,
   // Products
   getAllProductsByLimit,
   getProduct,
@@ -63,4 +70,5 @@ export {
   getProductCountByCategory,
   getOrderCountFromSpecificDays,
   getUserCountFromSpecificDays,
+  getAllUsers,
 };

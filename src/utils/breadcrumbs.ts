@@ -62,6 +62,11 @@ export const orderListPage = [
   { link: "", label: "Admin - Order List" },
 ];
 
+export const userListPage = [
+  { link: "/", label: "Home" },
+  { link: "", label: "Admin - User List" },
+];
+
 // User Pages
 
 export const myOrderPage = [

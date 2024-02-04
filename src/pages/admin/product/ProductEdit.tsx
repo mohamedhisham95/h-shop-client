@@ -16,7 +16,7 @@ import Loader from "components/common/Loader";
 import { updateProduct, getAllCategory, getProduct } from "api/";
 
 // Utils
-import { productEditPage } from "utils/breadcrumbs";
+import { productEditPage } from "static-data/breadcrumbs-data";
 import { toastNotification } from "utils/toast-notification";
 
 const ProductEdit = () => {

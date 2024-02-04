@@ -31,7 +31,7 @@ import {
 } from "redux/cartCheckoutSlice";
 
 // Utils
-import { cartPage } from "utils/breadcrumbs";
+import { cartPage } from "static-data/breadcrumbs-data";
 
 const Cart = () => {
   // History

@@ -16,7 +16,7 @@ import Message from "components/common/Message";
 import { createCategory } from "api/";
 
 // Utils
-import { categoryCreatePage } from "utils/breadcrumbs";
+import { categoryCreatePage } from "static-data/breadcrumbs-data";
 import { toastNotification } from "utils/toast-notification";
 
 const ProductCreate = () => {

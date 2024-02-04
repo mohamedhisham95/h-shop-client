@@ -78,3 +78,8 @@ export const myOrderListPage = [
   { link: "/", label: "Home" },
   { link: "", label: "My Orders" },
 ];
+
+export const profilePage = [
+  { link: "/", label: "Home" },
+  { link: "", label: "Profile" },
+];

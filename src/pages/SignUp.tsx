@@ -9,7 +9,7 @@ import { Toaster } from "react-hot-toast";
 // Logo
 import logo from "assets/logo.png";
 
-// Components
+// Component
 import ContainerCenter from "components/layout/ContainerCenter";
 import Loader from "components/common/Loader";
 
@@ -74,7 +74,12 @@ const SignUp = () => {
         .email("Invalid email address")
         .required("Email is required"),
       password: Yup.string().required("Password is required"),
-      confirmPassword: Yup.string().required("Confirm password is required"),
+      confirmPassword: Yup.string()
+        .required("Confirm password is required")
+        .oneOf(
+          [Yup.ref("newPassword")],
+          "New password & confirm password must match"
+        ),
     }),
     onSubmit: (values: any) => {
       setInputError({});

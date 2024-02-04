@@ -8,7 +8,7 @@ import OrderChart from "components/dashboard/OrderChart";
 import UserChart from "components/dashboard/UserChart";
 
 // Utils
-import { dashboardPage } from "utils/breadcrumbs";
+import { dashboardPage } from "static-data/breadcrumbs-data";
 
 const Dashboard = () => {
   // Redux

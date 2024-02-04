@@ -10,7 +10,7 @@ import Message from "components/common/Message";
 import { getAllUsers } from "api/";
 
 // Utils
-import { userListPage } from "utils/breadcrumbs";
+import { userListPage } from "static-data/breadcrumbs-data";
 import { formatDate } from "utils/date-helpers";
 
 const UserList = () => {

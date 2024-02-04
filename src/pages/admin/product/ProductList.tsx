@@ -14,7 +14,7 @@ import DeleteModal from "components/modal/DeleteModal";
 import { getAllProducts, deleteProduct } from "api/";
 
 // Utils
-import { productListPage } from "utils/breadcrumbs";
+import { productListPage } from "static-data/breadcrumbs-data";
 
 const ProductList = () => {
   // History

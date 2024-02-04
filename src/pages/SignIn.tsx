@@ -9,7 +9,7 @@ import { Toaster } from "react-hot-toast";
 // Logo
 import logo from "assets/logo.png";
 
-// Components
+// Component
 import ContainerCenter from "components/layout/ContainerCenter";
 import Loader from "components/common/Loader";
 

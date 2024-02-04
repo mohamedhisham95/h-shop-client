@@ -12,7 +12,7 @@ import Message from "components/common/Message";
 import { getMyOrders } from "api/";
 
 // Utils
-import { myOrderListPage } from "utils/breadcrumbs";
+import { myOrderListPage } from "static-data/breadcrumbs-data";
 import { formatUnixDate } from "utils/date-helpers";
 
 const MyOrderList = () => {

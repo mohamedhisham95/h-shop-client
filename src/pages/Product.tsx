@@ -7,7 +7,7 @@ import ProductDetail from "components/product/ProductDetail";
 import ReviewDetail from "components/product/ReviewDetail";
 
 // Utils
-import { productPage } from "utils/breadcrumbs";
+import { productPage } from "static-data/breadcrumbs-data";
 
 const Product = () => {
   return (

@@ -11,7 +11,7 @@ import PaymentMethod from "components/checkout/PaymentMethod";
 import PlaceOrder from "components/checkout/PlaceOrder";
 
 // Utils
-import { checkoutPage } from "utils/breadcrumbs";
+import { checkoutPage } from "static-data/breadcrumbs-data";
 
 const Checkout = () => {
   // History

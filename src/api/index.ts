@@ -17,7 +17,7 @@ import { createOrder, getMyOrders, getMyOrderById } from "api/order/order";
 import { getReviews, addReview, deleteReview } from "api/review/review";
 
 // User
-import { getUserProfile } from "api/user/user";
+import { getUserProfile, changePassword } from "api/user/user";
 
 // Admin
 import {
@@ -41,6 +41,7 @@ export {
   signup,
   // User
   getUserProfile,
+  changePassword,
   // Products
   getAllProductsByLimit,
   getProduct,

@@ -10,7 +10,7 @@ import OrderDetail from "components/order/OrderDetail";
 import { getOrderById } from "api/";
 
 // Utils
-import { orderPage } from "utils/breadcrumbs";
+import { orderPage } from "static-data/breadcrumbs-data";
 
 const Order = () => {
   // Params

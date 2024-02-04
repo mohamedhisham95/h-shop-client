@@ -16,7 +16,7 @@ import Message from "components/common/Message";
 import { getAllCategory } from "api/";
 
 // Utils
-import { categoryListPage } from "utils/breadcrumbs";
+import { categoryListPage } from "static-data/breadcrumbs-data";
 
 const CategoryList = () => {
   // History

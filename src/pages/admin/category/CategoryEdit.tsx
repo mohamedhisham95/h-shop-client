@@ -17,7 +17,7 @@ import Message from "components/common/Message";
 import { updateCategory, getCategoryById } from "api/";
 
 // Utils
-import { categoryEditPage } from "utils/breadcrumbs";
+import { categoryEditPage } from "static-data/breadcrumbs-data";
 import { toastNotification } from "utils/toast-notification";
 
 const CategoryEdit = () => {

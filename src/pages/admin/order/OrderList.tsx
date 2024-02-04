@@ -24,7 +24,7 @@ import Message from "components/common/Message";
 import { getAllOrders } from "api/";
 
 // Utils
-import { orderListPage } from "utils/breadcrumbs";
+import { orderListPage } from "static-data/breadcrumbs-data";
 import { formatUnixDate } from "utils/date-helpers";
 
 const OrderList = () => {

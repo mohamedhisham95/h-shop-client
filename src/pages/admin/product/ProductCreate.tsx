@@ -16,7 +16,7 @@ import Loader from "components/common/Loader";
 import { createProduct, getAllCategory } from "api/";
 
 // Utils
-import { productCreatePage } from "utils/breadcrumbs";
+import { productCreatePage } from "static-data/breadcrumbs-data";
 import { toastNotification } from "utils/toast-notification";
 
 const ProductCreate = () => {

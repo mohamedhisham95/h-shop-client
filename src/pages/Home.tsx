@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -12,7 +12,7 @@ import { getAllProductsByLimit } from "api";
 
 const Home = () => {
   // Limit
-  const limit = 2;
+  const limit = 4;
 
   // Query
   const {

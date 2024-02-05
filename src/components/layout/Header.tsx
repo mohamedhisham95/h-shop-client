@@ -1,16 +1,11 @@
-import {
-  Container,
-  Navbar,
-  Nav,
-  NavDropdown,
-  Badge,
-  Form,
-  Button,
-} from "react-bootstrap";
+import { Container, Navbar, Nav, NavDropdown, Badge } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { BsCart4 } from "react-icons/bs";
 // import { withRouter } from "react-router-dom";
+
+// Component
+import SearchBox from "components/layout/SearchBox";
 
 // Logo
 import logo from "assets/logo.png";
@@ -54,14 +49,7 @@ const Header = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
-            <Form inline className="search">
-              <Form.Control
-                type="text"
-                placeholder="Search"
-                className="mr-sm-2"
-              />
-              <Button variant="outline-success">Search</Button>
-            </Form>
+            <SearchBox />
           </Nav>
 
           <Nav className="ml-auto">

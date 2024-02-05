@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useMemo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Container, Row, Col } from "react-bootstrap";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useLocation } from "react-router-dom";
 
 // Components
 import Loader from "components/common/Loader";
@@ -10,57 +12,71 @@ import ProductCard from "components/product/ProductCard";
 // API
 import { getAllProductsByLimit } from "api";
 
+function useQuery() {
+  const { search } = useLocation();
+  return useMemo(() => new URLSearchParams(search), [search]);
+}
+
 const Home = () => {
-  // Limit
-  const limit = 4;
+  // Query Params
+  let query = useQuery();
+  let searchKeyword = query.get("search");
 
   // Query
-  const {
-    isLoading,
-    isError,
-    error,
-    data,
-    fetchNextPage,
-    isFetching,
-    isFetchingNextPage,
-  }: any = useInfiniteQuery({
-    queryKey: [
-      "get_all_products_by_limit",
-      {
-        skip: 0,
-        limit,
+  const { data, fetchNextPage, hasNextPage, isFetched, isError, error }: any =
+    useInfiniteQuery({
+      queryKey: ["get_all_products_by_limit"],
+      queryFn: ({ pageParam = 0 }) => {
+        return getAllProductsByLimit([
+          "get_all_products_by_limit",
+          {
+            skip: pageParam,
+            productKeyword: searchKeyword,
+          },
+        ]);
       },
-    ],
-    queryFn: ({ pageParam = 0 }) =>
-      getAllProductsByLimit([
-        "get_all_products_by_limit",
-        {
-          skip: pageParam * limit,
-          limit,
-        },
-      ]),
-    getNextPageParam: (lastPage: any, pages) => lastPage.nextCursor,
-    getPreviousPageParam: (firstPage: any, pages) => firstPage.prevCursor,
-  });
+      getNextPageParam: (lastPage: any) => {
+        if (lastPage.data.prevOffset > lastPage.data.productCount) {
+          return false;
+        }
+
+        return lastPage.data.prevOffset;
+      },
+    });
+
+  const products = data?.pages.reduce((acc: any, page: any) => {
+    return [...acc, ...page?.data.products];
+  }, []);
 
   return (
-    <Container fluid>
+    <Container fluid className="home">
       <Row>
         <Col md={12} className="mt-2">
-          {isLoading && <Loader />}
-          {isError && <Message message={error?.message} />}
+          {!isFetched && <Loader />}
+        </Col>
 
-          {!isLoading && !isError && (
-            <Row>
-              {data?.pages?.map((page: any) =>
-                page?.data?.products.map((product: any, index: number) => (
-                  <Col key={index} sm={12} md={6} lg={4} xl={3}>
-                    <ProductCard product={product} />
-                  </Col>
-                ))
-              )}
-            </Row>
-          )}
+        <Col md={12} className="mt-2">
+          {isError && <Message message={error?.message} />}
+        </Col>
+
+        <Col md={12} className="mt-2">
+          <InfiniteScroll
+            dataLength={products ? products.length : 0}
+            next={() => fetchNextPage()}
+            hasMore={hasNextPage}
+            loader={<Loader />}
+          >
+            <div>
+              <Row>
+                {products &&
+                  products.map((product: any, index: number) => (
+                    <Col key={index} sm={12} md={6} lg={4} xl={4}>
+                      <ProductCard product={product} />
+                    </Col>
+                  ))}
+              </Row>
+            </div>
+          </InfiniteScroll>
         </Col>
       </Row>
     </Container>

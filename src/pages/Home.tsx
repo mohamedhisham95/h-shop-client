@@ -31,7 +31,9 @@ const Home = () => {
           "get_all_products_by_limit",
           {
             skip: pageParam,
-            productKeyword: searchKeyword,
+            ...(searchKeyword && {
+              productKeyword: searchKeyword,
+            }),
           },
         ]);
       },

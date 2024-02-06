@@ -1,36 +1,54 @@
 import { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import {
-  useQuery,
-  //  useMutation
-} from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 // Component
 import CustomDataTable from "components/custom-data-table/CustomDataTable";
 import BreadCrumbs from "components/common/BreadCrumbs";
 import Message from "components/common/Message";
-// import DeleteModal from "components/modal/DeleteModal";
+import DeleteModal from "components/modal/DeleteModal";
+import BulkDelete from "components/common/BulkDelete";
 
 // API
-import { getAllCategory } from "api/";
+import { getAllCategory, deleteCategory } from "api/";
 
 // Utils
 import { categoryListPage } from "static-data/breadcrumbs-data";
+import { toastNotification } from "utils/toast-notification";
 
 const CategoryList = () => {
   // History
   const history = useHistory();
 
   // State
-  // const [rowId, setRowId] = useState<any>(null);
-  // const [action, setAction] = useState<any>(null);
+  const [rowId, setRowId] = useState<any>(null);
+  const [action, setAction] = useState<any>(null);
   const [selectedRows, setSelectedRows] = useState<any>([]);
+  const [clearSelectedRows, setClearSelectedRows] = useState<any>(false);
 
   // API Call
-  const { data, isFetching, isError, error }: any = useQuery({
+  const { data, isFetching, isError, error, refetch }: any = useQuery({
     queryKey: ["get_category"],
     queryFn: getAllCategory,
+  });
+
+  // Delete Mutation
+  const mutation = useMutation({
+    mutationFn: ({ categoryId }: any) =>
+      deleteCategory(["delete_category", { categoryId }]),
+    onError: (error: any) => {
+      toastNotification("error", error?.message);
+    },
+    onSuccess: (response: any) => {
+      toastNotification("success", response?.data?.message);
+      setAction(null);
+      setRowId(null);
+      setSelectedRows([]);
+      setClearSelectedRows(true);
+      refetch();
+    },
   });
 
   // Columns
@@ -51,7 +69,7 @@ const CategoryList = () => {
           >
             Edit
           </Button>
-          {/* <Button
+          <Button
             size="sm"
             disabled={selectedRows.length > 0}
             onClick={() => {
@@ -60,7 +78,7 @@ const CategoryList = () => {
             }}
           >
             Delete
-          </Button> */}
+          </Button>
         </div>
       ),
       allowOverflow: true,
@@ -69,13 +87,19 @@ const CategoryList = () => {
     },
   ];
 
-  // Delete Handler Function
-  // function handleDelete() {
-  //   console.log("deleted");
-  //   // pass rowId here
-  //   setAction(null);
-  //   setRowId(null);
-  // }
+  // Delete Handler
+  function handleDelete() {
+    mutation.mutate({
+      categoryId: [rowId],
+    });
+  }
+
+  // Bulk Delete Handler
+  function handleBulkDelete() {
+    mutation.mutate({
+      categoryId: selectedRows.map((item: any) => item?._id),
+    });
+  }
 
   return (
     <Container>
@@ -88,6 +112,12 @@ const CategoryList = () => {
           </Col>
         )}
 
+        {selectedRows.length > 0 && (
+          <Col md={12} lg={12}>
+            <BulkDelete count={selectedRows.length} setAction={setAction} />
+          </Col>
+        )}
+
         <CustomDataTable
           columns={columns}
           data={data?.data}
@@ -97,17 +127,27 @@ const CategoryList = () => {
           setSelectedRows={setSelectedRows}
           isCreateAllowed={true}
           createLink="/admin/category/create"
+          clearSelectedRows={clearSelectedRows}
         />
 
-        {/* {action === "delete" && (
+        {["delete", "bulk-delete"].includes(action) && (
           <DeleteModal
-            show={action === "delete" ? true : false}
-            setShow={() => setAction(null)}
+            show={["delete", "bulk-delete"].includes(action)}
             title="Delete Category"
-            deleteCallback={handleDelete}
+            bulkDelete={action === "delete"}
+            deleteCallback={() =>
+              action === "delete" ? handleDelete() : handleBulkDelete()
+            }
+            closeCallback={() => {
+              setAction(null);
+              setRowId(null);
+            }}
           />
-        )} */}
+        )}
       </Row>
+
+      {/* Toast */}
+      <Toaster />
     </Container>
   );
 };

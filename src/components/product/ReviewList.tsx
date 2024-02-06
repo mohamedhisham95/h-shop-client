@@ -96,7 +96,7 @@ const ReviewList = () => {
                   {user_detail !== null &&
                     review.userId?._id === user_detail.id && (
                       <div
-                        className="text-danger"
+                        className="text-danger cursor-pointer"
                         onClick={() =>
                           handleDeleteReview(review?._id, review?.productId)
                         }

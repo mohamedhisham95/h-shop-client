@@ -26,7 +26,11 @@ import {
   updateProduct,
   deleteProduct,
 } from "api/admin/products";
-import { createCategory, updateCategory } from "api/admin/category";
+import {
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} from "api/admin/category";
 import { getAllOrders, getOrderById, updateOrderStatus } from "api/admin/order";
 import {
   getProductCountByCategory,
@@ -65,6 +69,7 @@ export {
   deleteProduct,
   createCategory,
   updateCategory,
+  deleteCategory,
   getAllOrders,
   getOrderById,
   updateOrderStatus,

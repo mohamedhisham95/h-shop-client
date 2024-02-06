@@ -72,10 +72,10 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
           status: response?.data?.status,
           message: response?.data?.message,
         });
-        toastNotification("success", response?.data?.message);
+        toastNotification("success", response?.data?.message, 2000);
         setTimeout(() => {
           history.push(`/my-order/${response?.data?.orderId}`);
-        }, 3000);
+        }, 2500);
       }
     },
   });

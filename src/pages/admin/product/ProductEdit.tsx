@@ -96,10 +96,10 @@ const ProductEdit = () => {
         setInputError(formInputError);
       }
       if (message) {
-        toastNotification("success", message);
+        toastNotification("success", message, 1500);
         setTimeout(() => {
           history.push("/admin/product/list");
-        }, 1500);
+        }, 1800);
       }
     },
   });

@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  // withRouter,
-  useHistory,
-} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 
 const SearchBox = () => {
@@ -13,7 +10,7 @@ const SearchBox = () => {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    if (keyword.trim()) {
+    if (keyword === "") {
       history.push(`/?search=${encodeURIComponent(keyword)}`);
     } else {
       history.push("/");

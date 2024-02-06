@@ -49,13 +49,13 @@ const SignUp = () => {
         setInputError(formInputError);
       }
       if (token) {
-        toastNotification("success", message);
+        toastNotification("success", message, 1500);
 
         setTimeout(() => {
           localStorage.setItem("h-shop-token", token);
           dispatch(setUserDetail(user));
           dispatch(setToken(token));
-        }, 1500);
+        }, 1800);
       }
     },
   });

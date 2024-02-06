@@ -2,7 +2,7 @@ import { Container, Navbar, Nav, NavDropdown, Badge } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { BsCart4 } from "react-icons/bs";
-// import { withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 // Component
 import SearchBox from "components/layout/SearchBox";
@@ -113,4 +113,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

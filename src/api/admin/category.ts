@@ -35,3 +35,21 @@ export const updateCategory = async (queryKey: any) => {
 
   return response;
 };
+
+export const deleteCategory = async (queryKey: any) => {
+  if (queryKey.length === 1) queryKey.push({});
+
+  const [
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    key,
+    body,
+  ] = queryKey;
+
+  const response = await postRequest(
+    `${process.env.REACT_APP_SERVER_URL}/admin/category/delete`,
+    body,
+    await defaultHeaders()
+  );
+
+  return response;
+};

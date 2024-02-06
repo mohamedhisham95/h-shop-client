@@ -15,6 +15,7 @@ type props = {
   isCreateAllowed: boolean;
   createLink: string;
   isRowSelectAllowed?: boolean;
+  clearSelectedRows?: boolean;
 };
 
 const CustomDataTable: React.FC<props> = ({
@@ -27,6 +28,7 @@ const CustomDataTable: React.FC<props> = ({
   isCreateAllowed,
   createLink,
   isRowSelectAllowed = true,
+  clearSelectedRows,
 }) => {
   // State
   const [filterText, setFilterText] = useState("");
@@ -83,6 +85,7 @@ const CustomDataTable: React.FC<props> = ({
       highlightOnHover
       pointerOnHover
       progressPending={isLoading}
+      clearSelectedRows={clearSelectedRows}
     />
   );
 };

@@ -2,19 +2,22 @@ import { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import { BsFillTrash3Fill } from "react-icons/bs";
 
 // Component
 import CustomDataTable from "components/custom-data-table/CustomDataTable";
 import BreadCrumbs from "components/common/BreadCrumbs";
 import Message from "components/common/Message";
 import DeleteModal from "components/modal/DeleteModal";
+import BulkDelete from "components/common/BulkDelete";
 
 // API
 import { getAllProducts, deleteProduct } from "api/";
 
 // Utils
 import { productListPage } from "static-data/breadcrumbs-data";
+import { toastNotification } from "utils/toast-notification";
 
 const ProductList = () => {
   // History
@@ -24,7 +27,7 @@ const ProductList = () => {
   const [rowId, setRowId] = useState<any>(null);
   const [action, setAction] = useState<any>(null);
   const [selectedRows, setSelectedRows] = useState<any>([]);
-  const [deleteError, setDeleteError] = useState(null);
+  const [clearSelectedRows, setClearSelectedRows] = useState<any>(false);
 
   // API Call
   const { data, isFetching, isError, error, refetch }: any = useQuery({
@@ -32,16 +35,19 @@ const ProductList = () => {
     queryFn: getAllProducts,
   });
 
+  // Delete Mutation
   const mutation = useMutation({
     mutationFn: ({ productId }: any) =>
       deleteProduct(["delete_product", { productId }]),
     onError: (error: any) => {
-      setDeleteError(error.message);
+      toastNotification("error", error?.message);
     },
     onSuccess: (response: any) => {
-      toast.success(response.message);
+      toastNotification("success", response?.data?.message);
       setAction(null);
       setRowId(null);
+      setSelectedRows([]);
+      setClearSelectedRows(true);
       refetch();
     },
   });
@@ -73,6 +79,7 @@ const ProductList = () => {
         <div className="d-flex justify-content-between ">
           <Button
             size="sm"
+            variant="outline-primary"
             className="mr-1"
             disabled={selectedRows.length > 0}
             onClick={() => history.push(`/admin/product/edit/${row?._id}`)}
@@ -81,13 +88,14 @@ const ProductList = () => {
           </Button>
           <Button
             size="sm"
+            variant="outline-danger"
             disabled={selectedRows.length > 0}
             onClick={() => {
               setRowId(row?._id);
               setAction("delete");
             }}
           >
-            Delete
+            <BsFillTrash3Fill />
           </Button>
         </div>
       ),
@@ -100,14 +108,19 @@ const ProductList = () => {
   // Delete Handler
   function handleDelete() {
     mutation.mutate({
-      productId: rowId,
+      productId: [rowId],
+    });
+  }
+
+  // Bulk Delete Handler
+  function handleBulkDelete() {
+    mutation.mutate({
+      productId: selectedRows.map((item: any) => item?._id),
     });
   }
 
   return (
     <Container>
-      <Toaster position="top-right" reverseOrder={false} />
-
       <BreadCrumbs list={productListPage} />
 
       <Row>
@@ -117,9 +130,9 @@ const ProductList = () => {
           </Col>
         )}
 
-        {deleteError && (
+        {selectedRows.length > 0 && (
           <Col md={12} lg={12}>
-            <Message message={deleteError} />
+            <BulkDelete count={selectedRows.length} setAction={setAction} />
           </Col>
         )}
 
@@ -132,17 +145,27 @@ const ProductList = () => {
           setSelectedRows={setSelectedRows}
           isCreateAllowed={true}
           createLink="/admin/product/create"
+          clearSelectedRows={clearSelectedRows}
         />
 
-        {action === "delete" && (
+        {["delete", "bulk-delete"].includes(action) && (
           <DeleteModal
-            show={action === "delete" ? true : false}
-            setShow={() => setAction(null)}
+            show={["delete", "bulk-delete"].includes(action)}
             title="Delete Product"
-            deleteCallback={handleDelete}
+            bulkDelete={action === "delete"}
+            deleteCallback={() =>
+              action === "delete" ? handleDelete() : handleBulkDelete()
+            }
+            closeCallback={() => {
+              setAction(null);
+              setRowId(null);
+            }}
           />
         )}
       </Row>
+
+      {/* Toast */}
+      <Toaster />
     </Container>
   );
 };

@@ -60,10 +60,10 @@ const CategoryEdit = () => {
         setInputError(formInputError);
       }
       if (message) {
-        toastNotification("success", message);
+        toastNotification("success", message, 1500);
         setTimeout(() => {
           history.push("/admin/category/list");
-        }, 1500);
+        }, 1800);
       }
     },
   });

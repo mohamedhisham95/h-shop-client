@@ -1,8 +1,8 @@
-import { useMemo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Container, Row, Col } from "react-bootstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useLocation } from "react-router-dom";
+import { useMemo } from "react";
 
 // Components
 import Loader from "components/common/Loader";
@@ -11,6 +11,9 @@ import ProductCard from "components/product/ProductCard";
 
 // API
 import { getAllProductsByLimit } from "api";
+
+// Hooks
+import { useSearchQuery } from "hooks/useSearchQuery";
 
 function useQuery() {
   const { search } = useLocation();
@@ -31,9 +34,10 @@ const Home = () => {
           "get_all_products_by_limit",
           {
             skip: pageParam,
-            ...(searchKeyword && {
-              productKeyword: searchKeyword,
-            }),
+            productKeyword: searchKeyword || "",
+            // ...(searchKeyword && {
+            //   productKeyword: searchKeyword,
+            // }),
           },
         ]);
       },

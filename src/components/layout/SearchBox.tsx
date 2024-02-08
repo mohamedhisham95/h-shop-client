@@ -10,7 +10,7 @@ const SearchBox = () => {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    if (keyword === "") {
+    if (keyword !== "") {
       history.push(`/?search=${encodeURIComponent(keyword)}`);
     } else {
       history.push("/");

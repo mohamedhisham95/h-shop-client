@@ -8,27 +8,27 @@ import Message from "components/common/Message";
 import Loader from "components/common/Loader";
 
 // API
-import { getUserCountFromSpecificMonths } from "api/";
+import { getSalesStatFromSpecificMonths } from "api/";
 
 // Utils
 import { convertToPlainArray } from "utils/array-helpers";
 
 // Static Data
-import { userStatsDropdown } from "static-data/dropdown-data";
+import { salesStatsDropdown } from "static-data/dropdown-data";
 
-const UserChart = () => {
+const SalesChart = () => {
   // State
   const [months, setMonths] = useState(3);
 
   // Query
   const { data, isFetched, isError, error }: any = useQuery({
     queryKey: [
-      "get_user_stats",
+      "get_sales_stats",
       {
         months,
       },
     ],
-    queryFn: getUserCountFromSpecificMonths,
+    queryFn: getSalesStatFromSpecificMonths,
   });
 
   const option = useMemo(() => {
@@ -38,6 +38,7 @@ const UserChart = () => {
         axisPointer: {
           type: "none",
         },
+        valueFormatter: (value: any) => "₹" + value.toFixed(2),
       },
       xAxis: {
         type: "category",
@@ -49,8 +50,8 @@ const UserChart = () => {
       },
       series: [
         {
-          name: "User",
-          data: convertToPlainArray(data?.data, "count"),
+          name: "Sales",
+          data: convertToPlainArray(data?.data, "total_amount"),
           type: "bar",
           barWidth: "20%",
         },
@@ -61,7 +62,7 @@ const UserChart = () => {
   return (
     <Card className="card-chart">
       <Card.Header className="d-flex justify-content-between align-items-center">
-        <h5>User Stats</h5>
+        <h5>Sales Stats</h5>
         <Form.Group controlId="days">
           <Form.Control
             as="select"
@@ -71,7 +72,7 @@ const UserChart = () => {
               setMonths(e.target.value);
             }}
           >
-            {userStatsDropdown?.map((item: any, key: number) => (
+            {salesStatsDropdown?.map((item: any, key: number) => (
               <option key={key} value={item.value}>
                 {item.label}
               </option>
@@ -100,4 +101,4 @@ const UserChart = () => {
   );
 };
 
-export default UserChart;
+export default SalesChart;

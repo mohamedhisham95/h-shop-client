@@ -6,6 +6,7 @@ import BreadCrumbs from "components/common/BreadCrumbs";
 import ProductChart from "components/dashboard/ProductChart";
 import OrderChart from "components/dashboard/OrderChart";
 import UserChart from "components/dashboard/UserChart";
+import SalesChart from "components/dashboard/SalesChart";
 
 // Utils
 import { dashboardPage } from "static-data/breadcrumbs-data";
@@ -25,6 +26,10 @@ const Dashboard = () => {
 
         <Col md={6} className="mb-2">
           <ProductChart />
+        </Col>
+
+        <Col md={6} className="mb-2">
+          <SalesChart />
         </Col>
 
         <Col md={6} className="mb-2">

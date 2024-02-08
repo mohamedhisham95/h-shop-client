@@ -20,6 +20,7 @@ import { getReviews, addReview, deleteReview } from "api/review/review";
 import { getUserProfile, changePassword } from "api/user/user";
 
 // Admin
+import { getAllUsers } from "api/admin/user";
 import {
   getAllProducts,
   createProduct,
@@ -35,9 +36,9 @@ import { getAllOrders, getOrderById, updateOrderStatus } from "api/admin/order";
 import {
   getProductCountByCategory,
   getOrderCountFromSpecificDays,
-  getUserCountFromSpecificDays,
+  getUserCountFromSpecificMonths,
+  getSalesStatFromSpecificMonths,
 } from "api/admin/dashboard";
-import { getAllUsers } from "api/admin/user";
 
 export {
   // Auth
@@ -63,6 +64,7 @@ export {
   addReview,
   deleteReview,
   // Admin
+  getAllUsers,
   getAllProducts,
   createProduct,
   updateProduct,
@@ -75,6 +77,6 @@ export {
   updateOrderStatus,
   getProductCountByCategory,
   getOrderCountFromSpecificDays,
-  getUserCountFromSpecificDays,
-  getAllUsers,
+  getUserCountFromSpecificMonths,
+  getSalesStatFromSpecificMonths,
 };

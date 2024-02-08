@@ -27,7 +27,7 @@ export const getOrderCountFromSpecificDays = async ({ queryKey }: any) => {
   return response;
 };
 
-export const getUserCountFromSpecificDays = async ({ queryKey }: any) => {
+export const getUserCountFromSpecificMonths = async ({ queryKey }: any) => {
   if (queryKey.length === 1) queryKey.push({});
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -35,6 +35,21 @@ export const getUserCountFromSpecificDays = async ({ queryKey }: any) => {
 
   const response = await postRequest(
     `${process.env.REACT_APP_SERVER_URL}/admin/dashboard/user-stats`,
+    body,
+    await defaultHeaders()
+  );
+
+  return response;
+};
+
+export const getSalesStatFromSpecificMonths = async ({ queryKey }: any) => {
+  if (queryKey.length === 1) queryKey.push({});
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [key, body] = queryKey;
+
+  const response = await postRequest(
+    `${process.env.REACT_APP_SERVER_URL}/admin/dashboard/sales-stats`,
     body,
     await defaultHeaders()
   );

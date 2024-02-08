@@ -46,8 +46,8 @@ const ProductEdit = () => {
       },
     ],
     queryFn: getProduct,
-
     onSuccess: (data) => {
+      console.log("DATA :: ", data);
       setFormData(data);
     },
   });
@@ -111,7 +111,7 @@ const ProductEdit = () => {
       name: formData?.name,
       image: formData?.image,
       brand: formData?.brand,
-      categoryId: formData?.categoryId,
+      categoryId: formData?.categoryId?._id,
       description: formData?.description,
       price: formData?.price,
       countInStock: formData?.countInStock,

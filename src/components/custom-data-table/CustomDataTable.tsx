@@ -3,7 +3,8 @@ import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
 
 // Components
-import GlobalFilter from "./GlobalFilter";
+import Loader from "components/common/Loader";
+import GlobalFilter from "components/custom-data-table/GlobalFilter";
 
 type props = {
   columns: any;
@@ -16,6 +17,7 @@ type props = {
   createLink: string;
   isRowSelectAllowed?: boolean;
   clearSelectedRows?: boolean;
+  selectableRowDisabled?: any;
 };
 
 const CustomDataTable: React.FC<props> = ({
@@ -29,6 +31,7 @@ const CustomDataTable: React.FC<props> = ({
   createLink,
   isRowSelectAllowed = true,
   clearSelectedRows,
+  selectableRowDisabled,
 }) => {
   // State
   const [filterText, setFilterText] = useState("");
@@ -86,6 +89,8 @@ const CustomDataTable: React.FC<props> = ({
       pointerOnHover
       progressPending={isLoading}
       clearSelectedRows={clearSelectedRows}
+      selectableRowDisabled={selectableRowDisabled}
+      progressComponent={<Loader />}
     />
   );
 };

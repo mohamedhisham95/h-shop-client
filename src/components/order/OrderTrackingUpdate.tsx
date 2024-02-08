@@ -18,21 +18,21 @@ const OrderTrackingUpdate: React.FC<props> = ({ data }) => {
   const queryClient = useQueryClient();
 
   // Mutation
-  const updateOrderStatusMutation = useMutation({
+  const mutation = useMutation({
     mutationFn: ({ orderId, type, value }: any) =>
       updateOrderStatus(["update_order_status", { orderId, type, value }]),
     onError: (error: any) => {
       toastNotification("error", error?.message);
     },
     onSuccess: (response: any) => {
-      queryClient.invalidateQueries({ queryKey: ["get_order_id"] });
+      queryClient.invalidateQueries({ queryKey: ["get_order_by_id"] });
       queryClient.invalidateQueries({ queryKey: ["get_my_order_id"] });
       toastNotification("success", response?.message);
     },
   });
 
   function handleStatusUpdate(type: any, value: any) {
-    updateOrderStatusMutation.mutate({
+    mutation.mutate({
       orderId: data?._id,
       type,
       value,

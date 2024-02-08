@@ -56,7 +56,7 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
       token,
     }: any) =>
       createOrder([
-        "create_category",
+        "create_order",
         { shippingAddress, paymentMethod, orderItems, totalAmount, token },
       ]),
     onError: (error: any) => {

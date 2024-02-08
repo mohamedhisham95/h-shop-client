@@ -28,9 +28,12 @@ const CategoryList = () => {
   const [selectedRows, setSelectedRows] = useState<any>([]);
   const [clearSelectedRows, setClearSelectedRows] = useState<any>(false);
 
+  // Pre Disable Row
+  const rowDisabledCriteria = (row: any) => row.name === "Other";
+
   // API Call
   const { data, isFetching, isError, error, refetch }: any = useQuery({
-    queryKey: ["get_category"],
+    queryKey: ["get_all_category"],
     queryFn: getAllCategory,
   });
 
@@ -128,6 +131,7 @@ const CategoryList = () => {
           isCreateAllowed={true}
           createLink="/admin/category/create"
           clearSelectedRows={clearSelectedRows}
+          selectableRowDisabled={rowDisabledCriteria}
         />
 
         {["delete", "bulk-delete"].includes(action) && (

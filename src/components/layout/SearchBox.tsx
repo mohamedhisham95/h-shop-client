@@ -1,13 +1,20 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 
 const SearchBox = () => {
   // History
   const history = useHistory();
 
-  const [keyword, setKeyword] = useState("");
+  // Location
+  const { search } = useLocation();
 
+  // State
+  const [keyword, setKeyword] = useState(
+    search !== "" ? search.split("=")[1] : ""
+  );
+
+  // Submit Handler
   const submitHandler = (e: any) => {
     e.preventDefault();
     if (keyword !== "") {

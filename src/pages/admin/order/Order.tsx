@@ -19,7 +19,7 @@ const Order = () => {
   // Query
   const { data, isLoading, isError, error }: any = useQuery({
     queryKey: [
-      "get_order_id",
+      "get_order_by_id",
       {
         id: id,
       },

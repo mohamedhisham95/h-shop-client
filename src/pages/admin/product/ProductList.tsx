@@ -31,7 +31,7 @@ const ProductList = () => {
 
   // API Call
   const { data, isFetching, isError, error, refetch }: any = useQuery({
-    queryKey: ["get_product"],
+    queryKey: ["get_all_product"],
     queryFn: getAllProducts,
   });
 

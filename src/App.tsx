@@ -25,6 +25,7 @@ import PageNotFound from "pages/PageNotFound";
 import MyOrderList from "pages/user/MyOrderList";
 import MyOrder from "pages/user/MyOrder";
 import Profile from "pages/user/Profile";
+import ChangePassword from "pages/user/ChangePassword";
 
 // Admin Pages
 import Dashboard from "pages/admin/Dashboard";
@@ -56,6 +57,11 @@ function App() {
           <ProtectedRoute path="/my-orders" exact component={MyOrderList} />
           <ProtectedRoute path="/my-order/:id" exact component={MyOrder} />
           <ProtectedRoute path="/profile" exact component={Profile} />
+          <ProtectedRoute
+            path="/change-password"
+            exact
+            component={ChangePassword}
+          />
           {/* Admin Route */}
           <AdminRoute path="/admin/dashboard" exact component={Dashboard} />
           <AdminRoute

@@ -34,7 +34,7 @@ const Checkout = () => {
   }, [checkout_items]);
 
   return (
-    <Container className="cart">
+    <Container className="checkout">
       <BreadCrumbs list={checkoutPage} />
       <Row>
         <Col md={12} lg={12}>

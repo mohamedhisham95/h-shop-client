@@ -7,16 +7,33 @@
   }
 
   .StripeCheckout {
-    background: black !important;
-    background-color: black !important;
-    color: white !important;
+    background: #1a1a1a !important;
+    background-color: #1a1a1a !important;
+    border-color: #1a1a1a !important;
+    color: #fff !important;
     box-shadow: none !important;
 
+    &:hover {
+      background-color: #161616 !important;
+      border-color: #151515 !important;
+      color: #fff !important;
+    }
+
     span {
-      background: black !important;
-      background-color: black !important;
-      color: white !important;
+      background: #1a1a1a !important;
+      background-color: #1a1a1a !important;
+      color: #fff !important;
       box-shadow: none !important;
+      font-size: 0.765625rem;
+      text-transform: uppercase;
+      font-weight: unset !important;
+      font-family: inherit !important;
+
+      &:hover {
+        background-color: #161616 !important;
+        border-color: #151515 !important;
+        color: #fff !important;
+      }
     }
   }
 }

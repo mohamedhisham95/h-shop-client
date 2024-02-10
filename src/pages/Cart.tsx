@@ -126,7 +126,7 @@ const Cart = () => {
       <Row>
         {cart_items.length === 0 && (
           <Col md={12} lg={12}>
-            <Message message={"Cart is Empty"} />
+            <Message variant="info" message={"Cart is Empty"} />
           </Col>
         )}
 

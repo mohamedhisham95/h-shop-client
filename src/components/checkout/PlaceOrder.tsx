@@ -6,6 +6,7 @@ import {
   Table,
   Image,
   Card,
+  Button,
 } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -14,6 +15,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { BsArrowLeftCircle } from "react-icons/bs";
 
 // Components
 import Loader from "components/common/Loader";
@@ -34,6 +36,7 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
   const history = useHistory();
 
   // Redux State
+  const { user_detail } = useSelector((state: any) => state.user);
   const { checkout_items } = useSelector((state: any) => state.cartCheckout);
   const { shipping_address, payment_method } = useSelector(
     (state: any) => state.checkout
@@ -72,10 +75,10 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
           status: response?.data?.status,
           message: response?.data?.message,
         });
-        toastNotification("success", response?.data?.message, 2000);
+        toastNotification("success", response?.data?.message, 1500);
         setTimeout(() => {
           history.push(`/my-order/${response?.data?.orderId}`);
-        }, 2500);
+        }, 2000);
       }
     },
   });
@@ -115,9 +118,17 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
             <ListGroup.Item>
               <h3>Shipping Address</h3>
               <p>
+                <strong>Name: </strong>
+                {user_detail?.name}
+              </p>
+              <p>
+                <strong>Email: </strong>
+                {user_detail?.email}
+              </p>
+              <p>
                 <strong>Address: </strong>
                 {shipping_address.address}, {shipping_address.city},{" "}
-                {shipping_address.postal_code}, {shipping_address?.country}
+                {shipping_address.postal_code}
               </p>
             </ListGroup.Item>
 
@@ -159,12 +170,18 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
 
         {/* Summary */}
         <Col md={4} className="mt-3">
-          <Card>
+          <Card bg="Primary">
+            <Card.Header>
+              <h3>Order Summary</h3>
+            </Card.Header>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h3>Order Summary</h3>
+                <Row>
+                  <Col>Total Item:</Col>
+                  <Col>{checkout_items?.length}</Col>
+                </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
+              <ListGroup.Item variant="info">
                 <Row>
                   <Col>Total:</Col>
                   <Col>
@@ -212,6 +229,17 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
                   <Message message={paymentStatus.message} />
                 </ListGroup.Item>
               )}
+
+              <ListGroup.Item>
+                <Button
+                  variant="primary"
+                  type="button"
+                  className="form-button"
+                  onClick={() => setActiveStep(1)}
+                >
+                  Back <BsArrowLeftCircle />
+                </Button>
+              </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>

@@ -1,0 +1,18 @@
+.checkout {
+  .form-button {
+    display: flex;
+    align-items: center;
+    gap: 4px !important;
+
+    svg {
+      font-size: 16px;
+    }
+  }
+
+  .product-img {
+    height: 80px;
+    width: 80px !important;
+    object-fit: cover;
+    margin-right: 14px;
+  }
+}

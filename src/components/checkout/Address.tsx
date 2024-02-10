@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { BsArrowRightCircle } from "react-icons/bs";
 
 // Components
 import ContainerCenter from "components/layout/ContainerCenter";
@@ -94,8 +95,8 @@ const Address: React.FC<props> = ({ setActiveStep }) => {
             )}
         </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Submit
+        <Button variant="primary" type="submit" className="form-button">
+          Next <BsArrowRightCircle />
         </Button>
       </Form>
     </ContainerCenter>

@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { BsArrowRightCircle, BsArrowLeftCircle } from "react-icons/bs";
 
 // Components
 import ContainerCenter from "components/layout/ContainerCenter";
@@ -47,9 +48,19 @@ const PaymentMethod: React.FC<props> = ({ setActiveStep }) => {
             onChange={paymentMethodForm.handleChange}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
+        <div className="d-flex justify-content-between">
+          <Button
+            variant="primary"
+            type="button"
+            className="form-button"
+            onClick={() => setActiveStep(1)}
+          >
+            Back <BsArrowLeftCircle />
+          </Button>
+          <Button variant="primary" type="submit" className="form-button">
+            Next <BsArrowRightCircle />
+          </Button>
+        </div>
       </Form>
     </ContainerCenter>
   );

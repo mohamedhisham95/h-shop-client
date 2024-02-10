@@ -52,13 +52,13 @@ const Home = () => {
     <Container fluid className="home">
       <Row>
         {!isFetched && (
-          <Col md={12} className="mt-2">
+          <Col md={12} className="mt-3">
             <Loader />
           </Col>
         )}
 
         {isError && (
-          <Col md={12} className="mt-2">
+          <Col md={12} className="mt-3">
             <Message message={error?.message} />
           </Col>
         )}

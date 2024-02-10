@@ -20,6 +20,11 @@ const ProfileDetail = () => {
         <Card.Text>
           {dayjs(user_detail.createdAt).format("dddd, MMM DD YYYY")}
         </Card.Text>
+
+        <Card.Title>Account Last Updated On:</Card.Title>
+        <Card.Text>
+          {dayjs(user_detail.updatedAt).format("dddd, MMM DD YYYY")}
+        </Card.Text>
       </Card.Body>
     </Card>
   );

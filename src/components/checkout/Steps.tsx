@@ -9,7 +9,7 @@ const Steps: React.FC<props> = ({ activeStep }) => {
     <Nav
       variant="pills"
       activeKey={activeStep}
-      className="d-flex justify-content-center"
+      className="d-flex justify-content-center mb-3"
     >
       <Nav.Item>
         <Nav.Link as="div" eventKey={1}>

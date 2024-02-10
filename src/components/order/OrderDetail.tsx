@@ -140,7 +140,7 @@ const OrderDetail: React.FC<props> = ({ isLoading, isError, error, data }) => {
                     <Col>{data?.orderItems?.length}</Col>
                   </Row>
                 </ListGroup.Item>
-                <ListGroup.Item variant="primary">
+                <ListGroup.Item variant="info">
                   <Row>
                     <Col className="font-weight-bold">Total:</Col>
                     <Col>₹{data?.totalAmount}</Col>

@@ -6,7 +6,7 @@ export const cartPage = [
 ];
 
 export const checkoutPage = [
-  { link: "/", label: "Home" },
+  { link: "/cart", label: "Cart" },
   { link: "", label: "Checkout" },
 ];
 
@@ -19,67 +19,72 @@ export const productPage = [
 
 export const dashboardPage = [
   { link: "/", label: "Home" },
-  { link: "", label: "Admin - Dashboard" },
+  { link: "", label: "Dashboard" },
 ];
 
 export const categoryListPage = [
-  { link: "/", label: "Home" },
-  { link: "", label: "Admin - Category List" },
+  { link: "/admin/dashboard", label: "Dashboard" },
+  { link: "", label: "Category List" },
 ];
 
 export const categoryCreatePage = [
-  { link: "/", label: "Home" },
-  { link: "", label: "Admin - Category Create" },
+  { link: "/admin/category/list", label: "Category List" },
+  { link: "", label: "Category Create" },
 ];
 
 export const categoryEditPage = [
-  { link: "/", label: "Home" },
-  { link: "", label: "Admin - Category Edit" },
+  { link: "/admin/category/list", label: "Category List" },
+  { link: "", label: "Category Edit" },
 ];
 
 export const productListPage = [
-  { link: "/", label: "Home" },
-  { link: "", label: "Admin - Product List" },
+  { link: "/admin/dashboard", label: "Dashboard" },
+  { link: "", label: "Product List" },
 ];
 
 export const productCreatePage = [
-  { link: "/", label: "Home" },
-  { link: "", label: "Admin - Product Create" },
+  { link: "/admin/product/list", label: "Product List" },
+  { link: "", label: "Product Create" },
 ];
 
 export const productEditPage = [
-  { link: "/", label: "Home" },
-  { link: "", label: "Admin - Product Edit" },
-];
-
-export const orderPage = [
-  { link: "/", label: " Orders" },
-  { link: "", label: "Order" },
+  { link: "/admin/product/list", label: "Product List" },
+  { link: "", label: "Product Edit" },
 ];
 
 export const orderListPage = [
-  { link: "/", label: "Home" },
-  { link: "", label: "Admin - Order List" },
+  { link: "/admin/dashboard", label: "Dashboard" },
+  { link: "", label: "Order List" },
+];
+
+export const orderPage = [
+  { link: "/admin/order/list", label: " Order List" },
+  { link: "", label: "Order" },
 ];
 
 export const userListPage = [
-  { link: "/", label: "Home" },
-  { link: "", label: "Admin - User List" },
+  { link: "/admin/dashboard", label: "Dashboard" },
+  { link: "", label: "User List" },
 ];
 
 // User Pages
-
-export const myOrderPage = [
-  { link: "/", label: "My Orders" },
-  { link: "", label: "Order" },
-];
 
 export const myOrderListPage = [
   { link: "/", label: "Home" },
   { link: "", label: "My Orders" },
 ];
 
+export const myOrderPage = [
+  { link: "/my-orders", label: "My Orders" },
+  { link: "", label: "Order" },
+];
+
 export const profilePage = [
   { link: "/", label: "Home" },
   { link: "", label: "Profile" },
+];
+
+export const changePasswordPage = [
+  { link: "/", label: "Home" },
+  { link: "", label: "Change Password" },
 ];

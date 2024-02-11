@@ -2,7 +2,8 @@ import { Container, Navbar, Nav, NavDropdown, Badge } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { BsCart4 } from "react-icons/bs";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
+import { useState } from "react";
 
 // Component
 import SearchBox from "components/layout/SearchBox";
@@ -14,12 +15,24 @@ import logo from "assets/logo.png";
 import { setLogout } from "redux/userSlice";
 
 const Header = () => {
+  // History
+  const history = useHistory();
+
   // Dispatch
   const dispatch = useDispatch();
 
   // Redux State
   const { user_detail } = useSelector((state: any) => state.user);
   const { cart_items } = useSelector((state: any) => state.cart);
+
+  // State
+  const [expanded, setExpanded] = useState<any>(false);
+
+  // Brand Handler
+  function brandHandler() {
+    setExpanded(false);
+    history.push("/");
+  }
 
   // Logout Handler
   function handleLogout() {
@@ -34,9 +47,17 @@ const Header = () => {
       variant="dark"
       fixed="top"
       className="header"
+      expanded={expanded}
+      onToggle={(v) => {
+        setExpanded(v);
+      }}
     >
       <Container>
-        <LinkContainer to="/">
+        <Navbar.Brand
+          as="div"
+          className="cursor-pointer"
+          onClick={brandHandler}
+        >
           <img
             alt=""
             src={logo}
@@ -44,12 +65,12 @@ const Header = () => {
             height="30"
             className="d-inline-block align-top"
           />
-        </LinkContainer>
+        </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
-            <SearchBox />
+            <SearchBox setExpanded={setExpanded} />
           </Nav>
 
           <Nav className="ml-auto">

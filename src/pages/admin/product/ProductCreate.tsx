@@ -13,7 +13,7 @@ import Message from "components/common/Message";
 import Loader from "components/common/Loader";
 
 // API
-import { createProduct, getAllCategory } from "api/";
+import { createProduct, getAllCategory, imageUpload } from "api/";
 
 // Utils
 import { productCreatePage } from "static-data/breadcrumbs-data";
@@ -38,8 +38,21 @@ const ProductCreate = () => {
     queryFn: getAllCategory,
   });
 
-  // Mutation
-  const mutation = useMutation({
+  // Product Create Mutation
+
+  // Image Upload Handler
+  async function uploadImageHandler(e: any) {
+    // e.preventDefault();
+    const file = e.target.files[0];
+    console.log("file :: ", file);
+    const formData = new FormData();
+    formData.append("image", file);
+
+    await imageUpload(formData);
+  }
+
+  // Product Create Mutation
+  const createMutation = useMutation({
     mutationFn: ({
       name,
       image,
@@ -94,7 +107,7 @@ const ProductCreate = () => {
     onSubmit: (values: any) => {
       setCreateError(null);
       setInputError({});
-      mutation.mutate({
+      createMutation.mutate({
         name: values?.name,
         image: values?.image,
         brand: values?.brand,
@@ -249,8 +262,17 @@ const ProductCreate = () => {
             )}
           </Form.Group>
 
-          <Button variant="primary" type="submit" disabled={mutation.isLoading}>
-            {mutation.isLoading ? (
+          {/* <Form.Group controlId="image">
+            <Form.Label>Image</Form.Label>
+            <Form.Control type="file" onChange={uploadImageHandler} />
+          </Form.Group> */}
+
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={createMutation.isLoading}
+          >
+            {createMutation.isLoading ? (
               <Loader loaderSize="small" variant="light" />
             ) : (
               "Create"

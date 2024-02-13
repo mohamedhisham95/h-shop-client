@@ -8,6 +8,13 @@ export async function defaultHeaders() {
   };
 }
 
+export async function uploadHeaders() {
+  return {
+    "Content-Type": "multipart/form-data",
+    Authorization: `Bearer ${localStorage.getItem("h-shop-token")}`,
+  };
+}
+
 export async function getRequest(
   url = "",
   queryParams = {},

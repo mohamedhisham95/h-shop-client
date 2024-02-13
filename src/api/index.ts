@@ -39,6 +39,7 @@ import {
   getUserCountFromSpecificMonths,
   getSalesStatFromSpecificMonths,
 } from "api/admin/dashboard";
+import { imageUpload } from "api/admin/upload";
 
 export {
   // Auth
@@ -80,4 +81,5 @@ export {
   getOrderCountFromSpecificDays,
   getUserCountFromSpecificMonths,
   getSalesStatFromSpecificMonths,
+  imageUpload,
 };

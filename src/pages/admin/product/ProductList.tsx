@@ -3,7 +3,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { BsFillTrash3Fill } from "react-icons/bs";
+import { BsFillTrash3Fill, BsPencilSquare } from "react-icons/bs";
 
 // Component
 import CustomDataTable from "components/custom-data-table/CustomDataTable";
@@ -42,13 +42,15 @@ const ProductList = () => {
     onError: (error: any) => {
       toastNotification("error", error?.message);
     },
-    onSuccess: (response: any) => {
-      toastNotification("success", response?.data?.message);
-      setAction(null);
-      setRowId(null);
-      setSelectedRows([]);
-      setClearSelectedRows(true);
-      refetch();
+    onSuccess: (data: any) => {
+      toastNotification("success", data?.message, 800);
+      setTimeout(() => {
+        setAction(null);
+        setRowId(null);
+        setSelectedRows([]);
+        setClearSelectedRows(true);
+        refetch();
+      }, 1000);
     },
   });
 
@@ -79,16 +81,16 @@ const ProductList = () => {
         <div className="d-flex justify-content-between ">
           <Button
             size="sm"
-            variant="outline-primary"
+            variant="primary"
             className="mr-1"
             disabled={selectedRows.length > 0}
             onClick={() => history.push(`/admin/product/edit/${row?._id}`)}
           >
-            Edit
+            <BsPencilSquare />
           </Button>
           <Button
             size="sm"
-            variant="outline-danger"
+            variant="danger"
             disabled={selectedRows.length > 0}
             onClick={() => {
               setRowId(row?._id);

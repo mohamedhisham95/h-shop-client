@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Image } from "react-bootstrap";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -13,7 +13,7 @@ import Message from "components/common/Message";
 import Loader from "components/common/Loader";
 
 // API
-import { updateProduct, getAllCategory, getProduct } from "api/";
+import { updateProduct, getAllCategory, getProduct, imageUpload } from "api/";
 
 // Utils
 import { productEditPage } from "static-data/breadcrumbs-data";
@@ -30,10 +30,9 @@ const ProductEdit = () => {
   const [formData, setFormData] = useState<any>({});
   const [inputError, setInputError] = useState<any>(null);
   const [updateError, setUpdateError] = useState<any>(null);
+  const [image, setImage] = useState<any>("");
 
   // API Call
-
-  // Query
   const {
     isFetching: isProductFetching,
     isError: isProductError,
@@ -47,8 +46,8 @@ const ProductEdit = () => {
     ],
     queryFn: getProduct,
     onSuccess: (data) => {
-      console.log("DATA :: ", data);
       setFormData(data);
+      setImage(data?.image);
     },
   });
 
@@ -62,8 +61,25 @@ const ProductEdit = () => {
     queryFn: getAllCategory,
   });
 
+  // Image Upload Handler
+  async function uploadImageHandler(e: any) {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    await imageUpload(formData).then((res) => {
+      const { status, message, image_url } = res;
+      if (status === "success") {
+        toastNotification("success", message);
+        setImage(image_url);
+      }
+      if (status === "failed") {
+        toastNotification("error", message);
+      }
+    });
+  }
+
   // Mutation
-  const mutation = useMutation({
+  const updateMutation = useMutation({
     mutationFn: ({
       name,
       image,
@@ -109,7 +125,6 @@ const ProductEdit = () => {
     enableReinitialize: true,
     initialValues: {
       name: formData?.name,
-      image: formData?.image,
       brand: formData?.brand,
       categoryId: formData?.categoryId?._id,
       description: formData?.description,
@@ -118,7 +133,6 @@ const ProductEdit = () => {
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
-      image: Yup.string().required("Image is required"),
       brand: Yup.string().required("Brand is required"),
       description: Yup.string().required("Description is required"),
       price: Yup.string().required("Price is required"),
@@ -127,9 +141,9 @@ const ProductEdit = () => {
     onSubmit: (values: any) => {
       setUpdateError(null);
       setInputError({});
-      mutation.mutate({
+      updateMutation.mutate({
         name: values?.name,
-        image: values?.image,
+        image: image,
         brand: values?.brand,
         categoryId: values?.categoryId,
         description: values?.description,
@@ -252,24 +266,6 @@ const ProductEdit = () => {
               )}
             </Form.Group>
 
-            <Form.Group controlId="image">
-              <Form.Label>Image</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter image URL"
-                onChange={form.handleChange}
-                onBlur={form.handleBlur}
-                value={form.values.image}
-                isInvalid={form?.errors?.image || inputError?.image}
-              />
-
-              {form.touched.image && form.errors.image && (
-                <Form.Control.Feedback type="invalid">
-                  {form.errors.image}
-                </Form.Control.Feedback>
-              )}
-            </Form.Group>
-
             <Form.Group controlId="description">
               <Form.Label>Description</Form.Label>
               <Form.Control
@@ -289,12 +285,34 @@ const ProductEdit = () => {
               )}
             </Form.Group>
 
+            <Form.Group controlId="image">
+              <Form.Label>Image</Form.Label>
+              <Form.Control type="file" onChange={uploadImageHandler} />
+              {image !== "" && (
+                <>
+                  <Form.Text className="text-muted my-2">Image Path:</Form.Text>
+                  <Form.Text className="text-muted my-2 text-break">
+                    <kbd>{`${image}`}</kbd>
+                  </Form.Text>
+                  <Form.Text className="text-muted my-2">
+                    Image Preview:
+                  </Form.Text>
+                  <Image
+                    src={`${image}`}
+                    rounded
+                    className="my-2"
+                    style={{ width: "100%" }}
+                  />
+                </>
+              )}
+            </Form.Group>
+
             <Button
               variant="primary"
               type="submit"
-              disabled={mutation.isLoading}
+              disabled={updateMutation.isLoading}
             >
-              {mutation.isLoading ? (
+              {updateMutation.isLoading ? (
                 <Loader loaderSize="small" variant="light" />
               ) : (
                 "Update"

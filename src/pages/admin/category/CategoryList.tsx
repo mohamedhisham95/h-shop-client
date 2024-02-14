@@ -3,6 +3,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { BsFillTrash3Fill, BsPencilSquare } from "react-icons/bs";
 
 // Component
 import CustomDataTable from "components/custom-data-table/CustomDataTable";
@@ -66,21 +67,23 @@ const CategoryList = () => {
         <div className="d-flex justify-content-between ">
           <Button
             size="sm"
+            variant="primary"
             className="mr-1"
             disabled={selectedRows.length > 0}
             onClick={() => history.push(`/admin/category/edit/${row?._id}`)}
           >
-            Edit
+            <BsPencilSquare />
           </Button>
           <Button
             size="sm"
+            variant="danger"
             disabled={selectedRows.length > 0}
             onClick={() => {
               setRowId(row?._id);
               setAction("delete");
             }}
           >
-            Delete
+            <BsFillTrash3Fill />
           </Button>
         </div>
       ),

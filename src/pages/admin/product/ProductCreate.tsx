@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Image } from "react-bootstrap";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -26,6 +26,7 @@ const ProductCreate = () => {
   // State
   const [inputError, setInputError] = useState<any>(null);
   const [createError, setCreateError] = useState<any>(null);
+  const [image, setImage] = useState<any>("");
 
   // API Call
   const {
@@ -38,17 +39,21 @@ const ProductCreate = () => {
     queryFn: getAllCategory,
   });
 
-  // Product Create Mutation
-
   // Image Upload Handler
   async function uploadImageHandler(e: any) {
-    // e.preventDefault();
     const file = e.target.files[0];
-    console.log("file :: ", file);
     const formData = new FormData();
     formData.append("image", file);
-
-    await imageUpload(formData);
+    await imageUpload(formData).then((res) => {
+      const { status, message, image_url } = res;
+      if (status === "success") {
+        toastNotification("success", message);
+        setImage(image_url);
+      }
+      if (status === "failed") {
+        toastNotification("error", message);
+      }
+    });
   }
 
   // Product Create Mutation
@@ -88,7 +93,6 @@ const ProductCreate = () => {
   const form: any = useFormik<any>({
     initialValues: {
       name: "",
-      image: "",
       brand: "",
       categoryId: "",
       description: "",
@@ -97,7 +101,6 @@ const ProductCreate = () => {
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
-      image: Yup.string().required("Image is required"),
       brand: Yup.string().required("Brand is required"),
       categoryId: Yup.string().required("Category is required"),
       description: Yup.string().required("Description is required"),
@@ -109,7 +112,7 @@ const ProductCreate = () => {
       setInputError({});
       createMutation.mutate({
         name: values?.name,
-        image: values?.image,
+        image: image,
         brand: values?.brand,
         categoryId: values?.categoryId,
         description: values?.description,
@@ -225,24 +228,6 @@ const ProductCreate = () => {
             )}
           </Form.Group>
 
-          <Form.Group controlId="image">
-            <Form.Label>Image</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter image URL"
-              onChange={form.handleChange}
-              onBlur={form.handleBlur}
-              value={form.values.image}
-              isInvalid={form?.errors?.image || inputError?.image}
-            />
-
-            {form.touched.image && form.errors.image && (
-              <Form.Control.Feedback type="invalid">
-                {form.errors.image}
-              </Form.Control.Feedback>
-            )}
-          </Form.Group>
-
           <Form.Group controlId="description">
             <Form.Label>Description</Form.Label>
             <Form.Control
@@ -262,10 +247,27 @@ const ProductCreate = () => {
             )}
           </Form.Group>
 
-          {/* <Form.Group controlId="image">
+          <Form.Group controlId="image">
             <Form.Label>Image</Form.Label>
             <Form.Control type="file" onChange={uploadImageHandler} />
-          </Form.Group> */}
+            {image !== "" && (
+              <>
+                <Form.Text className="text-muted my-2">Image Path:</Form.Text>
+                <Form.Text className="text-muted my-2 text-break">
+                  <kbd>{`${image}`}</kbd>
+                </Form.Text>
+                <Form.Text className="text-muted my-2">
+                  Image Preview:
+                </Form.Text>
+                <Image
+                  src={`${image}`}
+                  rounded
+                  className="my-2"
+                  style={{ width: "100%" }}
+                />
+              </>
+            )}
+          </Form.Group>
 
           <Button
             variant="primary"

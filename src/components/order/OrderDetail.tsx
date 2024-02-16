@@ -101,7 +101,7 @@ const OrderDetail: React.FC<props> = ({ isLoading, isError, error, data }) => {
                       <tr key={index}>
                         <td>
                           <Image
-                            src={item.image}
+                            src={item.productId.image}
                             alt={item.name}
                             className="table-product-image"
                           />

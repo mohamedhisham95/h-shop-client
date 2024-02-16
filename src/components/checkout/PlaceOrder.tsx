@@ -93,15 +93,12 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
         postalCode: shipping_address.postal_code,
       },
       paymentMethod: payment_method,
-      orderItems: checkout_items.map(
-        ({ _id, name, image, price, quantity }: any) => ({
-          productId: _id,
-          name,
-          image,
-          price,
-          quantity,
-        })
-      ),
+      orderItems: checkout_items.map(({ _id, name, price, quantity }: any) => ({
+        productId: _id,
+        name,
+        price,
+        quantity,
+      })),
       totalAmount: checkout_items?.reduce(
         (acc: any, item: any) => acc + item.price * item.quantity,
         0

@@ -58,3 +58,18 @@ export const salesStatsDropdown = [
     value: 12,
   },
 ];
+
+export const reviewSortDropdown = [
+  {
+    label: "Most Recent",
+    value: "desc-createdAt",
+  },
+  {
+    label: "Oldest To Recent",
+    value: "asc-createdAt",
+  },
+  {
+    label: "Most Favourable",
+    value: "desc-rating",
+  },
+];

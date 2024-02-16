@@ -120,7 +120,7 @@ const Cart = () => {
   }, []);
 
   return (
-    <Container fluid className="cart">
+    <Container className="cart">
       <BreadCrumbs list={cartPage} />
 
       <Row>

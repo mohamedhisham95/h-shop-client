@@ -76,10 +76,7 @@ const SignUp = () => {
       password: Yup.string().required("Password is required"),
       confirmPassword: Yup.string()
         .required("Confirm password is required")
-        .oneOf(
-          [Yup.ref("newPassword")],
-          "New password & confirm password must match"
-        ),
+        .oneOf([Yup.ref("password")], "Password & confirm password must match"),
     }),
     onSubmit: (values: any) => {
       setInputError({});

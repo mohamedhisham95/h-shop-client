@@ -29,3 +29,18 @@ export const getProduct = async ({ queryKey }: any) => {
 
   return data;
 };
+
+export const getTopRatedProducts = async ({ queryKey }: any) => {
+  if (queryKey.length === 1) queryKey.push({});
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [key, body] = queryKey;
+
+  const { data } = await getRequest(
+    `${process.env.REACT_APP_SERVER_URL}/product/top-rated-products`,
+    body,
+    await defaultHeaders()
+  );
+
+  return data;
+};

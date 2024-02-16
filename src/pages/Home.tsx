@@ -6,6 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "components/common/Loader";
 import Message from "components/common/Message";
 import ProductCard from "components/product/ProductCard";
+import ProductCarousel from "components/product/ProductCarousel";
 
 // API
 import { getAllProductsByLimit } from "api";
@@ -49,47 +50,50 @@ const Home = () => {
   }, []);
 
   return (
-    <Container fluid className="home">
-      <Row>
-        {!isFetched && (
-          <Col md={12} className="mt-3">
-            <Loader />
-          </Col>
-        )}
+    <>
+      {!searchKeyword && <ProductCarousel />}
+      <Container fluid className="home">
+        <Row>
+          {!isFetched && (
+            <Col md={12} className="mt-3">
+              <Loader />
+            </Col>
+          )}
 
-        {isError && (
-          <Col md={12} className="mt-3">
-            <Message message={error?.message} />
-          </Col>
-        )}
+          {isError && (
+            <Col md={12} className="mt-3">
+              <Message message={error?.message} />
+            </Col>
+          )}
 
-        {products?.length === 0 && (
+          {products?.length === 0 && (
+            <Col md={12} className="mt-2">
+              <Message variant="info" message={"No products found"} />
+            </Col>
+          )}
+
           <Col md={12} className="mt-2">
-            <Message variant="info" message={"No products found"} />
+            <InfiniteScroll
+              dataLength={products ? products.length : 0}
+              next={() => fetchNextPage()}
+              hasMore={hasNextPage}
+              loader={<Loader />}
+            >
+              <div>
+                <Row>
+                  {products &&
+                    products.map((product: any, index: number) => (
+                      <Col key={index} sm={12} md={6} lg={4} xl={4}>
+                        <ProductCard product={product} />
+                      </Col>
+                    ))}
+                </Row>
+              </div>
+            </InfiniteScroll>
           </Col>
-        )}
-
-        <Col md={12} className="mt-2">
-          <InfiniteScroll
-            dataLength={products ? products.length : 0}
-            next={() => fetchNextPage()}
-            hasMore={hasNextPage}
-            loader={<Loader />}
-          >
-            <div>
-              <Row>
-                {products &&
-                  products.map((product: any, index: number) => (
-                    <Col key={index} sm={12} md={6} lg={4} xl={4}>
-                      <ProductCard product={product} />
-                    </Col>
-                  ))}
-              </Row>
-            </div>
-          </InfiniteScroll>
-        </Col>
-      </Row>
-    </Container>
+        </Row>
+      </Container>
+    </>
   );
 };
 

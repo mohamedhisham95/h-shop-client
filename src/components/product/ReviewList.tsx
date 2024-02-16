@@ -1,9 +1,10 @@
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, Form } from "react-bootstrap";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import { useState, useMemo } from "react";
 
 // Component
 import Loader from "components/common/Loader";
@@ -16,6 +17,9 @@ import { getReviews, deleteReview } from "api/";
 // Utils
 import { toastNotification } from "utils/toast-notification";
 
+// Static Data
+import { reviewSortDropdown } from "static-data/dropdown-data";
+
 const ReviewList = () => {
   // Query Client
   const queryClient = useQueryClient();
@@ -25,6 +29,9 @@ const ReviewList = () => {
 
   // Redux
   const { user_detail } = useSelector((state: any) => state.user);
+
+  // State
+  const [sortBy, setSortBy] = useState("desc-createdAt");
 
   // Query
   const { data, isFetched, isError, error }: any = useQuery({
@@ -62,12 +69,58 @@ const ReviewList = () => {
     });
   }
 
+  // Sort Function
+  function sortFunction(
+    data: any,
+    objName: any,
+    isDate: boolean,
+    sortType: any
+  ) {
+    if (sortType === "asc") {
+      return data?.sort((a: any, b: any) =>
+        isDate ? a[objName].localeCompare(b[objName]) : a[objName] - b[objName]
+      );
+    } else {
+      return data?.sort((a: any, b: any) =>
+        isDate ? b[objName].localeCompare(a[objName]) : b[objName] - a[objName]
+      );
+    }
+  }
+
+  // Review List Data
+  const reviewData = useMemo(() => {
+    return sortFunction(
+      data?.data,
+      sortBy.split("-")[1],
+      sortBy.split("-")[1] === "createdAt",
+      sortBy.split("-")[0]
+    );
+  }, [data, sortBy]);
+
   return (
     <>
-      <h3 className="pb-2">Reviews</h3>
+      <div className="d-flex justify-content-between">
+        <h3 className="pb-2">Reviews</h3>
+        <Form.Group controlId="days">
+          <Form.Control
+            as="select"
+            size="sm"
+            value={sortBy}
+            onChange={(e: any) => {
+              setSortBy(e.target.value);
+            }}
+          >
+            {reviewSortDropdown?.map((item: any, key: number) => (
+              <option key={key} value={item.value}>
+                {item.label}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+      </div>
       {!isFetched && <Loader />}
 
-      {isFetched && data?.data?.length === 0 && (
+      {isFetched && reviewData?.length === 0 && (
         <Message variant="info" message={"No Reviews"} />
       )}
 
@@ -75,7 +128,7 @@ const ReviewList = () => {
 
       {isFetched && (
         <ListGroup className="review-list">
-          {data?.data?.map((review: any) => {
+          {reviewData?.map((review: any) => {
             return (
               <ListGroup.Item key={review._id}>
                 <div className="d-flex w-100 justify-content-between">
@@ -89,7 +142,9 @@ const ReviewList = () => {
                   <div>
                     <p className="mb-1">{review.comment}</p>
                     <small className="text-muted">
-                      {dayjs(review.createdAt).format("ddd, MMM DD YYYY")}
+                      {dayjs(review.createdAt).format(
+                        "ddd, MMM DD YYYY hh:mm:ss A"
+                      )}
                     </small>
                   </div>
 

@@ -2,7 +2,11 @@
 import { signin, signup } from "api/auth/auth";
 
 // Products
-import { getAllProductsByLimit, getProduct } from "api/product/product";
+import {
+  getAllProductsByLimit,
+  getProduct,
+  getTopRatedProducts,
+} from "api/product/product";
 
 // Category
 import { getAllCategory, getCategoryById } from "api/category/category";
@@ -52,6 +56,7 @@ export {
   // Products
   getAllProductsByLimit,
   getProduct,
+  getTopRatedProducts,
   // Category
   getAllCategory,
   getCategoryById,

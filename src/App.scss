@@ -1,7 +1,7 @@
 // Global
 
 main {
-  margin-top: 71px;
+  margin-top: 72px;
 }
 
 a {
@@ -16,6 +16,7 @@ a {
 // Bootstrap
 @import "./styles/bootstrap/breadcrumb";
 @import "./styles/bootstrap/form";
+@import "./styles/bootstrap/carousel";
 
 // Pages
 @import "./styles/pages/product";
@@ -32,3 +33,4 @@ a {
 @import "./styles/components/custom-data-table";
 @import "./styles/components/card-chart";
 @import "./styles/components/review";
+@import "./styles/components/product-carousel";

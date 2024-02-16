@@ -29,6 +29,7 @@ const ReviewForm: React.FC<props> = ({ productId }) => {
     },
     onSuccess: (response: any) => {
       const { message } = response.data;
+      form.resetForm();
       toastNotification("success", message);
       queryClient.invalidateQueries({
         queryKey: ["get_reviews"],

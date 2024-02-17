@@ -29,7 +29,6 @@ const ProductEdit = () => {
   // State
   const [formData, setFormData] = useState<any>({});
   const [inputError, setInputError] = useState<any>(null);
-  const [updateError, setUpdateError] = useState<any>(null);
   const [image, setImage] = useState<any>("");
   const [imagePublicId, setImagePublicId] = useState<any>("");
 
@@ -108,7 +107,6 @@ const ProductEdit = () => {
       ]),
     onError: (error: any) => {
       toastNotification("error", error?.message);
-      setUpdateError(error.message);
     },
     onSuccess: (response: any) => {
       const { message, formInputError } = response.data;
@@ -143,7 +141,6 @@ const ProductEdit = () => {
       countInStock: Yup.string().required("Count In Stock is required"),
     }),
     onSubmit: (values: any) => {
-      setUpdateError(null);
       setInputError({});
       updateMutation.mutate({
         name: values?.name,
@@ -165,8 +162,6 @@ const ProductEdit = () => {
       {isCategoryFetching && <Loader />}
 
       {isCategoryError && <Message message={categoryError?.message} />}
-
-      {updateError && <Message message={updateError} />}
 
       {isProductError && <Message message={productError} />}
 

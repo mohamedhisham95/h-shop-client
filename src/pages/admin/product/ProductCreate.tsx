@@ -25,7 +25,6 @@ const ProductCreate = () => {
 
   // State
   const [inputError, setInputError] = useState<any>(null);
-  const [createError, setCreateError] = useState<any>(null);
   const [image, setImage] = useState<any>("");
   const [imagePublicId, setImagePublicId] = useState<any>("");
 
@@ -85,7 +84,6 @@ const ProductCreate = () => {
       ]),
     onError: (error: any) => {
       toastNotification("error", error?.message);
-      setCreateError(error.message);
     },
     onSuccess: (response: any) => {
       const { message, formInputError } = response.data;
@@ -120,7 +118,6 @@ const ProductCreate = () => {
       countInStock: Yup.string().required("Count In Stock is required"),
     }),
     onSubmit: (values: any) => {
-      setCreateError(null);
       setInputError({});
       createMutation.mutate({
         name: values?.name,
@@ -142,8 +139,6 @@ const ProductCreate = () => {
       {isCategoryFetching && <Loader />}
 
       {isCategoryError && <Message message={categoryError?.message} />}
-
-      {createError && <Message message={createError} />}
 
       {!isCategoryFetching && !isCategoryError && (
         <Form onSubmit={form.handleSubmit}>

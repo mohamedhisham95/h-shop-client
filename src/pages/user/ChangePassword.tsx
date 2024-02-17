@@ -75,6 +75,7 @@ const ChangePassword = () => {
         ),
     }),
     onSubmit: (values: any) => {
+      setInputError(null);
       mutation.mutate({
         currentPassword: values?.currentPassword,
         newPassword: values?.newPassword,

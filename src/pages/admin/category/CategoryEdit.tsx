@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -11,7 +11,6 @@ import { Toaster } from "react-hot-toast";
 import ContainerCenter from "components/layout/ContainerCenter";
 import BreadCrumbs from "components/common/BreadCrumbs";
 import Loader from "components/common/Loader";
-import Message from "components/common/Message";
 
 // API
 import { updateCategory, getCategoryById } from "api/";
@@ -30,7 +29,6 @@ const CategoryEdit = () => {
   // State
   const [name, setName] = useState<any>("");
   const [inputError, setInputError] = useState<any>(null);
-  const [updateError, setUpdateError] = useState<any>(null);
 
   // Query
   useQuery({
@@ -52,7 +50,6 @@ const CategoryEdit = () => {
       updateCategory(["update_category", { id, name }]),
     onError: (error: any) => {
       toastNotification("error", error.message);
-      setUpdateError(error.message);
     },
     onSuccess: (response: any) => {
       const { message, formInputError } = response.data;
@@ -78,7 +75,6 @@ const CategoryEdit = () => {
       name: Yup.string().required("Name is required"),
     }),
     onSubmit: (values: any) => {
-      setUpdateError(null);
       setInputError({});
       mutation.mutate({
         id: id,
@@ -118,14 +114,6 @@ const CategoryEdit = () => {
           )}
         </Button>
       </Form>
-
-      {updateError && (
-        <Row>
-          <Col md={12} lg={12}>
-            <Message message={updateError} />
-          </Col>
-        </Row>
-      )}
 
       {/* Toast */}
       <Toaster />

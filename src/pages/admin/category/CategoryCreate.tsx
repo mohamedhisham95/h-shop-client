@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -10,7 +10,6 @@ import { Toaster } from "react-hot-toast";
 import ContainerCenter from "components/layout/ContainerCenter";
 import BreadCrumbs from "components/common/BreadCrumbs";
 import Loader from "components/common/Loader";
-import Message from "components/common/Message";
 
 // API
 import { createCategory } from "api/";
@@ -25,7 +24,6 @@ const ProductCreate = () => {
 
   // State
   const [inputError, setInputError] = useState<any>(null);
-  const [createError, setCreateError] = useState<any>(null);
 
   // Mutation
   const createMutation = useMutation({
@@ -33,7 +31,6 @@ const ProductCreate = () => {
       createCategory(["create_category", { name }]),
     onError: (error: any) => {
       toastNotification("error", error?.message);
-      setCreateError(error.message);
     },
     onSuccess: (response: any) => {
       const { message, formInputError } = response.data;
@@ -58,7 +55,6 @@ const ProductCreate = () => {
       name: Yup.string().required("Name is required"),
     }),
     onSubmit: (values: any) => {
-      setCreateError(null);
       setInputError({});
       createMutation.mutate({
         name: values?.name,
@@ -101,14 +97,6 @@ const ProductCreate = () => {
           )}
         </Button>
       </Form>
-
-      {createError && (
-        <Row>
-          <Col md={12} lg={12}>
-            <Message message={createError} />
-          </Col>
-        </Row>
-      )}
 
       {/* Toast */}
       <Toaster />

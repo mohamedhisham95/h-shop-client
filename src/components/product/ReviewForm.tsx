@@ -2,6 +2,7 @@ import { Form, Button } from "react-bootstrap";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useState } from "react";
 
 // Components
 import Loader from "components/common/Loader";
@@ -17,6 +18,9 @@ type props = {
 };
 
 const ReviewForm: React.FC<props> = ({ productId }) => {
+  // State
+  const [inputError, setInputError] = useState<any>(null);
+
   // Query Client
   const queryClient = useQueryClient();
 
@@ -28,13 +32,19 @@ const ReviewForm: React.FC<props> = ({ productId }) => {
       toastNotification("error", error?.message);
     },
     onSuccess: (response: any) => {
-      const { message } = response.data;
-      form.resetForm();
-      toastNotification("success", message);
-      queryClient.invalidateQueries({
-        queryKey: ["get_reviews"],
-      });
-      queryClient.invalidateQueries({ queryKey: ["get_product"] });
+      const { message, formInputError } = response.data;
+      if (formInputError) {
+        setInputError(formInputError);
+      }
+
+      if (message) {
+        form.resetForm();
+        toastNotification("success", message);
+        queryClient.invalidateQueries({
+          queryKey: ["get_reviews"],
+        });
+        queryClient.invalidateQueries({ queryKey: ["get_product"] });
+      }
     },
   });
 
@@ -49,6 +59,7 @@ const ReviewForm: React.FC<props> = ({ productId }) => {
       comment: Yup.string().required("Comment is required"),
     }),
     onSubmit: (values: any) => {
+      setInputError(null);
       mutation.mutate({
         rating: parseInt(values?.rating),
         comment: values?.comment,
@@ -66,7 +77,7 @@ const ReviewForm: React.FC<props> = ({ productId }) => {
             as="select"
             onChange={form.handleChange}
             value={form.values.rating}
-            isInvalid={form?.errors?.rating}
+            isInvalid={form?.errors?.rating || inputError?.rating}
           >
             <option value="">Select...</option>
             <option value={1}>1 - Poor</option>
@@ -87,7 +98,7 @@ const ReviewForm: React.FC<props> = ({ productId }) => {
             as="textarea"
             onChange={form.handleChange}
             value={form.values.comment}
-            isInvalid={form?.errors?.comment}
+            isInvalid={form?.errors?.comment || inputError?.comment}
           ></Form.Control>
           {form.touched.comment && form.errors.comment && (
             <Form.Control.Feedback type="invalid">

@@ -26,7 +26,6 @@ const ProductCreate = () => {
   // State
   const [inputError, setInputError] = useState<any>(null);
   const [image, setImage] = useState<any>("");
-  const [imagePublicId, setImagePublicId] = useState<any>("");
 
   // API Call
   const {
@@ -45,11 +44,10 @@ const ProductCreate = () => {
     const formData = new FormData();
     formData.append("image", file);
     await imageUpload(formData).then((res) => {
-      const { status, message, image_url, image_public_id } = res;
+      const { status, message, image_url } = res;
       if (status === "success") {
         toastNotification("success", message);
         setImage(image_url);
-        setImagePublicId(image_public_id);
       }
       if (status === "failed") {
         toastNotification("error", message);
@@ -62,7 +60,6 @@ const ProductCreate = () => {
     mutationFn: ({
       name,
       image,
-      imagePublicId,
       brand,
       categoryId,
       description,
@@ -74,7 +71,6 @@ const ProductCreate = () => {
         {
           name,
           image,
-          imagePublicId,
           brand,
           categoryId,
           description,
@@ -122,7 +118,6 @@ const ProductCreate = () => {
       createMutation.mutate({
         name: values?.name,
         image: image,
-        imagePublicId: imagePublicId,
         brand: values?.brand,
         categoryId: values?.categoryId,
         description: values?.description,

@@ -23,7 +23,7 @@ const Steps: React.FC<props> = ({ activeStep }) => {
       </Nav.Item>
       <Nav.Item>
         <Nav.Link as="div" eventKey={3}>
-          3.Order
+          3.Place Order
         </Nav.Link>
       </Nav.Item>
     </Nav>

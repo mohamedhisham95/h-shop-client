@@ -1,5 +1,5 @@
 import { Row, Col, Image, ListGroup, Table, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // Components
@@ -19,6 +19,10 @@ type props = {
 };
 
 const OrderDetail: React.FC<props> = ({ isLoading, isError, error, data }) => {
+  // Location
+  const { pathname } = useLocation();
+  const isAdminPage = pathname.split("/")[1] === "admin";
+
   // Redux State
   const { user_detail } = useSelector((state: any) => state.user);
 
@@ -86,7 +90,7 @@ const OrderDetail: React.FC<props> = ({ isLoading, isError, error, data }) => {
               </ListGroup.Item>
 
               {/* Tracking Details */}
-              {user_detail.role === "Admin" ? (
+              {isAdminPage && user_detail.role === "Admin" ? (
                 <OrderTrackingUpdate data={data} />
               ) : (
                 <OrderTracking data={data} />

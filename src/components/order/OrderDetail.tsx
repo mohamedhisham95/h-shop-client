@@ -63,16 +63,17 @@ const OrderDetail: React.FC<props> = ({ isLoading, isError, error, data }) => {
                 <h3 className="mb-3">Shipping Address</h3>
                 <p>
                   <span className="font-weight-bold">Name: </span>{" "}
-                  {data.userId.name}
+                  {data?.userId?.name}
                 </p>
                 <p>
                   <span className="font-weight-bold">Email: </span>
-                  {data.userId.email}
+                  {data?.userId?.email}
                 </p>
                 <p>
                   <span className="font-weight-bold">Address: </span>
-                  {data.shippingAddress.address}, {data.shippingAddress.city},{" "}
-                  {data.shippingAddress.postalCode}{" "}
+                  {data?.shippingAddress?.address},{" "}
+                  {data?.shippingAddress?.city},{" "}
+                  {data?.shippingAddress?.postalCode}{" "}
                 </p>
               </ListGroup.Item>
 
@@ -81,11 +82,11 @@ const OrderDetail: React.FC<props> = ({ isLoading, isError, error, data }) => {
                 <h3 className="mb-3">Payment Information</h3>
                 <p>
                   <span className="font-weight-bold">Payment Method: </span>{" "}
-                  {data.paymentMethod}
+                  {data?.paymentMethod}
                 </p>
                 <p>
                   <span className="font-weight-bold">Payment Time: </span>{" "}
-                  {formatUnixDateAndTime(data.paymentResponse.update_time)}
+                  {formatUnixDateAndTime(data?.paymentResponse?.pdate_time)}
                 </p>
               </ListGroup.Item>
 
@@ -101,23 +102,23 @@ const OrderDetail: React.FC<props> = ({ isLoading, isError, error, data }) => {
                 <h3 className="mb-3">Ordered Item(s)</h3>
                 <Table striped hover responsive className="table-sm">
                   <tbody>
-                    {data?.orderItems.map((item: any, index: number) => (
+                    {data?.orderItems?.map((item: any, index: number) => (
                       <tr key={index}>
                         <td>
                           <Image
-                            src={item.productId.image}
-                            alt={item.name}
+                            src={item?.productId?.image}
+                            alt={item?.name}
                             className="table-product-image"
                           />
                         </td>
                         <td>
-                          <Link to={`/product/${item.productId}`}>
-                            {item.name}
+                          <Link to={`/product/${item?.productId}`}>
+                            {item?.name}
                           </Link>
                           <p className="m-0">Price : ₹{item.price}</p>
                           <p className="m-0">
-                            {item.quantity} x ₹{item.price} = ₹
-                            {item.quantity * item.price}
+                            {item?.quantity} x ₹{item?.price} = ₹
+                            {item?.quantity * item?.price}
                           </p>
                         </td>
                       </tr>

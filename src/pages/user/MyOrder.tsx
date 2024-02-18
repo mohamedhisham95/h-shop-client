@@ -25,7 +25,6 @@ const MyOrder = () => {
       },
     ],
     queryFn: getMyOrderById,
-
     enabled: true,
   });
 

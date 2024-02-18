@@ -12,7 +12,7 @@ import ProtectedRoute from "routes/ProtectedRoute";
 // Components
 import Header from "components/layout/Header";
 
-// Pages
+// Public Pages
 import Home from "pages/Home";
 import SignIn from "pages/SignIn";
 import SignUp from "pages/SignUp";

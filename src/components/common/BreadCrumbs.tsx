@@ -8,7 +8,7 @@ type props = {
 const BreadCrumbs: React.FC<props> = ({ list }) => {
   return (
     <Row>
-      <Col md={12}>
+      <Col md={12} className="mt-2">
         <Breadcrumb>
           {list.map((item: any, index: number, row: any) =>
             index + 1 !== row.length ? (

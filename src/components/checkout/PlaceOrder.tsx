@@ -227,16 +227,18 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
                 </ListGroup.Item>
               )}
 
-              <ListGroup.Item>
-                <Button
-                  variant="primary"
-                  type="button"
-                  className="form-button"
-                  onClick={() => setActiveStep(1)}
-                >
-                  Back <BsArrowLeftCircle />
-                </Button>
-              </ListGroup.Item>
+              {!paymentLoading && (
+                <ListGroup.Item>
+                  <Button
+                    variant="primary"
+                    type="button"
+                    className="form-button"
+                    onClick={() => setActiveStep(1)}
+                  >
+                    Back <BsArrowLeftCircle />
+                  </Button>
+                </ListGroup.Item>
+              )}
             </ListGroup>
           </Card>
         </Col>

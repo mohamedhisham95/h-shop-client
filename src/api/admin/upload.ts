@@ -1,4 +1,6 @@
 import axios from "axios";
+
+// Utils
 import { uploadHeaders } from "utils/http-request";
 
 export const imageUpload = async (body: FormData) => {

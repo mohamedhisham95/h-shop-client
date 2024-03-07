@@ -86,7 +86,7 @@ const OrderDetail: React.FC<props> = ({ isLoading, isError, error, data }) => {
                 </p>
                 <p>
                   <span className="font-weight-bold">Payment Time: </span>{" "}
-                  {formatUnixDateAndTime(data?.paymentResponse?.pdate_time)}
+                  {formatUnixDateAndTime(data?.paymentResponse?.date_time)}
                 </p>
               </ListGroup.Item>
 

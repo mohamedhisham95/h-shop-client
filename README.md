@@ -12,7 +12,7 @@ Admins can **manage products, monitor sales, and view dashboard analytics**.
 Payments are securely integrated using **Stripe**. The application is deployed on **Render**.
 
 > ⚠️ **Note**: This repository contains the **client-side** code for H-Shop.  
-> For the **server-side** API, check [H-Shop Server](https://github.com/H-Mohamed-Hisham/h-shop-server).
+> For the **server-side** API, check [H-Shop Server](https://github.com/mohamedhisham95/h-shop-server).
 
 ---
 
@@ -42,8 +42,8 @@ Payments are securely integrated using **Stripe**. The application is deployed o
 
 ## 🖼️ Preview
 
-![H-Shop Dashboard](./public/screenshots/hshop-dashboard.png)
-![H-Shop Payment Page](./public/screenshots/hshop-payment.png)
+![H-Shop Home](./public/screenshots/home.jpg)
+![H-Shop Product Page](./public/screenshots/product.jpg)
 
 ---
 
@@ -54,7 +54,7 @@ Payments are securely integrated using **Stripe**. The application is deployed o
 - **Styling**: [Bootstrap](https://getbootstrap.com/)
 - **State Management**: [Redux](https://redux.js.org/)
 - **Payment Gateway**: [Stripe](https://stripe.com/)
-- **Data Fetching**: REST APIs from the [H-Shop Server](https://github.com/H-Mohamed-Hisham/h-shop-server)
+- **Data Fetching**: REST APIs from the [H-Shop Server](https://github.com/mohamedhisham95/h-shop-server)
 - **Deployment**: [Render](https://render.com/)
 
 ---
@@ -76,26 +76,32 @@ After completing the course, I extended the app by adding:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/H-Mohamed-Hisham/h-shop-client.git
+git clone https://github.com/mohamedhisham95/h-shop-client.git
 cd h-shop-client
 ```
 
-### 2. Install Dependencies
+### 2. Prefered Node Version
+
+```
+18.20.8
+```
+
+### 3. Install Dependencies
 
 ```
 npm install
 ```
 
-### 3. Set Up Environment Variables
+### 4. Set Up Environment Variables
 
 Create a .env file in the root directory:
 
 ```
-REACT_APP_SERVER_URL=server_base_url
+REACT_APP_SERVER_URL=server_base_url/api
 REACT_APP_STRIPE_KEY=stripe_key
 ```
 
-### 4. Run the Development Server
+### 5. Run the Development Server
 
 ```
 npm start

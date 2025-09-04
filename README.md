@@ -1,46 +1,104 @@
-# Getting Started with Create React App
+# 🛒 H-Shop — Online Shopping Web App (Client)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit-green?style=for-the-badge&logo=vercel)](https://h-shop.onrender.com/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)](https://redux.js.org/)
+[![Stripe](https://img.shields.io/badge/Stripe-626CD9?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
-## Available Scripts
+**H-Shop** is a **full-featured online shopping web application** that allows customers to **browse products, place orders, make payments, and track order status**.  
+Admins can **manage products, monitor sales, and view dashboard analytics**.  
+Payments are securely integrated using **Stripe**. The application is deployed on **Render**.
 
-In the project directory, you can run:
+> ⚠️ **Note**: This repository contains the **client-side** code for H-Shop.  
+> For the **server-side** API, check [H-Shop Server](https://github.com/H-Mohamed-Hisham/h-shop-server).
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🔗 Live Demo
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+🚀 **Try the app here** → [https://h-shop.onrender.com/](https://h-shop.onrender.com/)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ✨ Features
 
-### `npm run build`
+### **For Customers**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 🛍️ **Product Browsing** — Explore a wide range of products.
+- 💳 **Secure Payments** — Integrated with [Stripe](https://stripe.com/) for safe transactions.
+- 📦 **Order Tracking** — Monitor the status of your orders in real-time.
+- 👤 **Profile Management** — Update personal details easily.
+- 🛒 **Shopping Cart** — Add, remove, and manage items effortlessly.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **For Admins**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- ➕ **Product Management** — Add, edit, or delete products.
+- 📊 **Sales Dashboard** — Visualize overall stats using interactive charts.
+- 📑 **Order Management** — View and track all customer orders.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🖼️ Preview
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![H-Shop Dashboard](./public/screenshots/hshop-dashboard.png)
+![H-Shop Payment Page](./public/screenshots/hshop-payment.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 🛠️ Tech Stack (Client)
 
-## Learn More
+- **Framework**: [React](https://react.dev/) (CRA)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Bootstrap](https://getbootstrap.com/)
+- **State Management**: [Redux](https://redux.js.org/)
+- **Payment Gateway**: [Stripe](https://stripe.com/)
+- **Data Fetching**: REST APIs from the [H-Shop Server](https://github.com/H-Mohamed-Hisham/h-shop-server)
+- **Deployment**: [Render](https://render.com/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📌 Project Purpose
+
+This project was developed as part of a Udemy full-stack course to learn Node.js, Express, MongoDB, and RESTful APIs.
+
+After completing the course, I extended the app by adding:
+
+- Cloudinary for image hosting.
+- Admin dashboard with analytics.
+- Enhanced order management features.
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/H-Mohamed-Hisham/h-shop-client.git
+cd h-shop-client
+```
+
+### 2. Install Dependencies
+
+```
+npm install
+```
+
+### 3. Set Up Environment Variables
+
+Create a .env file in the root directory:
+
+```
+REACT_APP_SERVER_URL=server_base_url
+REACT_APP_STRIPE_KEY=stripe_key
+```
+
+### 4. Run the Development Server
+
+```
+npm start
+```
+
+Built with ❤️ using React, TypeScript, Redux, Bootstrap, and Stripe

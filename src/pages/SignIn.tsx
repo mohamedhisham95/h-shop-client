@@ -1,34 +1,34 @@
-import { useState } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { Form, Button } from "react-bootstrap";
-import { useMutation } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
-import { Toaster } from "react-hot-toast";
+import { useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { Form, Button } from 'react-bootstrap';
+import { useMutation } from '@tanstack/react-query';
+import { useDispatch } from 'react-redux';
+import { Toaster } from 'react-hot-toast';
 
 // Logo
-import logo from "assets/logo.png";
+import logo from 'assets/logo.png';
 
 // Component
-import ContainerCenter from "components/layout/ContainerCenter";
-import Loader from "components/common/Loader";
+import ContainerCenter from 'components/layout/ContainerCenter';
+import Loader from 'components/common/Loader';
 
 // Redux
-import { setToken, setUserDetail } from "redux/userSlice";
+import { setToken, setUserDetail } from 'redux/userSlice';
 
 // API
-import { signin } from "api";
+import { signin } from 'api';
 
 // Utils
-import { toastNotification } from "utils/toast-notification";
+import { toastNotification } from 'utils/toast-notification';
 
 const SignIn = () => {
   // Dispatch
   const dispatch = useDispatch();
 
   const initialValues = {
-    email: "hmhwebdev@gmail.com",
-    password: "123456",
+    email: '',
+    password: '',
   };
 
   // State
@@ -37,9 +37,9 @@ const SignIn = () => {
   // Mutation
   const mutation = useMutation({
     mutationFn: ({ email, password }: any) =>
-      signin(["signin", { email, password }]),
+      signin(['signin', { email, password }]),
     onError: (error: any) => {
-      toastNotification("error", error?.message);
+      toastNotification('error', error?.message);
     },
     onSuccess: (response: any) => {
       const { token, formInputError, user } = response.data;
@@ -47,7 +47,7 @@ const SignIn = () => {
         setInputError(formInputError);
       }
       if (token) {
-        localStorage.setItem("h-shop-token", token);
+        localStorage.setItem('h-shop-token', token);
         dispatch(setUserDetail(user));
         dispatch(setToken(token));
       }
@@ -62,9 +62,9 @@ const SignIn = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-      password: Yup.string().required("Password is required"),
+        .email('Invalid email address')
+        .required('Email is required'),
+      password: Yup.string().required('Password is required'),
     }),
     onSubmit: (values: any) => {
       // setLoginError(null);
@@ -125,7 +125,7 @@ const SignIn = () => {
           {mutation.isLoading ? (
             <Loader loaderSize="small" variant="light" />
           ) : (
-            "Sign In"
+            'Sign In'
           )}
         </Button>
       </Form>

@@ -7,25 +7,25 @@ import {
   Image,
   Card,
   Button,
-} from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import StripeCheckout from "react-stripe-checkout";
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { useHistory } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
-import { BsArrowLeftCircle } from "react-icons/bs";
+} from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import StripeCheckout from 'react-stripe-checkout';
+import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useHistory } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import { BsArrowLeftCircle } from 'react-icons/bs';
 
 // Components
-import Loader from "components/common/Loader";
-import Message from "components/common/Message";
+import Loader from 'components/common/Loader';
+import Message from 'components/common/Message';
 
 // API
-import { createOrder } from "api/";
+import { createOrder } from 'api/';
 
 // Utils
-import { toastNotification } from "utils/toast-notification";
+import { toastNotification } from 'utils/toast-notification';
 
 type props = {
   setActiveStep: any;
@@ -59,7 +59,7 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
       token,
     }: any) =>
       createOrder([
-        "create_order",
+        'create_order',
         { shippingAddress, paymentMethod, orderItems, totalAmount, token },
       ]),
     onError: (error: any) => {
@@ -70,12 +70,12 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
       });
     },
     onSuccess: (response: any) => {
-      if (response?.data?.status === "success") {
+      if (response?.data?.status === 'success') {
         setPaymentStatus({
           status: response?.data?.status,
           message: response?.data?.message,
         });
-        toastNotification("success", response?.data?.message, 1500);
+        toastNotification('success', response?.data?.message, 1500);
         setTimeout(() => {
           history.push(`/my-order/${response?.data?.orderId}`);
         }, 2000);
@@ -124,7 +124,7 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
               </p>
               <p>
                 <strong>Address: </strong>
-                {shipping_address.address}, {shipping_address.city},{" "}
+                {shipping_address.address}, {shipping_address.city},{' '}
                 {shipping_address.postal_code}
               </p>
             </ListGroup.Item>
@@ -201,8 +201,8 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
                   </div>
                 )}
                 {!paymentLoading &&
-                  payment_method === "Stripe" &&
-                  paymentStatus.status !== "success" && (
+                  payment_method === 'Stripe' &&
+                  paymentStatus.status !== 'success' && (
                     <StripeCheckout
                       stripeKey={`${process.env.REACT_APP_STRIPE_KEY}`}
                       token={handlePaymentToken}
@@ -221,7 +221,7 @@ const PlaceOrder: React.FC<props> = ({ setActiveStep }) => {
                   )}
               </ListGroup.Item>
 
-              {paymentStatus.status === "failure" && (
+              {paymentStatus.status === 'failure' && (
                 <ListGroup.Item>
                   <Message message={paymentStatus.message} />
                 </ListGroup.Item>

@@ -1,43 +1,43 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Styles
-import "bootswatch/dist/lux/bootstrap.min.css";
-import "./App.scss";
+import 'bootswatch/dist/lux/bootstrap.min.css';
+import './App.scss';
 
 // Routes
-import AuthRoute from "routes/AuthRoute";
-import AdminRoute from "routes/AdminRoute";
-import ProtectedRoute from "routes/ProtectedRoute";
+import AuthRoute from 'routes/AuthRoute';
+import AdminRoute from 'routes/AdminRoute';
+import ProtectedRoute from 'routes/ProtectedRoute';
 
 // Components
-import Header from "components/layout/Header";
+import Header from 'components/layout/Header';
 
 // Public Pages
-import Home from "pages/Home";
-import SignIn from "pages/SignIn";
-import SignUp from "pages/SignUp";
-import Product from "pages/Product";
-import Cart from "pages/Cart";
-import Checkout from "pages/Checkout";
-import PageNotFound from "pages/PageNotFound";
+import Home from 'pages/Home';
+import SignIn from 'pages/SignIn';
+// import SignUp from "pages/SignUp";
+import Product from 'pages/Product';
+import Cart from 'pages/Cart';
+import Checkout from 'pages/Checkout';
+import PageNotFound from 'pages/PageNotFound';
 
 // User Pages
-import MyOrderList from "pages/user/MyOrderList";
-import MyOrder from "pages/user/MyOrder";
-import Profile from "pages/user/Profile";
-import ChangePassword from "pages/user/ChangePassword";
+import MyOrderList from 'pages/user/MyOrderList';
+import MyOrder from 'pages/user/MyOrder';
+import Profile from 'pages/user/Profile';
+import ChangePassword from 'pages/user/ChangePassword';
 
 // Admin Pages
-import Dashboard from "pages/admin/Dashboard";
-import ProductList from "pages/admin/product/ProductList";
-import ProductCreate from "pages/admin/product/ProductCreate";
-import ProductEdit from "pages/admin/product/ProductEdit";
-import CategoryList from "pages/admin/category/CategoryList";
-import CategoryCreate from "pages/admin/category/CategoryCreate";
-import CategoryEdit from "pages/admin/category/CategoryEdit";
-import OrderList from "pages/admin/order/OrderList";
-import Order from "pages/admin/order/Order";
-import UserList from "pages/admin/user/UserList";
+import Dashboard from 'pages/admin/Dashboard';
+import ProductList from 'pages/admin/product/ProductList';
+import ProductCreate from 'pages/admin/product/ProductCreate';
+import ProductEdit from 'pages/admin/product/ProductEdit';
+import CategoryList from 'pages/admin/category/CategoryList';
+import CategoryCreate from 'pages/admin/category/CategoryCreate';
+import CategoryEdit from 'pages/admin/category/CategoryEdit';
+import OrderList from 'pages/admin/order/OrderList';
+import Order from 'pages/admin/order/Order';
+import UserList from 'pages/admin/user/UserList';
 
 function App() {
   return (
@@ -51,7 +51,7 @@ function App() {
           <Route path="/cart" exact component={Cart} />
           {/* Auth Route */}
           <AuthRoute path="/signin" exact component={SignIn} />
-          <AuthRoute path="/signup" exact component={SignUp} />
+          {/* <AuthRoute path="/signup" exact component={SignUp} /> */}
           {/* Protected Route */}
           <ProtectedRoute path="/checkout" exact component={Checkout} />
           <ProtectedRoute path="/my-orders" exact component={MyOrderList} />

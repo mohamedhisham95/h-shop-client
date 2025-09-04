@@ -1,18 +1,18 @@
-import { Container, Navbar, Nav, NavDropdown, Badge } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { BsCart4 } from "react-icons/bs";
-import { withRouter, useHistory } from "react-router-dom";
-import { useState } from "react";
+import { Container, Navbar, Nav, NavDropdown, Badge } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { BsCart4 } from 'react-icons/bs';
+import { withRouter, useHistory } from 'react-router-dom';
+import { useState } from 'react';
 
 // Component
-import SearchBox from "components/layout/SearchBox";
+import SearchBox from 'components/layout/SearchBox';
 
 // Logo
-import logo from "assets/logo.png";
+import logo from 'assets/logo.png';
 
 // Redux
-import { setLogout } from "redux/userSlice";
+import { setLogout } from 'redux/userSlice';
 
 const Header = () => {
   // History
@@ -31,7 +31,7 @@ const Header = () => {
   // Brand Handler
   function brandHandler() {
     setExpanded(false);
-    history.push("/");
+    history.push('/');
   }
 
   // Logout Handler
@@ -91,7 +91,7 @@ const Header = () => {
               </NavDropdown>
             )}
 
-            {user_detail !== null && user_detail?.role === "Admin" && (
+            {user_detail !== null && user_detail?.role === 'Admin' && (
               <NavDropdown id="admin-dropdown" title="Admin">
                 <LinkContainer to="/admin/dashboard">
                   <NavDropdown.Item>Dashboard</NavDropdown.Item>
@@ -125,9 +125,9 @@ const Header = () => {
                 <LinkContainer to="/signin" className="mr-4">
                   <Nav.Link>Signin</Nav.Link>
                 </LinkContainer>
-                <LinkContainer to="/signup">
+                {/* <LinkContainer to="/signup">
                   <Nav.Link>Signup</Nav.Link>
-                </LinkContainer>
+                </LinkContainer> */}
               </>
             )}
           </Nav>

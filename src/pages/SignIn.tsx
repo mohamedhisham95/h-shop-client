@@ -27,8 +27,8 @@ const SignIn = () => {
   const dispatch = useDispatch();
 
   const initialValues = {
-    email: '',
-    password: '',
+    email: 'guest@mail.com',
+    password: '123456',
   };
 
   // State
